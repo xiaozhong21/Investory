@@ -8,6 +8,7 @@ const makeApi = (accessToken) => {
     getTopGainers: () => _get("/api/topGainers"),
     getMostActive: () => _get("/api/mostActive"),
     addTask: (name) => _post("/api/tasks", { name }),
+    addStock: (stock) => _post("/api/stocks", stock),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
   };
 

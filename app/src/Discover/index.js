@@ -1,12 +1,16 @@
 import * as React from "react";
 
 import useApi from "../auth/useApi";
+import useAuth0 from "../auth/useAuth0";
 
 import styles from "./styles.module.scss";
 
 const Discover = () => {
+  const { user } = useAuth0();
+
   const [topGainers, setTopGainers] = React.useState([]);
   const [mostActive, setMostActive] = React.useState([]);
+  const [stocks, setStocks] = React.useState();
   const { loading, apiClient } = useApi();
 
   const loadTopGainers = React.useCallback(
@@ -21,38 +25,50 @@ const Discover = () => {
 
   React.useEffect(() => {
     !loading && loadTopGainers();
-  }, [loading, loadTopGainers]);
-
-  React.useEffect(() => {
     !loading && loadMostActive();
-  }, [loading, loadMostActive]);
+  }, [loading, loadTopGainers, loadMostActive]);
+
+  const handleAddToWatchlist = (stock) => {
+    apiClient.addStock(stock);
+    // followStock(stock);
+  };
+
+  const addToWatchListButton = (stock) => (
+    <button type="button" onClick={() => handleAddToWatchlist(stock)}>
+      add to watchlist
+    </button>
+  );
 
   return loading ? null : (
     <section>
+      {user.given_name}
       <h2>Top Gainers</h2>
-      <TopGainersList {...{ topGainers }} />
+      <TopGainersList {...{ topGainers, addToWatchListButton }} />
       <h2>Most Active</h2>
-      <MostActiveList {...{ mostActive }} />
+      <MostActiveList {...{ mostActive, addToWatchListButton }} />
     </section>
   );
 };
 
-const TopGainersList = ({ topGainers }) => (
+const TopGainersList = ({ topGainers, addToWatchListButton }) => (
   <ul>
-    {topGainers.map(({ symbol, latestPrice, changePercent }) => (
-      <li key={symbol}>
-        {symbol} | {changePercent.toFixed(2)} |{latestPrice.toFixed(2)}
+    {topGainers.map((stock) => (
+      <li key={stock.symbol}>
+        {stock.symbol} | {stock.changePercent?.toFixed(2)} |
+        {stock.latestPrice?.toFixed(2)}
+        {addToWatchListButton(stock)}
       </li>
     ))}
   </ul>
 );
 
-const MostActiveList = ({ mostActive }) => (
+const MostActiveList = ({ mostActive, addToWatchListButton }) => (
   <ul>
-    {mostActive.map(({ symbol, companyName, latestPrice, changePercent }) => (
-      <li key={symbol}>
-        {symbol} | {companyName} | {changePercent.toFixed(2)} |{" "}
-        {latestPrice.toFixed(2)}
+    {mostActive.map((stock) => (
+      <li key={stock.symbol}>
+        {stock.symbol} | {stock.companyName} | {stock.changePercent?.toFixed(2)}{" "}
+        | {stock.latestPrice?.toFixed(2)}
+        {addToWatchListButton(stock)}
       </li>
     ))}
   </ul>
