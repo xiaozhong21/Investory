@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Routes, Route } from "react-router-dom";
 
+import Discover from "../Discover";
 import Nav from "../Nav";
 import Tasks from "../Tasks";
 import useApi from "../auth/useApi";
@@ -28,10 +29,16 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Protected component={Home} />} /> */}
           <Route
             path="/dashboard"
             element={<Protected component={Dashboard} />}
           />
+          <Route
+            path="/discover"
+            element={<Protected component={Discover} />}
+          />
+          {/* <Route path="/discover" element={<Discover />} /> */}
         </Routes>
       </main>
     </>

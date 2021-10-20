@@ -4,8 +4,10 @@ import dotenv from "dotenv";
 import jwt from "express-jwt";
 import jwks from "jwks-rsa";
 
-if (fs.existsSync("../.env")) {
-  dotenv.config({ path: "../.env" });
+import { DOTENV_FILE } from "./constants.mjs";
+
+if (fs.existsSync(DOTENV_FILE)) {
+  dotenv.config({ path: DOTENV_FILE });
 }
 
 const domain = process.env.AUTH0_DOMAIN;
