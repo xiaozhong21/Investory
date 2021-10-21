@@ -11,6 +11,15 @@ export const getTasks = (sub) =>
     { sub },
   );
 
+export const getStockByTicker = (ticker) =>
+  db.one("SELECT stocks.* FROM stocks WHERE ticker=$<ticker>", { ticker });
+
+export const getWatchlist = (sub) =>
+  db.any(
+    "SELECT watchlist.*, stocks.ticker FROM watchlist LEFT JOIN stocks on stock_id=stocks.id LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
+    { sub },
+  );
+
 export const addTask = (sub, name) =>
   db.one(
     `INSERT INTO tasks(user_id, name)
@@ -19,7 +28,7 @@ export const addTask = (sub, name) =>
     { sub, name },
   );
 
-export const addStock = (stock) =>
+export const addOrUpdateStock = (stock) =>
   db.one(
     `INSERT INTO stocks(ticker, updated_at, company_name, market_cap, PE_ratio, week52_high, week52_low, YTD_change, volume, latest_price, change_percent)
       VALUES($<symbol>, NOW(), $<companyName>, $<marketCap>, $<peRatio>, $<week52High>, $<week52Low>, $<ytdChange>, $<volume>, $<latestPrice>, $<changePercent>)
@@ -38,6 +47,14 @@ export const addOrUpdateUser = (user) =>
           picture = $<picture>, email=$<email>
       RETURNING *`,
     user,
+  );
+
+export const addStockToWatchlist = (sub, stockID) =>
+  db.one(
+    `INSERT INTO watchlist(user_id, stock_id)
+      VALUES((SELECT id FROM users WHERE sub=$<sub>), $<stockID>)
+      RETURNING *`,
+    { sub, stockID },
   );
 
 function initDb() {

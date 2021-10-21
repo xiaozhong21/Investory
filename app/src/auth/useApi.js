@@ -7,8 +7,11 @@ const makeApi = (accessToken) => {
     getTasks: () => _get("/api/tasks"),
     getTopGainers: () => _get("/api/topGainers"),
     getMostActive: () => _get("/api/mostActive"),
+    getStockByTicker: (ticker) => _get(`/api/stocks/${ticker}`),
+    getWatchlist: () => _get("/api/watchlist"),
     addTask: (name) => _post("/api/tasks", { name }),
-    addStock: (stock) => _post("/api/stocks", stock),
+    addOrUpdateStock: (stock) => _post("/api/stocks", stock),
+    addStockToWatchlist: (stockID) => _post("/api/watchlist", { stockID }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
   };
 

@@ -29,12 +29,12 @@ CREATE TABLE public.stocks (
     ticker character varying(10) NOT NULL,
     updated_at timestamp without time zone DEFAULT now(),
     company_name text,
-    market_cap integer,
+    market_cap numeric,
     pe_ratio numeric,
     week52_high numeric,
     week52_low numeric,
     ytd_change numeric,
-    volume integer,
+    volume numeric,
     latest_price numeric,
     change_percent numeric
 );

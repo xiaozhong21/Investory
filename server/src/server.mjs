@@ -7,12 +7,14 @@ import stockRouter from "./stockRouter.mjs";
 import taskRouter from "./taskRouter.mjs";
 import topGainersRouter from "./topGainersRouter.mjs";
 import userRouter from "./userRouter.mjs";
+import watchlistRouter from "./watchlistRouter.mjs";
 
 const app = express();
 
 app.use("/api/tasks", jwtCheck, taskRouter);
 app.use("/api/users", jwtCheck, userRouter);
 app.use("/api/stocks", jwtCheck, stockRouter);
+app.use("/api/watchlist", jwtCheck, watchlistRouter);
 app.use("/api/topGainers", jwtCheck, topGainersRouter);
 app.use("/api/mostActive", jwtCheck, mostActiveRouter);
 
