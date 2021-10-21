@@ -11,6 +11,17 @@ const Watchlist = () => {
     [apiClient],
   );
 
+  const refreshStocklist = async (stocklist) => {
+    const stocklistTickers = stocklist.map((stock) => stock.ticker).join(", ");
+    const updatedStocklist = await apiClient.getBatchStockQuotes(
+      stocklistTickers,
+    );
+    for (let key in updatedStocklist) {
+      await apiClient.addOrUpdateStock(updatedStocklist[key].quote);
+    }
+    loadWatchlist();
+  };
+
   React.useEffect(() => {
     !loading && loadWatchlist();
   }, [loading, loadWatchlist]);
@@ -24,6 +35,9 @@ const Watchlist = () => {
   return loading ? null : (
     <section>
       <h2>Watchlist</h2>
+      <button type="button" onClick={() => refreshStocklist(watchlist)}>
+        Get real-time quotes
+      </button>
       {watchlist.map((stock) => (
         <li key={stock.ticker}>
           {stock.ticker} | {stock.company_name} |{" "}
