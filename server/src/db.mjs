@@ -57,6 +57,12 @@ export const addStockToWatchlist = (sub, stockID) =>
     { sub, stockID },
   );
 
+export const deleteStockFromWatchlist = (sub, stockID) =>
+  db.none(
+    "DELETE FROM watchlist WHERE user_id = (SELECT id FROM users WHERE sub=$<sub>) AND stock_id = $<stockID>",
+    { sub, stockID },
+  );
+
 function initDb() {
   let connection;
 

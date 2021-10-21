@@ -11,12 +11,16 @@ router.get("/", async (request, response) => {
 
 router.use(express.json());
 router.post("/", async (request, response) => {
-  console.log(request.body);
   const stock = await db.addStockToWatchlist(
     request.user.sub,
     request.body.stockID,
   );
   response.status(201).json(stock);
+});
+
+router.delete("/:stockID", async (request, response) => {
+  await db.deleteStockFromWatchlist(request.user.sub, request.params.stockID);
+  response.status(204).end();
 });
 
 export default router;

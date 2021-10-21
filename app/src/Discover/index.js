@@ -41,11 +41,13 @@ const Discover = () => {
     await apiClient.addOrUpdateStock(stock);
     const stockToBeAdded = await apiClient.getStockByTicker(stock.symbol);
     await apiClient.addStockToWatchlist(stockToBeAdded.id);
+    loadWatchlist();
   };
 
   const handleDeleteFromWatchlist = async (stock) => {
     const stockToBeDeleted = await apiClient.getStockByTicker(stock.symbol);
-    apiClient.deleteStockFromWatchlist(stockToBeDeleted.id);
+    await apiClient.deleteStockFromWatchlist(stockToBeDeleted.id);
+    loadWatchlist();
   };
 
   const updateWatchListButton = (stock) =>
@@ -61,7 +63,6 @@ const Discover = () => {
 
   return loading ? null : (
     <section>
-      {user.sub}
       <h2>Top Gainers</h2>
       <TopGainersList {...{ topGainers, updateWatchListButton }} />
       <h2>Most Active</h2>

@@ -13,6 +13,7 @@ const makeApi = (accessToken) => {
     addOrUpdateStock: (stock) => _post("/api/stocks", stock),
     addStockToWatchlist: (stockID) => _post("/api/watchlist", { stockID }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
+    deleteStockFromWatchlist: (stockID) => _delete(`/api/watchlist/${stockID}`),
   };
 
   const _get = async (url) => (await _fetch(url)).json();
@@ -29,6 +30,8 @@ const makeApi = (accessToken) => {
     } catch {}
     return result;
   };
+
+  const _delete = (url) => _fetch(url, { method: "DELETE" });
 
   const _fetch = (url, options) =>
     fetch(url, {
