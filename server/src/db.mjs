@@ -16,7 +16,7 @@ export const getStockByTicker = (ticker) =>
 
 export const getWatchlist = (sub) =>
   db.any(
-    "SELECT watchlist.*, stocks.ticker FROM watchlist LEFT JOIN stocks on stock_id=stocks.id LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
+    "SELECT watchlist.*, stocks.* FROM watchlist LEFT JOIN stocks on stock_id=stocks.id LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
     { sub },
   );
 
