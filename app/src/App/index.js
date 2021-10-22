@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Discover from "../Discover";
 import Nav from "../Nav";
+import SearchBar from "../SearchBar";
 import Watchlist from "../Watchlist";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
@@ -27,6 +28,7 @@ const App = () => {
         <Nav />
       </header>
       <main>
+        <SearchBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
