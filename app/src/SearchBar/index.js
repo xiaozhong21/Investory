@@ -22,16 +22,19 @@ const SearchBar = () => {
   };
 
   return loading ? null : (
-    <form {...{ onSubmit }}>
-      <label>
-        <input
-          onChange={(e) => setTicker(e.currentTarget.value)}
-          value={ticker}
-          placeholder="Search by Ticker"
-        />
-      </label>
-      <button disabled={!canAdd}>Add to Watchlist</button>
-    </form>
+    <>
+      <form {...{ onSubmit }}>
+        <label>
+          <input
+            onChange={(e) => setTicker(e.currentTarget.value)}
+            value={ticker}
+            placeholder="Search by Ticker"
+          />
+        </label>
+        <button disabled={!canAdd}>Add to Watchlist</button>
+      </form>
+      <button disabled={!canAdd}>Search</button>
+    </>
   );
 };
 
