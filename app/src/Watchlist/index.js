@@ -11,17 +11,6 @@ const Watchlist = () => {
     [apiClient],
   );
 
-  // const getUpdatedStocklist = async (stocklist) => {
-  //   const stocklistTickers = stocklist.map((stock) => stock.ticker).join(", ");
-  //   const updatedStocklist = await apiClient.getBatchStockQuotes(
-  //     stocklistTickers,
-  //   );
-  //   for (let key in updatedStocklist) {
-  //     await apiClient.addOrUpdateStock(updatedStocklist[key].quote);
-  //   }
-  //   loadWatchlist();
-  // };
-
   const updateStockQuotes = async (stocks) => {
     await apiClient.updateStockQuotes(stocks);
     loadWatchlist();
