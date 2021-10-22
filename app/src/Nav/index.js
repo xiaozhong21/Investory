@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 
+import SearchBar from "../SearchBar";
 import useAuth0 from "../auth/useAuth0";
 import { Login, Logout } from "../auth/widgets";
 
@@ -12,7 +13,7 @@ const Nav = () => (
     </NavLink>{" "}
     | <NavLink to="dashboard">Dashboard</NavLink> |{" "}
     <NavLink to="discover">Discover</NavLink> |{" "}
-    <NavLink to="watchlist">Watchlist</NavLink> | <Auth />
+    <NavLink to="watchlist">Watchlist</NavLink> | <Auth /> | <SearchBar />
   </nav>
 );
 
