@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 
 import Discover from "../Discover";
 import Nav from "../Nav";
-import Tasks from "../Tasks";
 import Watchlist from "../Watchlist";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
@@ -30,7 +29,6 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/" element={<Protected component={Home} />} /> */}
           <Route
             path="/dashboard"
             element={<Protected component={Dashboard} />}
@@ -39,7 +37,6 @@ const App = () => {
             path="/discover"
             element={<Protected component={Discover} />}
           />
-          {/* <Route path="/discover" element={<Discover />} /> */}
           <Route
             path="/watchlist"
             element={<Protected component={Watchlist} />}
@@ -59,7 +56,7 @@ const Home = () => {
         <h1>{process.env.REACT_APP_TITLE}</h1>
         <p>{process.env.REACT_APP_SUBTITLE}</p>
       </header>
-      {isAuthenticated ? <Tasks /> : null}
+      {isAuthenticated ? "placeholder" : null}
     </>
   );
 };

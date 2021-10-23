@@ -5,12 +5,6 @@ import { DOTENV_FILE } from "./constants.mjs";
 
 const db = initDb();
 
-export const getTasks = (sub) =>
-  db.any(
-    "SELECT tasks.* FROM tasks LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
-    { sub },
-  );
-
 export const getStockByTicker = (ticker) =>
   db.one("SELECT stocks.* FROM stocks WHERE ticker=$<ticker>", { ticker });
 
@@ -18,14 +12,6 @@ export const getWatchlist = (sub) =>
   db.any(
     "SELECT watchlist.*, stocks.* FROM watchlist LEFT JOIN stocks on stock_id=stocks.id LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
     { sub },
-  );
-
-export const addTask = (sub, name) =>
-  db.one(
-    `INSERT INTO tasks(user_id, name)
-      VALUES((SELECT id FROM users WHERE sub=$<sub>), $<name>)
-      RETURNING *`,
-    { sub, name },
   );
 
 export const addOrUpdateStock = (stock) =>
