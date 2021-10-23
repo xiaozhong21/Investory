@@ -28,7 +28,11 @@ const Watchlist = () => {
     loadWatchlist();
   };
 
-  return loading ? null : (
+  return loading ? null : watchlist.length === 0 ? (
+    <section>
+      <h2>You don't have any stocks in watchlist yet</h2>
+    </section>
+  ) : (
     <section>
       <h2>Watchlist</h2>
       <button type="button" onClick={() => updateStockQuotes(watchlist)}>
