@@ -8,7 +8,7 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const [ticker, setTicker] = React.useState("");
-  const { loading, apiClient } = useApi();
+  const { loading } = useApi();
 
   const canAdd = ticker !== "";
 

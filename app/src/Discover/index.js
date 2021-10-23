@@ -3,13 +3,10 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
-// import useAuth0 from "../auth/useAuth0";
 
 import styles from "./styles.module.scss";
 
 const Discover = ({ updateWatchListButton }) => {
-  // const { user } = useAuth0();
-
   const [topGainers, setTopGainers] = React.useState([]);
   const [mostActive, setMostActive] = React.useState([]);
   const { loading, apiClient } = useApi();

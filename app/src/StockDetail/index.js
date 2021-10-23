@@ -15,7 +15,6 @@ const StockDetail = ({ updateWatchListButton }) => {
   );
 
   React.useEffect(() => {
-    console.log(ticker);
     !loading && getStock();
   }, [loading, ticker, getStock]);
 
