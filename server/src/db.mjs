@@ -1,7 +1,8 @@
-import dotenv from "dotenv";
 import pgp from "pg-promise";
 
-import { DOTENV_FILE } from "./constants.mjs";
+import { load_dotenv_if_exists } from "./utils.mjs";
+
+load_dotenv_if_exists();
 
 const db = initDb();
 
@@ -53,7 +54,6 @@ function initDb() {
   let connection;
 
   if (process.env.DATABASE_URL === undefined) {
-    dotenv.config({ path: DOTENV_FILE });
     connection = {
       user: "postgres",
       database: process.env.POSTGRES_DB,

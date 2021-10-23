@@ -1,14 +1,9 @@
-import fs from "fs";
-
-import dotenv from "dotenv";
 import jwt from "express-jwt";
 import jwks from "jwks-rsa";
 
-import { DOTENV_FILE } from "./constants.mjs";
+import { load_dotenv_if_exists } from "./utils.mjs";
 
-if (fs.existsSync(DOTENV_FILE)) {
-  dotenv.config({ path: DOTENV_FILE });
-}
+load_dotenv_if_exists();
 
 const domain = process.env.AUTH0_DOMAIN;
 const audience = process.env.AUTH0_AUDIENCE;

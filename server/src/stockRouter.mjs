@@ -2,6 +2,9 @@ import axios from "axios";
 import express from "express";
 
 import * as db from "./db.mjs";
+import { load_dotenv_if_exists } from "./utils.mjs";
+
+load_dotenv_if_exists();
 
 const router = express.Router();
 
