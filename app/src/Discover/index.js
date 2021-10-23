@@ -22,8 +22,7 @@ const Discover = ({ updateWatchListButton }) => {
   );
 
   React.useEffect(() => {
-    !loading && loadTopGainers();
-    !loading && loadMostActive();
+    !loading && loadTopGainers() && loadMostActive();
   }, [loading, loadTopGainers, loadMostActive]);
 
   return loading ? null : (
