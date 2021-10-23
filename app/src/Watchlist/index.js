@@ -4,23 +4,19 @@ import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
-const Watchlist = () => {
+const Watchlist = ({ watchlist, setWatchlist }) => {
   const { loading, apiClient } = useApi();
-  const [watchlist, setWatchlist] = React.useState([]);
+  // const [watchlist, setWatchlist] = React.useState([]);
 
   const loadWatchlist = React.useCallback(
     async () => setWatchlist(await apiClient.getWatchlist()),
-    [apiClient],
+    [apiClient, setWatchlist],
   );
 
   const updateStockQuotes = async (stocks) => {
     await apiClient.updateStockQuotes(stocks);
     loadWatchlist();
   };
-
-  React.useEffect(() => {
-    !loading && loadWatchlist();
-  }, [loading, loadWatchlist]);
 
   const handleDeleteFromWatchlist = async (stock) => {
     const stockToBeDeleted = await apiClient.getStockByTicker(stock.ticker);

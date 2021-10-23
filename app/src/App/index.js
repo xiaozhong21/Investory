@@ -74,7 +74,12 @@ const App = () => {
           />
           <Route
             path="/watchlist"
-            element={<Protected component={Watchlist} />}
+            element={
+              <Protected
+                component={Watchlist}
+                {...{ watchlist, setWatchlist }}
+              />
+            }
           />
           <Route
             path="/stocks/:ticker"
