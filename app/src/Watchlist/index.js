@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { Link } from "react-router-dom";
+
 import useApi from "../auth/useApi";
 
 const Watchlist = () => {
@@ -34,8 +36,8 @@ const Watchlist = () => {
       </button>
       {watchlist.map((stock) => (
         <li key={stock.ticker}>
-          {stock.ticker} | {stock.company_name} |{" "}
-          {Number(stock.change_percent).toFixed(2)} |{" "}
+          <Link to={`/stocks/${stock.ticker}`}> {stock.ticker} </Link> |{" "}
+          {stock.company_name} | {Number(stock.change_percent).toFixed(2)} |{" "}
           {Number(stock.latest_price).toFixed(2)}
           <button
             type="button"
