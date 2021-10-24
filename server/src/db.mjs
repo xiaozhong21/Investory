@@ -17,11 +17,19 @@ export const getWatchlist = (sub) =>
 
 export const addOrUpdateStock = (stock) =>
   db.one(
-    `INSERT INTO stocks(ticker, updated_at, company_name, market_cap, PE_ratio, week52_high, week52_low, YTD_change, volume, latest_price, change_percent)
-      VALUES($<symbol>, NOW(), $<companyName>, $<marketCap>, $<peRatio>, $<week52High>, $<week52Low>, $<ytdChange>, $<volume>, $<latestPrice>, $<changePercent>)
-      ON CONFLICT (ticker) DO
-        UPDATE SET updated_at = NOW(), market_cap = $<marketCap>, PE_ratio = $<peRatio>, week52_high = $<week52High>, week52_low = $<week52Low>, YTD_change = $<ytdChange>, volume = $<volume>, latest_price = $<latestPrice>, change_percent = $<changePercent>
-      RETURNING *`,
+    `
+    INSERT INTO stocks(ticker, updated_at, company_name, market_cap, PE_ratio,
+      week52_high, week52_low, YTD_change, volume, latest_price, change_percent)
+    VALUES($<symbol>, NOW(), $<companyName>, $<marketCap>, $<peRatio>,
+      $<week52High>, $<week52Low>, $<ytdChange>, $<volume>, $<latestPrice>,
+      $<changePercent>)
+    ON CONFLICT (ticker) DO UPDATE
+      SET updated_at = NOW(), market_cap = $<marketCap>, PE_ratio = $<peRatio>,
+      week52_high = $<week52High>, week52_low = $<week52Low>,
+      YTD_change = $<ytdChange>, volume = $<volume>,
+      latest_price = $<latestPrice>, change_percent = $<changePercent>
+    RETURNING *
+    `,
     stock,
   );
 
