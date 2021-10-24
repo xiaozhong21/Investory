@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
-import styles from "./styles.module.scss";
-
 const Discover = ({ updateWatchListButton }) => {
   const [topGainers, setTopGainers] = React.useState([]);
   const [mostActive, setMostActive] = React.useState([]);

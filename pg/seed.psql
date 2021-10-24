@@ -135,6 +135,7 @@ ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_
 --
 
 COPY public.stocks (id, ticker, updated_at, company_name, market_cap, pe_ratio, week52_high, week52_low, ytd_change, volume, latest_price, change_percent) FROM stdin;
+1	CASH0	2021-10-24 00:50:16.593797	Cash	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 

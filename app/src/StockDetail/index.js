@@ -9,14 +9,14 @@ const StockDetail = ({ updateWatchListButton }) => {
   const [stock, setStock] = React.useState();
   const { ticker } = useParams();
 
-  const getStock = React.useCallback(
+  const loadStock = React.useCallback(
     async () => setStock(await apiClient.getStockQuote(ticker)),
     [apiClient, ticker],
   );
 
   React.useEffect(() => {
-    !loading && getStock();
-  }, [loading, ticker, getStock]);
+    !loading && loadStock();
+  }, [loading, ticker, loadStock]);
 
   return loading ? null : stock ? (
     <div>
@@ -24,6 +24,8 @@ const StockDetail = ({ updateWatchListButton }) => {
       {stock.companyName} | {stock.latestPrice} |{" "}
       {stock.changePercent.toFixed(2)}
       {updateWatchListButton(stock)}
+      <button type="button">Buy</button>
+      <button type="button">Sell</button>
     </div>
   ) : null;
 };

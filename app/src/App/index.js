@@ -54,8 +54,10 @@ const App = () => {
   }, [isAuthenticated, user, loading, apiClient]);
 
   React.useEffect(() => {
-    !loading && loadWatchlist();
-  }, [loading, loadWatchlist]);
+    if (isAuthenticated && !loading) {
+      loadWatchlist();
+    }
+  }, [isAuthenticated, loading, loadWatchlist]);
 
   return (
     <>
