@@ -1,6 +1,10 @@
 import axios from "axios";
 import express from "express";
 
+import { load_dotenv_if_exists } from "./utils.mjs";
+
+load_dotenv_if_exists();
+
 const router = express.Router();
 
 router.get("/", async (request, response) => {
