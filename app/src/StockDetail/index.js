@@ -7,10 +7,22 @@ import useApi from "../auth/useApi";
 const StockDetail = ({ updateWatchListButton }) => {
   const { loading, apiClient } = useApi();
   const [stock, setStock] = React.useState();
+  const [error, setError] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
   const { ticker } = useParams();
 
   const loadStock = React.useCallback(
-    async () => setStock(await apiClient.getStockQuote(ticker)),
+    () =>
+      apiClient
+        .getStockQuote(ticker)
+        .then((response) => {
+          setStock(response);
+          setError(false);
+        })
+        .catch((err) => {
+          setError(true);
+          setErrorMessage(err.message);
+        }),
     [apiClient, ticker],
   );
 
@@ -18,7 +30,11 @@ const StockDetail = ({ updateWatchListButton }) => {
     !loading && loadStock();
   }, [loading, ticker, loadStock]);
 
-  return loading ? null : stock ? (
+  return error === true ? (
+    <p>{errorMessage}</p>
+  ) : !stock ? (
+    <p>Loading...</p>
+  ) : (
     <div>
       <h2>{ticker}</h2>
       {stock.companyName} | {stock.latestPrice} |{" "}
@@ -27,7 +43,7 @@ const StockDetail = ({ updateWatchListButton }) => {
       <button type="button">Buy</button>
       <button type="button">Sell</button>
     </div>
-  ) : null;
+  );
 };
 
 export default StockDetail;

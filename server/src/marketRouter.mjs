@@ -21,11 +21,15 @@ router.get("/mostActive", async (request, response) => {
   response.json(result.data);
 });
 
-router.get("/stock/:ticker/quote", async (request, response) => {
-  const result = await axios.get(
-    `https://sandbox.iexapis.com/stable/stock/${request.params.ticker}/quote?displayPercent=true&token=${process.env.IEX_API_KEY}`,
-  );
-  response.json(result.data);
+router.get("/stock/:ticker/quote", (request, response) => {
+  axios
+    .get(
+      `https://sandbox.iexapis.com/stable/stock/${request.params.ticker}/quote?displayPercent=true&token=${process.env.IEX_API_KEY}`,
+    )
+    .then((result) => response.json(result.data))
+    .catch((error) => {
+      response.status(error.response.status).end();
+    });
 });
 
 export default router;

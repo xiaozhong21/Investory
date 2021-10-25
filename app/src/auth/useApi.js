@@ -36,14 +36,28 @@ const makeApi = (accessToken) => {
 
   const _delete = (url) => _fetch(url, { method: "DELETE" });
 
-  const _fetch = (url, options) =>
-    fetch(url, {
+  // const _fetch = (url, options) =>
+  //   fetch(url, {
+  //     ...options,
+  //     headers: {
+  //       ...(options?.headers ?? {}),
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   });
+
+  const _fetch = async (url, options) => {
+    const response = await fetch(url, {
       ...options,
       headers: {
         ...(options?.headers ?? {}),
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response;
+  };
 
   return actions;
 };
