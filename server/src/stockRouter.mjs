@@ -5,11 +5,6 @@ import * as db from "./db.mjs";
 
 const router = express.Router();
 
-router.get("/:ticker", async (request, response) => {
-  const stock = await db.getStockByTicker(request.params.ticker);
-  response.json(stock);
-});
-
 router.get("/quote/:ticker", async (request, response) => {
   const result = await axios.get(
     `https://sandbox.iexapis.com/stable/stock/${request.params.ticker}/quote?displayPercent=true&token=${process.env.IEX_API_KEY}`,

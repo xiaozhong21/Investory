@@ -5,13 +5,15 @@ import { DOTENV_FILE } from "./constants.mjs";
 
 const db = initDb();
 
-export const getStockByTicker = (ticker) =>
-  db.one("SELECT stocks.* FROM stocks WHERE ticker=$<ticker>", { ticker });
-
-export const getWatchlist = (sub) =>
-  db.any(
-    "SELECT watchlist.*, stocks.* FROM watchlist LEFT JOIN stocks on stock_id=stocks.id LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
-    { sub },
+export const addOrUpdateUser = (user) =>
+  db.one(
+    `INSERT INTO users(given_name, family_name, picture, email, sub)
+      VALUES($<given_name>, $<family_name>, $<picture>, $<email>, $<sub>)
+      ON CONFLICT (sub) DO
+        UPDATE SET given_name = $<given_name>, family_name = $<family_name>,
+          picture = $<picture>, email=$<email>
+      RETURNING *`,
+    user,
   );
 
 export const addOrUpdateStock = (stock) =>
@@ -24,29 +26,38 @@ export const addOrUpdateStock = (stock) =>
     stock,
   );
 
-export const addOrUpdateUser = (user) =>
-  db.one(
-    `INSERT INTO users(given_name, family_name, picture, email, sub)
-      VALUES($<given_name>, $<family_name>, $<picture>, $<email>, $<sub>)
-      ON CONFLICT (sub) DO
-        UPDATE SET given_name = $<given_name>, family_name = $<family_name>,
-          picture = $<picture>, email=$<email>
-      RETURNING *`,
-    user,
+export const getWatchlist = (sub) =>
+  db.any(
+    "SELECT watchlist.*, stocks.* FROM watchlist LEFT JOIN stocks on stock_id=stocks.id LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
+    { sub },
   );
 
-export const addStockToWatchlist = (sub, stockID) =>
+export const addStockToWatchlist = (sub, ticker) =>
   db.one(
     `INSERT INTO watchlist(user_id, stock_id)
-      VALUES((SELECT id FROM users WHERE sub=$<sub>), $<stockID>)
+      VALUES((SELECT id FROM users WHERE sub=$<sub>), (SELECT id FROM stocks WHERE ticker=$<ticker>))
       RETURNING *`,
-    { sub, stockID },
+    { sub, ticker },
   );
 
-export const deleteStockFromWatchlist = (sub, stockID) =>
+export const deleteStockFromWatchlist = (sub, ticker) =>
   db.none(
-    "DELETE FROM watchlist WHERE user_id = (SELECT id FROM users WHERE sub=$<sub>) AND stock_id = $<stockID>",
-    { sub, stockID },
+    "DELETE FROM watchlist WHERE user_id = (SELECT id FROM users WHERE sub=$<sub>) AND stock_id = (SELECT id FROM stocks WHERE ticker=$<ticker>)",
+    { sub, ticker },
+  );
+
+export const getPortfolios = (sub) =>
+  db.any(
+    "SELECT user_portfolio.* FROM user_portfolio LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
+    { sub },
+  );
+
+export const addUserPortfolio = (sub) =>
+  db.one(
+    `INSERT INTO user_portfolio(user_id)
+      VALUES((SELECT id FROM users WHERE sub=$<sub>))
+      RETURNING *`,
+    { sub },
   );
 
 function initDb() {

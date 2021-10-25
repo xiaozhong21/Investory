@@ -6,16 +6,16 @@ const makeApi = (accessToken) => {
   const actions = {
     getTopGainers: () => _get("/api/topGainers"),
     getMostActive: () => _get("/api/mostActive"),
-    getStockByTicker: (ticker) => _get(`/api/stocks/${ticker}`),
     getStockQuote: (ticker) => _get(`/api/stocks/quote/${ticker}`),
     // getBatchStockQuotes: (tickerList) =>
     //   _get(`/api/stocks/quotes/${tickerList}`),
     getWatchlist: () => _get("/api/watchlist"),
     updateStockQuotes: (stocks) => _post("/api/stocks/quotes", stocks),
     addOrUpdateStock: (stock) => _post("/api/stocks", stock),
-    addStockToWatchlist: (stockID) => _post("/api/watchlist", { stockID }),
+    addStockToWatchlist: (ticker) => _post("/api/watchlist", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
-    deleteStockFromWatchlist: (stockID) => _delete(`/api/watchlist/${stockID}`),
+    addUserPortfolio: () => _post("/api/portfolios"),
+    deleteStockFromWatchlist: (ticker) => _delete(`/api/watchlist/${ticker}`),
   };
 
   const _get = async (url) => (await _fetch(url)).json();

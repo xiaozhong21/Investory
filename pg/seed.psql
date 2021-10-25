@@ -21,6 +21,22 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: portfolio_stock; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.portfolio_stock (
+    portfolio_id integer,
+    stock_id integer,
+    shares integer,
+    purchase_price numeric,
+    open_price numeric,
+    average_cost numeric,
+    purchase_date timestamp without time zone,
+    updated_at timestamp without time zone DEFAULT now()
+);
+
+
+--
 -- Name: stocks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -36,7 +52,9 @@ CREATE TABLE public.stocks (
     ytd_change numeric,
     volume numeric,
     latest_price numeric,
-    change_percent numeric
+    change_percent numeric,
+    historical_prices numeric[],
+    historical_dates date[]
 );
 
 
@@ -86,6 +104,32 @@ ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
 
 
 --
+-- Name: user_portfolio; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_portfolio (
+    portfolio_id integer NOT NULL,
+    user_id integer,
+    portfolio_values numeric[],
+    portfolio_value_dates date[]
+);
+
+
+--
+-- Name: user_portfolio_portfolio_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.user_portfolio ALTER COLUMN portfolio_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.user_portfolio_portfolio_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -131,10 +175,19 @@ ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_
 
 
 --
+-- Data for Name: portfolio_stock; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.portfolio_stock (portfolio_id, stock_id, shares, purchase_price, open_price, average_cost, purchase_date, updated_at) FROM stdin;
+\.
+
+
+--
 -- Data for Name: stocks; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.stocks (id, ticker, updated_at, company_name, market_cap, pe_ratio, week52_high, week52_low, ytd_change, volume, latest_price, change_percent) FROM stdin;
+COPY public.stocks (id, ticker, updated_at, company_name, market_cap, pe_ratio, week52_high, week52_low, ytd_change, volume, latest_price, change_percent, historical_prices, historical_dates) FROM stdin;
+1	CASH0	2021-10-24 00:50:16.593797	Cash	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -149,6 +202,14 @@ COPY public.tasks (id, name, user_id) FROM stdin;
 4	Advocate for living wage	1
 5	Provide universal health care	1
 6	test	2
+\.
+
+
+--
+-- Data for Name: user_portfolio; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.user_portfolio (portfolio_id, user_id, portfolio_values, portfolio_value_dates) FROM stdin;
 \.
 
 
@@ -185,6 +246,13 @@ SELECT pg_catalog.setval('public.tasks_id_seq', 6, true);
 
 
 --
+-- Name: user_portfolio_portfolio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.user_portfolio_portfolio_id_seq', 1, false);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -197,6 +265,14 @@ SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 ALTER TABLE ONLY public.stocks
     ADD CONSTRAINT pk_stocks PRIMARY KEY (id);
+
+
+--
+-- Name: user_portfolio pk_user_portfolio; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_portfolio
+    ADD CONSTRAINT pk_user_portfolio PRIMARY KEY (portfolio_id);
 
 
 --
@@ -245,6 +321,30 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.tasks
     ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- Name: portfolio_stock portfoliostock_stocks_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.portfolio_stock
+    ADD CONSTRAINT portfoliostock_stocks_fkey FOREIGN KEY (stock_id) REFERENCES public.stocks(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: portfolio_stock portfoliostock_userportfolio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.portfolio_stock
+    ADD CONSTRAINT portfoliostock_userportfolio_fkey FOREIGN KEY (portfolio_id) REFERENCES public.user_portfolio(portfolio_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: user_portfolio userportfolio_user_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_portfolio
+    ADD CONSTRAINT userportfolio_user_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

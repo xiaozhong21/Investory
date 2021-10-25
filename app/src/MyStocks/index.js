@@ -4,9 +4,32 @@ import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
+const MyStocks = ({ watchlist, setWatchlist }) => {
+  const { loading } = useApi();
+  const [portfolio, setPortfolio] = React.useState([]);
+
+  return loading ? null : (
+    <>
+      <Portfolio {...{ portfolio, setPortfolio }} />
+      <Watchlist {...{ watchlist, setWatchlist }} />
+    </>
+  );
+};
+
+const Portfolio = ({ portfolio, setPortfolio }) => {
+  return portfolio.length === 0 ? (
+    <section>
+      <h2>You don't have any stocks in portfolio yet</h2>
+    </section>
+  ) : (
+    <section>
+      <h2>Watchlist</h2>
+    </section>
+  );
+};
+
 const Watchlist = ({ watchlist, setWatchlist }) => {
-  const { loading, apiClient } = useApi();
-  // const [watchlist, setWatchlist] = React.useState([]);
+  const { apiClient } = useApi();
 
   const loadWatchlist = React.useCallback(
     async () => setWatchlist(await apiClient.getWatchlist()),
@@ -19,12 +42,11 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
   };
 
   const handleDeleteFromWatchlist = async (stock) => {
-    const stockToBeDeleted = await apiClient.getStockByTicker(stock.ticker);
-    await apiClient.deleteStockFromWatchlist(stockToBeDeleted.id);
+    await apiClient.deleteStockFromWatchlist(stock.ticker);
     loadWatchlist();
   };
 
-  return loading ? null : watchlist.length === 0 ? (
+  return watchlist.length === 0 ? (
     <section>
       <h2>You don't have any stocks in watchlist yet</h2>
     </section>
@@ -51,4 +73,4 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
   );
 };
 
-export default Watchlist;
+export default MyStocks;
