@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 
-import useAuth0 from "../auth/useAuth0";
-import { Login, Logout } from "../auth/widgets";
+import useAuth0 from "../../auth/useAuth0";
+import { Login, Logout } from "../../auth/widgets";
 
 import styles from "./styles.module.scss";
 
@@ -10,7 +10,9 @@ const Nav = () => (
     <NavLink to="/" end>
       Home
     </NavLink>{" "}
-    | <NavLink to="dashboard">Dashboard</NavLink> | <Auth />
+    | <NavLink to="discover">Discover</NavLink> |{" "}
+    <NavLink to="mystocks">My Stocks</NavLink> |{" "}
+    <NavLink to="addPortfolio">Add Portfolio</NavLink> <Auth />
   </nav>
 );
 

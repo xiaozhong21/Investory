@@ -4,9 +4,19 @@ import useAuth0 from "./useAuth0";
 
 const makeApi = (accessToken) => {
   const actions = {
-    getTasks: () => _get("/api/tasks"),
-    addTask: (name) => _post("/api/tasks", { name }),
+    getTopGainers: () => _get("/api/market/topGainers"),
+    getMostActive: () => _get("/api/market/mostActive"),
+    getStockQuote: (ticker) => _get(`/api/market/stock/${ticker}/quote`),
+    // getBatchStockQuotes: (tickerList) =>
+    //   _get(`/api/stocks/quotes/${tickerList}`),
+    getWatchlist: () => _get("/api/watchlist"),
+    updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
+    addOrUpdateStock: (stock) => _post("/api/stocks", stock),
+    addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
+    addUserPortfolio: () => _post("/api/portfolios"),
+    deleteStockFromWatchlist: (ticker) =>
+      _delete(`/api/watchlist/stocks/${ticker}`),
   };
 
   const _get = async (url) => (await _fetch(url)).json();
@@ -23,6 +33,8 @@ const makeApi = (accessToken) => {
     } catch {}
     return result;
   };
+
+  const _delete = (url) => _fetch(url, { method: "DELETE" });
 
   const _fetch = (url, options) =>
     fetch(url, {
