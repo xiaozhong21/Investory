@@ -2,13 +2,10 @@ import * as React from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import useApi from "../auth/useApi";
-
 const SearchBar = () => {
   const navigate = useNavigate();
 
   const [ticker, setTicker] = React.useState("");
-  const { loading } = useApi();
 
   const canAdd = ticker !== "";
 
@@ -20,7 +17,7 @@ const SearchBar = () => {
     }
   };
 
-  return loading ? null : (
+  return (
     <form {...{ onSubmit }}>
       <label>
         <input

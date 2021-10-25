@@ -5,12 +5,12 @@ import { Routes, Route } from "react-router-dom";
 import AddPortfolio from "../AddPortfolio";
 import Discover from "../Discover";
 import MyStocks from "../MyStocks";
-import Nav from "../Nav";
-import SearchBar from "../SearchBar";
 import StockDetail from "../StockDetail";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
+import Nav from "../widgets/Nav";
+import SearchBar from "../widgets/SearchBar";
 
 import styles from "./styles.module.scss";
 

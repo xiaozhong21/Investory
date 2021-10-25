@@ -10,7 +10,7 @@ router.get("/", async (request, response) => {
 });
 
 router.use(express.json());
-router.post("/", async (request, response) => {
+router.post("/stocks", async (request, response) => {
   const stock = await db.addStockToWatchlist(
     request.user.sub,
     request.body.ticker,
@@ -18,7 +18,7 @@ router.post("/", async (request, response) => {
   response.status(201).json(stock);
 });
 
-router.delete("/:ticker", async (request, response) => {
+router.delete("/stocks/:ticker", async (request, response) => {
   await db.deleteStockFromWatchlist(request.user.sub, request.params.ticker);
   response.status(204).end();
 });

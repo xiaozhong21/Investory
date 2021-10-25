@@ -4,18 +4,19 @@ import useAuth0 from "./useAuth0";
 
 const makeApi = (accessToken) => {
   const actions = {
-    getTopGainers: () => _get("/api/topGainers"),
-    getMostActive: () => _get("/api/mostActive"),
-    getStockQuote: (ticker) => _get(`/api/stocks/quote/${ticker}`),
+    getTopGainers: () => _get("/api/market/topGainers"),
+    getMostActive: () => _get("/api/market/mostActive"),
+    getStockQuote: (ticker) => _get(`/api/market/stock/${ticker}/quote`),
     // getBatchStockQuotes: (tickerList) =>
     //   _get(`/api/stocks/quotes/${tickerList}`),
     getWatchlist: () => _get("/api/watchlist"),
-    updateStockQuotes: (stocks) => _post("/api/stocks/quotes", stocks),
+    updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
     addOrUpdateStock: (stock) => _post("/api/stocks", stock),
-    addStockToWatchlist: (ticker) => _post("/api/watchlist", { ticker }),
+    addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
     addUserPortfolio: () => _post("/api/portfolios"),
-    deleteStockFromWatchlist: (ticker) => _delete(`/api/watchlist/${ticker}`),
+    deleteStockFromWatchlist: (ticker) =>
+      _delete(`/api/watchlist/stocks/${ticker}`),
   };
 
   const _get = async (url) => (await _fetch(url)).json();
