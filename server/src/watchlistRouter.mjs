@@ -13,13 +13,13 @@ router.use(express.json());
 router.post("/", async (request, response) => {
   const stock = await db.addStockToWatchlist(
     request.user.sub,
-    request.body.stockID,
+    request.body.ticker,
   );
   response.status(201).json(stock);
 });
 
-router.delete("/:stockID", async (request, response) => {
-  await db.deleteStockFromWatchlist(request.user.sub, request.params.stockID);
+router.delete("/:ticker", async (request, response) => {
+  await db.deleteStockFromWatchlist(request.user.sub, request.params.ticker);
   response.status(204).end();
 });
 

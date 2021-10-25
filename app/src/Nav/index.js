@@ -11,7 +11,8 @@ const Nav = () => (
       Home
     </NavLink>{" "}
     | <NavLink to="discover">Discover</NavLink> |{" "}
-    <NavLink to="watchlist">Watchlist</NavLink> | <Auth />
+    <NavLink to="mystocks">My Stocks</NavLink> |{" "}
+    <NavLink to="addPortfolio">Add Portfolio</NavLink> <Auth />
   </nav>
 );
 

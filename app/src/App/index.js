@@ -2,11 +2,12 @@ import * as React from "react";
 
 import { Routes, Route } from "react-router-dom";
 
+import AddPortfolio from "../AddPortfolio";
 import Discover from "../Discover";
+import MyStocks from "../MyStocks";
 import Nav from "../Nav";
 import SearchBar from "../SearchBar";
 import StockDetail from "../StockDetail";
-import Watchlist from "../Watchlist";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
@@ -25,14 +26,12 @@ const App = () => {
 
   const handleAddToWatchlist = async (stock) => {
     await apiClient.addOrUpdateStock(stock);
-    const stockToBeAdded = await apiClient.getStockByTicker(stock.symbol);
-    await apiClient.addStockToWatchlist(stockToBeAdded.id);
+    await apiClient.addStockToWatchlist(stock.symbol);
     loadWatchlist();
   };
 
   const handleDeleteFromWatchlist = async (stock) => {
-    const stockToBeDeleted = await apiClient.getStockByTicker(stock.symbol);
-    await apiClient.deleteStockFromWatchlist(stockToBeDeleted.id);
+    await apiClient.deleteStockFromWatchlist(stock.symbol);
     loadWatchlist();
   };
 
@@ -50,6 +49,7 @@ const App = () => {
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
       apiClient.addOrUpdateUser(user);
+      // apiClient.addUserPortfolio();
     }
   }, [isAuthenticated, user, loading, apiClient]);
 
@@ -75,10 +75,10 @@ const App = () => {
             }
           />
           <Route
-            path="/watchlist"
+            path="/mystocks"
             element={
               <Protected
-                component={Watchlist}
+                component={MyStocks}
                 {...{ watchlist, setWatchlist }}
               />
             }
@@ -91,6 +91,10 @@ const App = () => {
                 {...{ updateWatchListButton }}
               />
             }
+          />
+          <Route
+            path="/addPortfolio"
+            element={<Protected component={AddPortfolio} />}
           />
         </Routes>
       </main>

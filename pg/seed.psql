@@ -52,7 +52,9 @@ CREATE TABLE public.stocks (
     ytd_change numeric,
     volume numeric,
     latest_price numeric,
-    change_percent numeric
+    change_percent numeric,
+    historical_prices numeric[],
+    historical_dates date[]
 );
 
 
@@ -108,8 +110,8 @@ ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
 CREATE TABLE public.user_portfolio (
     portfolio_id integer NOT NULL,
     user_id integer,
-    portfolio_values numeric[] DEFAULT ARRAY[100000],
-    update_times timestamp without time zone[] DEFAULT ARRAY[now()]
+    portfolio_values numeric[],
+    portfolio_value_dates date[]
 );
 
 
@@ -184,8 +186,8 @@ COPY public.portfolio_stock (portfolio_id, stock_id, shares, purchase_price, ope
 -- Data for Name: stocks; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.stocks (id, ticker, updated_at, company_name, market_cap, pe_ratio, week52_high, week52_low, ytd_change, volume, latest_price, change_percent) FROM stdin;
-1	CASH0	2021-10-24 00:50:16.593797	Cash	\N	\N	\N	\N	\N	\N	\N	\N
+COPY public.stocks (id, ticker, updated_at, company_name, market_cap, pe_ratio, week52_high, week52_low, ytd_change, volume, latest_price, change_percent, historical_prices, historical_dates) FROM stdin;
+1	CASH0	2021-10-24 00:50:16.593797	Cash	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -207,7 +209,7 @@ COPY public.tasks (id, name, user_id) FROM stdin;
 -- Data for Name: user_portfolio; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.user_portfolio (portfolio_id, user_id, portfolio_values, update_times) FROM stdin;
+COPY public.user_portfolio (portfolio_id, user_id, portfolio_values, portfolio_value_dates) FROM stdin;
 \.
 
 
