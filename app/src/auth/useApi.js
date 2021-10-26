@@ -14,7 +14,7 @@ const makeApi = (accessToken) => {
     addOrUpdateStock: (stock) => _post("/api/stocks", stock),
     addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
-    addUserPortfolio: () => _post("/api/portfolios"),
+    addUserPortfolio: (portfolio) => _post("/api/portfolios", portfolio),
     deleteStockFromWatchlist: (ticker) =>
       _delete(`/api/watchlist/stocks/${ticker}`),
   };

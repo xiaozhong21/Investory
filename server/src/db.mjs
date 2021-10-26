@@ -61,12 +61,14 @@ export const getPortfolios = (sub) =>
     { sub },
   );
 
-export const addUserPortfolio = (sub) =>
+export const addUserPortfolio = (sub, portfolio) =>
   db.one(
-    `INSERT INTO user_portfolio(user_id)
-      VALUES((SELECT id FROM users WHERE sub=$<sub>))
+    `INSERT INTO user_portfolio(user_id, start_year, first_month, end_year,
+      last_month, portfolio_values, portfolio_value_dates)
+    VALUES((SELECT id FROM users WHERE sub=$<sub>), $<startYear>, $<firstMonth>,
+      $<endYear>, $<lastMonth>, ARRAY [$<initialAmount>], ARRAY [NOW()])
       RETURNING *`,
-    { sub },
+    { sub, ...portfolio },
   );
 
 function initDb() {

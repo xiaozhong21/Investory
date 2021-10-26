@@ -11,7 +11,7 @@ router.get("/", async (request, response) => {
 
 router.use(express.json());
 router.post("/", async (request, response) => {
-  const portfolio = await db.addUserPortfolio(request.user.sub);
+  const portfolio = await db.addUserPortfolio(request.user.sub, request.body);
   response.status(201).json(portfolio);
 });
 

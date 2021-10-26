@@ -110,7 +110,7 @@ ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
 CREATE TABLE public.user_portfolio (
     portfolio_id integer NOT NULL,
     user_id integer,
-    portfolio_values numeric[],
+    portfolio_values text[],
     portfolio_value_dates date[],
     start_year text,
     first_month text,
