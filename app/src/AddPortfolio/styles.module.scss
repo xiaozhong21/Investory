@@ -2,9 +2,19 @@ form {
   margin-top: 10px;
   div {
     margin-bottom: 10px;
-    label {
+    label,
+    b {
       display: inline-block;
       width: 150px;
+    }
+    input[name="total"] {
+      background-color: rgb(238, 238, 238);
+    }
+    input[name="invisible"] {
+      background-color: white;
+      display: hidden;
+      border: none;
+      cursor: default;
     }
   }
 }
