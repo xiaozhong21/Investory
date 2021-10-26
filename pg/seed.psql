@@ -111,7 +111,11 @@ CREATE TABLE public.user_portfolio (
     portfolio_id integer NOT NULL,
     user_id integer,
     portfolio_values numeric[],
-    portfolio_value_dates date[]
+    portfolio_value_dates date[],
+    start_year text,
+    first_month text,
+    end_year text,
+    last_month text
 );
 
 
@@ -209,7 +213,7 @@ COPY public.tasks (id, name, user_id) FROM stdin;
 -- Data for Name: user_portfolio; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.user_portfolio (portfolio_id, user_id, portfolio_values, portfolio_value_dates) FROM stdin;
+COPY public.user_portfolio (portfolio_id, user_id, portfolio_values, portfolio_value_dates, start_year, first_month, end_year, last_month) FROM stdin;
 \.
 
 

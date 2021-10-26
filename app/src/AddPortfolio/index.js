@@ -37,7 +37,7 @@ const AddPortfolio = () => {
     const form = event.currentTarget;
     const portfolio = Object.fromEntries(new FormData(form).entries());
     event.preventDefault();
-    // await apiClient.addUserPortfolio(portfolio);
+    await apiClient.addUserPortfolio(portfolio);
     console.log(portfolio);
     console.log(user.sub);
   };
