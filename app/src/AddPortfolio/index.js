@@ -1,6 +1,10 @@
 import * as React from "react";
 
-import "./styles.module.scss";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, useFieldArray } from "react-hook-form";
+import * as Yup from "yup";
+
+// import "./styles.module.scss";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 
@@ -13,6 +17,46 @@ const AddPortfolio = () => {
     allocation3: "",
   });
   const [total, setTotal] = React.useState(0);
+
+  const validationSchema = Yup.object().shape({
+    numberOfAssets: Yup.string().required("Number of assets is required"),
+    assets: Yup.array().of(
+      Yup.object().shape({
+        symbol: Yup.string().required("Symbol is required"),
+        allocation: Yup.number()
+          .min(1)
+          .max(100)
+          .required("Allocation is required"),
+      }),
+    ),
+  });
+
+  const formOptions = { resolver: yupResolver(validationSchema) };
+  const { register, control, handleSubmit, reset, formState, watch } =
+    useForm(formOptions);
+  const { errors } = formState;
+  const { fields, append, remove } = useFieldArray({ name: "assets", control });
+
+  const numberOfAssets = watch("numberOfAssets");
+
+  React.useEffect(() => {
+    const newVal = parseInt(numberOfAssets || 0);
+    const oldVal = fields.length;
+    if (newVal > oldVal) {
+      for (let i = oldVal; i < newVal; i++) {
+        append({ symbol: "", allocation: "" });
+      }
+    } else {
+      for (let i = oldVal; i > newVal; i--) {
+        remove(i - 1);
+      }
+    }
+  }, [append, fields.length, numberOfAssets, remove]);
+
+  function onSubmit(data) {
+    console.log(data);
+    alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
+  }
 
   const handleAddValues = (event) => {
     let name = event.target.name;
@@ -33,152 +77,192 @@ const AddPortfolio = () => {
     setTotal(newTotal);
   };
 
-  const onSubmit = async (event) => {
-    const form = event.currentTarget;
-    const portfolio = Object.fromEntries(new FormData(form).entries());
-    event.preventDefault();
-    await apiClient.addUserPortfolio(portfolio);
-    console.log(portfolio);
-    console.log(user.sub);
-  };
+  // const onSubmit = async (event) => {
+  //   const form = event.currentTarget;
+  //   const portfolio = Object.fromEntries(new FormData(form).entries());
+  //   event.preventDefault();
+  //   // await apiClient.addUserPortfolio(portfolio);
+  //   console.log(portfolio);
+  //   console.log(user.sub);
+  // };
 
   return (
-    <form {...{ onSubmit }}>
-      <div>
-        <label htmlFor="startYear">Start Year</label>
-        <select id="startYear" name="startYear" defaultValue="2007">
-          <option value="2007">2007</option>
-          <option value="2008">2008</option>
-          <option value="2009">2009</option>
-          <option value="2010">2010</option>
-          <option value="2011">2011</option>
-          <option value="2012">2012</option>
-          <option value="2013">2013</option>
-          <option value="2014">2014</option>
-          <option value="2015">2015</option>
-          <option value="2016">2016</option>
-          <option value="2017">2017</option>
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-        </select>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="card m-3">
+        <h5 className="card-header">Create Portfolio</h5>
+        <div className="card-body border-bottom">
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="startYearMonth">Start Year and Month</label>
+              <input
+                type="month"
+                id="startYearMonth"
+                name="startYearMonth"
+                min="2007-01"
+                max="2021-10"
+                defaultValue="2007-01"
+                className="form-control"
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="endYearMonth">End Year and Month</label>
+              <input
+                type="month"
+                id="endYearMonth"
+                name="endYearMonth"
+                min="2007-01"
+                max="2021-10"
+                defaultValue="2021-10"
+                className="form-control"
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="initialAmount">Initial Amount</label>
+              <span>$</span>
+              <input
+                type="number"
+                id="initialAmount"
+                name="initialAmount"
+                defaultValue="10000"
+                placeholder="Amount..."
+                className="form-control"
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="portfolioName">Portfolio Name</label>
+              <input
+                type="text"
+                id="portfolioName"
+                name="portfolioName"
+                className="form-control"
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="numberOfAssets">Number of Assets</label>
+              <select
+                name="numberOfAssets"
+                {...register("numberOfAssets")}
+                className={`form-control ${
+                  errors.numberOfAssets ? "is-invalid" : ""
+                }`}
+              >
+                {["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </select>
+              <div className="invalid-feedback">
+                {errors.numberOfAssets?.message}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <b>Portfolio Assets</b>
+        </div>
+        {fields.map((item, i) => (
+          <div key={i} className="list-group list-group-flush">
+            <div className="list-group-item">
+              <h5 className="card-title">Asset {i + 1}</h5>
+              <div className="form-row">
+                <div className="form-group col-6">
+                  <label htmlFor={`assets[${i}]symbol`}>Symbol</label>
+                  <input
+                    id={`assets[${i}]symbol`}
+                    name={`assets[${i}]symbol`}
+                    {...register(`assets.${i}.symbol`)}
+                    type="text"
+                    className={`form-control ${
+                      errors.assets?.[i]?.symbol ? "is-invalid" : ""
+                    }`}
+                  />
+                  <div className="invalid-feedback">
+                    {errors.assets?.[i]?.symbol?.message}
+                  </div>
+                </div>
+                <div className="form-group col-6">
+                  <label htmlFor={`assets[${i}]allocation`}>Allocation</label>
+                  <input
+                    id={`assets[${i}]allocation`}
+                    name={`assets[${i}]allocation`}
+                    {...register(`assets.${i}.allocation`)}
+                    type="number"
+                    className={`form-control ${
+                      errors.assets?.[i]?.allocation ? "is-invalid" : ""
+                    }`}
+                  />
+                  <div className="invalid-feedback">
+                    {errors.assets?.[i]?.allocation?.message}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+        {/* <div>
+          <label htmlFor="symbol1">Asset 1</label>
+          <input id="symbol1" name="symbol1" placeholder="Ticker symbol" />
+          <input
+            type="number"
+            id="allocation1"
+            name="allocation1"
+            defaultValue="0"
+            onChange={handleAddValues}
+          />
+          <span>%</span>
+        </div>
+        <div>
+          <label htmlFor="symbol2">Asset 2</label>
+          <input id="symbol2" name="symbol2" placeholder="Ticker symbol" />
+          <input
+            type="number"
+            id="allocation2"
+            name="allocation2"
+            defaultValue="0"
+            onChange={handleAddValues}
+          />
+          <span>%</span>
+        </div>
+        <div>
+          <label htmlFor="symbol3">Asset 3</label>
+          <input id="symbol3" name="symbol3" placeholder="Ticker symbol" />
+          <input
+            type="number"
+            id="allocation3"
+            name="allocation3"
+            defaultValue="0"
+            onChange={handleAddValues}
+          />
+          <span>%</span>
+        </div>
+        <div>
+          <b>Total</b>
+          <input name="invisible" disabled="disabled" />
+          <input type="number" name="total" value={total} readOnly />
+          <span>%</span>
+        </div> */}
+        <div className="card-footer text-center border-top-0">
+          <button type="submit" className="btn btn-primary mr-1">
+            Analyze Portfolio
+          </button>
+          <button
+            onClick={() => reset()}
+            type="button"
+            className="btn btn-secondary mr-1"
+          >
+            Reset
+          </button>
+        </div>
       </div>
-      <div>
-        <label htmlFor="firstMonth">First Month</label>
-        <select id="firstMonth" name="firstMonth" defaultValue="01">
-          <option value="01">Jan</option>
-          <option value="02">Feb</option>
-          <option value="03">Mar</option>
-          <option value="04">Apr</option>
-          <option value="05">May</option>
-          <option value="06">Jun</option>
-          <option value="07">Jul</option>
-          <option value="08">Aug</option>
-          <option value="09">Sep</option>
-          <option value="10">Oct</option>
-          <option value="11">Nov</option>
-          <option value="12">Dec</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="endYear">End Year</label>
-        <select id="endYear" name="endYear" defaultValue="2021">
-          <option value="2007">2007</option>
-          <option value="2008">2008</option>
-          <option value="2009">2009</option>
-          <option value="2010">2010</option>
-          <option value="2011">2011</option>
-          <option value="2012">2012</option>
-          <option value="2013">2013</option>
-          <option value="2014">2014</option>
-          <option value="2015">2015</option>
-          <option value="2016">2016</option>
-          <option value="2017">2017</option>
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="lastMonth">Last Month</label>
-        <select id="lastMonth" name="lastMonth" defaultValue="12">
-          <option value="01">Jan</option>
-          <option value="02">Feb</option>
-          <option value="03">Mar</option>
-          <option value="04">Apr</option>
-          <option value="05">May</option>
-          <option value="06">Jun</option>
-          <option value="07">Jul</option>
-          <option value="08">Aug</option>
-          <option value="09">Sep</option>
-          <option value="10">Oct</option>
-          <option value="11">Nov</option>
-          <option value="12">Dec</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="initialAmount">Initial Amount</label>
-        <span>$</span>
-        <input
-          type="number"
-          id="initialAmount"
-          name="initialAmount"
-          defaultValue="10000"
-          placeholder="Amount..."
-        />
-      </div>
-      <div>
-        <label htmlFor="portfolioName">Portfolio Name</label>
-        <input type="text" id="portfolioName" name="portfolioName" />
-      </div>
-      <div>
-        <b>Portfolio Assets</b>
-      </div>
-      <div>
-        <label htmlFor="symbol1">Asset 1</label>
-        <input id="symbol1" name="symbol1" placeholder="Ticker symbol" />
-        <input
-          type="number"
-          id="allocation1"
-          name="allocation1"
-          defaultValue="0"
-          onChange={handleAddValues}
-        />
-        <span>%</span>
-      </div>
-      <div>
-        <label htmlFor="symbol2">Asset 2</label>
-        <input id="symbol2" name="symbol2" placeholder="Ticker symbol" />
-        <input
-          type="number"
-          id="allocation2"
-          name="allocation2"
-          defaultValue="0"
-          onChange={handleAddValues}
-        />
-        <span>%</span>
-      </div>
-      <div>
-        <label htmlFor="symbol3">Asset 3</label>
-        <input id="symbol3" name="symbol3" placeholder="Ticker symbol" />
-        <input
-          type="number"
-          id="allocation3"
-          name="allocation3"
-          defaultValue="0"
-          onChange={handleAddValues}
-        />
-        <span>%</span>
-      </div>
-      <div>
-        <b>Total</b>
-        <input name="invisible" disabled="disabled" />
-        <input type="number" name="total" value={total} readOnly />
-        <span>%</span>
-      </div>
-      <button>Analyze Portfolio</button>
     </form>
   );
 };
