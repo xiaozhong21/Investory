@@ -27,11 +27,7 @@ SET default_table_access_method = heap;
 CREATE TABLE public.portfolio_stock (
     portfolio_id integer,
     stock_id integer,
-    shares integer,
-    purchase_price numeric,
-    open_price numeric,
-    average_cost numeric,
-    purchase_date timestamp without time zone,
+    allocation numeric,
     updated_at timestamp without time zone DEFAULT now()
 );
 
@@ -142,7 +138,7 @@ CREATE TABLE public.watchlist (
 -- Data for Name: portfolio_stock; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.portfolio_stock (portfolio_id, stock_id, shares, purchase_price, open_price, average_cost, purchase_date, updated_at) FROM stdin;
+COPY public.portfolio_stock (portfolio_id, stock_id, allocation, updated_at) FROM stdin;
 \.
 
 
