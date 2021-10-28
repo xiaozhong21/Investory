@@ -60,7 +60,7 @@ const App = () => {
   }, [isAuthenticated, loading, loadWatchlist]);
 
   return (
-    <>
+    <div>
       <header>
         <Nav />
       </header>
@@ -98,7 +98,7 @@ const App = () => {
           />
         </Routes>
       </main>
-    </>
+    </div>
   );
 };
 

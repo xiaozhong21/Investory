@@ -1,158 +1,138 @@
 import * as React from "react";
 
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, useFieldArray } from "react-hook-form";
-import * as Yup from "yup";
 
-// import "./styles.module.scss";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
+import "./styles.module.scss";
 
 const AddPortfolio = () => {
   const { apiClient } = useApi();
   const { user } = useAuth0();
-  const [values, setValues] = React.useState({
-    allocation1: "",
-    allocation2: "",
-    allocation3: "",
-  });
-  const [total, setTotal] = React.useState(0);
 
-  const validationSchema = Yup.object().shape({
-    numberOfAssets: Yup.string().required("Number of assets is required"),
-    assets: Yup.array().of(
-      Yup.object().shape({
-        symbol: Yup.string().required("Symbol is required"),
-        allocation: Yup.number()
-          .min(1)
-          .max(100)
-          .required("Allocation is required"),
-      }),
-    ),
-  });
-
-  const formOptions = { resolver: yupResolver(validationSchema) };
   const { register, control, handleSubmit, reset, formState, watch } =
-    useForm(formOptions);
+    useForm();
   const { errors } = formState;
-  const { fields, append, remove } = useFieldArray({ name: "assets", control });
-
+  const { fields, append, remove, update } = useFieldArray({
+    name: "assets",
+    control,
+  });
   const numberOfAssets = watch("numberOfAssets");
 
   React.useEffect(() => {
+    const watchFields = [];
+    for (let i = 0; i < numberOfAssets; i++) {
+      watchFields.push(watch(`assets[${i}]symbol`));
+    }
     const newVal = parseInt(numberOfAssets || 0);
     const oldVal = fields.length;
     if (newVal > oldVal) {
+      for (let i = 0; i < oldVal; i++) {
+        update(i, {
+          symbol: watchFields[i],
+          allocation:
+            100 % newVal === 0 ? 100 / newVal : (100 / newVal).toFixed(2),
+        });
+      }
       for (let i = oldVal; i < newVal; i++) {
-        append({ symbol: "", allocation: "" });
+        append({
+          symbol: "",
+          allocation:
+            100 % newVal === 0
+              ? 100 / newVal
+              : i === newVal - 1
+              ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
+              : (100 / newVal).toFixed(2),
+        });
       }
     } else {
       for (let i = oldVal; i > newVal; i--) {
         remove(i - 1);
       }
+      for (let i = 0; i < newVal; i++) {
+        update(i, {
+          symbol: watchFields[i],
+          allocation:
+            100 % newVal === 0
+              ? 100 / newVal
+              : i === newVal - 1
+              ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
+              : (100 / newVal).toFixed(2),
+        });
+      }
     }
-  }, [append, fields.length, numberOfAssets, remove]);
+  }, [append, fields.length, numberOfAssets, remove, update, watch]);
 
-  function onSubmit(data) {
+  const onSubmit = async (data) => {
+    // await apiClient.addUserPortfolio(data);
     console.log(data);
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
-  }
-
-  const handleAddValues = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-    console.log(value);
-    const newValues = {
-      ...values,
-      [name]: value,
-    };
-    setValues(newValues);
-    sumTotal(newValues);
+    console.log(user.sub);
   };
-
-  const sumTotal = (newValues) => {
-    const { allocation1, allocation2, allocation3 } = newValues;
-    const newTotal =
-      Number(allocation1) + Number(allocation2) + Number(allocation3);
-    setTotal(newTotal);
-  };
-
-  // const onSubmit = async (event) => {
-  //   const form = event.currentTarget;
-  //   const portfolio = Object.fromEntries(new FormData(form).entries());
-  //   event.preventDefault();
-  //   // await apiClient.addUserPortfolio(portfolio);
-  //   console.log(portfolio);
-  //   console.log(user.sub);
-  // };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="card m-3">
-        <h5 className="card-header">Create Portfolio</h5>
+        <h5 className="card-header">
+          Create Your Portfolio to Start Backtesting
+        </h5>
         <div className="card-body border-bottom">
           <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="startYearMonth">Start Year and Month</label>
-              <input
-                type="month"
-                id="startYearMonth"
-                name="startYearMonth"
-                min="2007-01"
-                max="2021-10"
-                defaultValue="2007-01"
+            <div className="form-group col-md-6">
+              <label htmlFor="timePeriod">
+                Historical Time Period<span>*</span>
+              </label>
+              <select
+                id="timePeriod"
+                name="timePeriod"
+                {...register("timePeriod")}
+                defaultValue="ytd"
                 className="form-control"
-              />
+                required
+              >
+                <option value="ytd">Year-to-Date</option>
+                <option value="1y">One-Year</option>
+                <option value="2y">Two-Year</option>
+                <option value="5y">Five-Year</option>
+              </select>
             </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="endYearMonth">End Year and Month</label>
-              <input
-                type="month"
-                id="endYearMonth"
-                name="endYearMonth"
-                min="2007-01"
-                max="2021-10"
-                defaultValue="2021-10"
-                className="form-control"
-              />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="initialAmount">Initial Amount</label>
-              <span>$</span>
+            <div className="form-group col-md-6">
+              <label htmlFor="initialAmount">
+                Initial Amount($)<span>*</span>
+              </label>
               <input
                 type="number"
                 id="initialAmount"
                 name="initialAmount"
+                {...register("initialAmount")}
                 defaultValue="10000"
                 placeholder="Amount..."
                 className="form-control"
+                required
               />
             </div>
           </div>
           <div className="form-row">
-            <div className="form-group">
+            <div className="form-group col-md-6">
               <label htmlFor="portfolioName">Portfolio Name</label>
               <input
                 type="text"
                 id="portfolioName"
                 name="portfolioName"
+                {...register("portfolioName")}
                 className="form-control"
               />
             </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="numberOfAssets">Number of Assets</label>
+            <div className="form-group col-md-6">
+              <label htmlFor="numberOfAssets">
+                Number of Assets<span>*</span>
+              </label>
               <select
                 name="numberOfAssets"
                 {...register("numberOfAssets")}
                 className={`form-control ${
                   errors.numberOfAssets ? "is-invalid" : ""
                 }`}
+                required
               >
                 {["", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
                   <option key={i} value={i}>
@@ -166,90 +146,59 @@ const AddPortfolio = () => {
             </div>
           </div>
         </div>
-        <div>
-          <b>Portfolio Assets</b>
-        </div>
-        {fields.map((item, i) => (
-          <div key={i} className="list-group list-group-flush">
-            <div className="list-group-item">
-              <h5 className="card-title">Asset {i + 1}</h5>
-              <div className="form-row">
-                <div className="form-group col-6">
-                  <label htmlFor={`assets[${i}]symbol`}>Symbol</label>
-                  <input
-                    id={`assets[${i}]symbol`}
-                    name={`assets[${i}]symbol`}
-                    {...register(`assets.${i}.symbol`)}
-                    type="text"
-                    className={`form-control ${
-                      errors.assets?.[i]?.symbol ? "is-invalid" : ""
-                    }`}
-                  />
-                  <div className="invalid-feedback">
-                    {errors.assets?.[i]?.symbol?.message}
+        {numberOfAssets ? (
+          <h6 className="card-header">Portfolio Assets</h6>
+        ) : null}
+        <div key={fields}>
+          {fields.map((item, i) => (
+            <div key={i} className="list-group list-group-flush">
+              <div className="list-group-item">
+                <h5 className="card-title">Asset {i + 1}</h5>
+                <div className="form-row">
+                  <div className="form-group col-6">
+                    <label htmlFor={`assets[${i}]symbol`}>
+                      Symbol<span>*</span>
+                    </label>
+                    <input
+                      id={`assets[${i}]symbol`}
+                      name={`assets[${i}]symbol`}
+                      {...register(`assets.${i}.symbol`)}
+                      type="text"
+                      className={`form-control ${
+                        errors.assets?.[i]?.symbol ? "is-invalid" : ""
+                      }`}
+                      required
+                    />
+                    <div className="invalid-feedback">
+                      {errors.assets?.[i]?.symbol?.message}
+                    </div>
                   </div>
-                </div>
-                <div className="form-group col-6">
-                  <label htmlFor={`assets[${i}]allocation`}>Allocation</label>
-                  <input
-                    id={`assets[${i}]allocation`}
-                    name={`assets[${i}]allocation`}
-                    {...register(`assets.${i}.allocation`)}
-                    type="number"
-                    className={`form-control ${
-                      errors.assets?.[i]?.allocation ? "is-invalid" : ""
-                    }`}
-                  />
-                  <div className="invalid-feedback">
-                    {errors.assets?.[i]?.allocation?.message}
+                  <div className="form-group col-6">
+                    <label htmlFor={`assets[${i}]allocation`}>
+                      Allocation (%)<span>*</span>
+                    </label>
+                    <input
+                      id={`assets[${i}]allocation`}
+                      name={`assets[${i}]allocation`}
+                      {...register(`assets.${i}.allocation`)}
+                      type="number"
+                      step="any"
+                      className={`form-control ${
+                        errors.assets?.[i]?.allocation ? "is-invalid" : ""
+                      }`}
+                      min="1"
+                      max="100"
+                      required
+                    />
+                    <div className="invalid-feedback">
+                      {errors.assets?.[i]?.allocation?.message}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-        {/* <div>
-          <label htmlFor="symbol1">Asset 1</label>
-          <input id="symbol1" name="symbol1" placeholder="Ticker symbol" />
-          <input
-            type="number"
-            id="allocation1"
-            name="allocation1"
-            defaultValue="0"
-            onChange={handleAddValues}
-          />
-          <span>%</span>
+          ))}
         </div>
-        <div>
-          <label htmlFor="symbol2">Asset 2</label>
-          <input id="symbol2" name="symbol2" placeholder="Ticker symbol" />
-          <input
-            type="number"
-            id="allocation2"
-            name="allocation2"
-            defaultValue="0"
-            onChange={handleAddValues}
-          />
-          <span>%</span>
-        </div>
-        <div>
-          <label htmlFor="symbol3">Asset 3</label>
-          <input id="symbol3" name="symbol3" placeholder="Ticker symbol" />
-          <input
-            type="number"
-            id="allocation3"
-            name="allocation3"
-            defaultValue="0"
-            onChange={handleAddValues}
-          />
-          <span>%</span>
-        </div>
-        <div>
-          <b>Total</b>
-          <input name="invisible" disabled="disabled" />
-          <input type="number" name="total" value={total} readOnly />
-          <span>%</span>
-        </div> */}
         <div className="card-footer text-center border-top-0">
           <button type="submit" className="btn btn-primary mr-1">
             Analyze Portfolio
