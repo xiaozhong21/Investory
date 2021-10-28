@@ -49,7 +49,6 @@ const App = () => {
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
       apiClient.addOrUpdateUser(user);
-      // apiClient.addUserPortfolio();
     }
   }, [isAuthenticated, user, loading, apiClient]);
 

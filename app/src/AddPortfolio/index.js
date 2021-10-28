@@ -3,12 +3,10 @@ import * as React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 
 import useApi from "../auth/useApi";
-import useAuth0 from "../auth/useAuth0";
 import "./styles.module.scss";
 
 const AddPortfolio = () => {
   const { apiClient } = useApi();
-  const { user } = useAuth0();
 
   const { register, control, handleSubmit, reset, formState, watch } =
     useForm();
@@ -22,21 +20,21 @@ const AddPortfolio = () => {
   React.useEffect(() => {
     const watchFields = [];
     for (let i = 0; i < numberOfAssets; i++) {
-      watchFields.push(watch(`assets[${i}]symbol`));
+      watchFields.push(watch(`assets[${i}]ticker`));
     }
     const newVal = parseInt(numberOfAssets || 0);
     const oldVal = fields.length;
     if (newVal > oldVal) {
       for (let i = 0; i < oldVal; i++) {
         update(i, {
-          symbol: watchFields[i],
+          ticker: watchFields[i],
           allocation:
             100 % newVal === 0 ? 100 / newVal : (100 / newVal).toFixed(2),
         });
       }
       for (let i = oldVal; i < newVal; i++) {
         append({
-          symbol: "",
+          ticker: "",
           allocation:
             100 % newVal === 0
               ? 100 / newVal
@@ -51,7 +49,7 @@ const AddPortfolio = () => {
       }
       for (let i = 0; i < newVal; i++) {
         update(i, {
-          symbol: watchFields[i],
+          ticker: watchFields[i],
           allocation:
             100 % newVal === 0
               ? 100 / newVal
@@ -64,9 +62,9 @@ const AddPortfolio = () => {
   }, [append, fields.length, numberOfAssets, remove, update, watch]);
 
   const onSubmit = async (data) => {
-    // await apiClient.addUserPortfolio(data);
-    console.log(data);
-    console.log(user.sub);
+    await apiClient.updateStockQuotes(data.assets);
+    const portfolio = await apiClient.addUserPortfolio(data);
+    await apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
   };
 
   return (
@@ -156,21 +154,21 @@ const AddPortfolio = () => {
                 <h5 className="card-title">Asset {i + 1}</h5>
                 <div className="form-row">
                   <div className="form-group col-6">
-                    <label htmlFor={`assets[${i}]symbol`}>
-                      Symbol<span>*</span>
+                    <label htmlFor={`assets[${i}]ticker`}>
+                      Ticker<span>*</span>
                     </label>
                     <input
-                      id={`assets[${i}]symbol`}
-                      name={`assets[${i}]symbol`}
-                      {...register(`assets.${i}.symbol`)}
+                      id={`assets[${i}]ticker`}
+                      name={`assets[${i}]ticker`}
+                      {...register(`assets.${i}.ticker`)}
                       type="text"
                       className={`form-control ${
-                        errors.assets?.[i]?.symbol ? "is-invalid" : ""
+                        errors.assets?.[i]?.ticker ? "is-invalid" : ""
                       }`}
                       required
                     />
                     <div className="invalid-feedback">
-                      {errors.assets?.[i]?.symbol?.message}
+                      {errors.assets?.[i]?.ticker?.message}
                     </div>
                   </div>
                   <div className="form-group col-6">
