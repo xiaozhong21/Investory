@@ -49,7 +49,6 @@ const App = () => {
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
       apiClient.addOrUpdateUser(user);
-      // apiClient.addUserPortfolio();
     }
   }, [isAuthenticated, user, loading, apiClient]);
 
@@ -60,7 +59,7 @@ const App = () => {
   }, [isAuthenticated, loading, loadWatchlist]);
 
   return (
-    <>
+    <div>
       <header>
         <Nav />
       </header>
@@ -98,7 +97,7 @@ const App = () => {
           />
         </Routes>
       </main>
-    </>
+    </div>
   );
 };
 

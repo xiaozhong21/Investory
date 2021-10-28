@@ -61,12 +61,20 @@ export const getPortfolios = (sub) =>
     { sub },
   );
 
-export const addUserPortfolio = (sub) =>
+export const addUserPortfolio = (sub, portfolio) =>
   db.one(
-    `INSERT INTO user_portfolio(user_id)
-      VALUES((SELECT id FROM users WHERE sub=$<sub>))
+    `INSERT INTO user_portfolio(user_id, time_period, portfolio_values)
+    VALUES((SELECT id FROM users WHERE sub=$<sub>), $<timePeriod>, ARRAY [$<initialAmount>])
       RETURNING *`,
-    { sub },
+    { sub, ...portfolio },
+  );
+
+export const addPortfolioStocks = (portfolioID, ticker, allocation) =>
+  db.one(
+    `INSERT INTO portfolio_stock(portfolio_id, stock_id)
+    VALUES($<portfolioID>, (SELECT id FROM stocks WHERE ticker=$<ticker>))
+      RETURNING *`,
+    { portfolioID, ticker, allocation },
   );
 
 function initDb() {

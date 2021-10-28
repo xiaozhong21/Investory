@@ -7,14 +7,14 @@ const makeApi = (accessToken) => {
     getTopGainers: () => _get("/api/market/topGainers"),
     getMostActive: () => _get("/api/market/mostActive"),
     getStockQuote: (ticker) => _get(`/api/market/stock/${ticker}/quote`),
-    // getBatchStockQuotes: (tickerList) =>
-    //   _get(`/api/stocks/quotes/${tickerList}`),
     getWatchlist: () => _get("/api/watchlist"),
     updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
     addOrUpdateStock: (stock) => _post("/api/stocks", stock),
     addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
-    addUserPortfolio: () => _post("/api/portfolios"),
+    addUserPortfolio: (portfolio) => _post("/api/portfolios", portfolio),
+    addPortfolioStocks: (portfolioID, stocks) =>
+      _post(`/api/portfolios/${portfolioID}/stocks`, stocks),
     deleteStockFromWatchlist: (ticker) =>
       _delete(`/api/watchlist/stocks/${ticker}`),
   };
