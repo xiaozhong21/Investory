@@ -62,6 +62,8 @@ const AddPortfolio = () => {
   }, [append, fields.length, numberOfAssets, remove, update, watch]);
 
   const onSubmit = async (data) => {
+    //To show the data as alert for now before I work on stock chart page
+    alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
     await apiClient.updateStockQuotes(data.assets);
     const portfolio = await apiClient.addUserPortfolio(data);
     await apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
