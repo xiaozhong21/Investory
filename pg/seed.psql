@@ -143,11 +143,6 @@ CREATE TABLE public.watchlist (
 --
 
 COPY public.portfolio_stock (portfolio_id, stock_id, shares, purchase_price, open_price, average_cost, purchase_date, updated_at) FROM stdin;
-6	\N	\N	\N	\N	\N	\N	2021-10-28 06:42:23.65842
-8	\N	\N	\N	\N	\N	\N	2021-10-28 07:17:04.161512
-9	\N	\N	\N	\N	\N	\N	2021-10-28 07:19:06.957734
-10	2	\N	\N	\N	\N	\N	2021-10-28 07:19:59.695857
-16	2	\N	\N	\N	\N	\N	2021-10-28 07:33:22.674098
 \.
 
 
@@ -157,8 +152,6 @@ COPY public.portfolio_stock (portfolio_id, stock_id, shares, purchase_price, ope
 
 COPY public.stocks (id, ticker, updated_at, company_name, market_cap, pe_ratio, week52_high, week52_low, ytd_change, volume, latest_price, change_percent, historical_prices, historical_dates) FROM stdin;
 1	CASH0	2021-10-24 00:50:16.593797	Cash	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-6	AAPL	2021-10-28 07:24:45.003397	Apple Inc	2471298184832	30.42	163.53	108.45	12.777996061023366	57101794	150.62	-0.329	\N	\N
-2	GME	2021-10-28 07:33:22.607931	Gamestop Corporation - Class A	13786770612	-175	493	10.78	867.5154715841468	1152822	181.49	-2.517	\N	\N
 \.
 
 
@@ -167,22 +160,6 @@ COPY public.stocks (id, ticker, updated_at, company_name, market_cap, pe_ratio, 
 --
 
 COPY public.user_portfolio (portfolio_id, user_id, portfolio_values, portfolio_value_dates, time_period, portfolio_name) FROM stdin;
-1	2	{10000}	\N	ytd	\N
-2	2	{10000}	\N	ytd	\N
-3	2	{10000}	\N	ytd	\N
-4	2	{10000}	\N	ytd	\N
-5	2	{10000}	\N	ytd	\N
-6	2	{10000}	\N	ytd	\N
-7	2	{10000}	\N	ytd	\N
-8	2	{10000}	\N	ytd	\N
-9	2	{10000}	\N	ytd	\N
-10	2	{10000}	\N	ytd	\N
-11	2	{10000}	\N	ytd	\N
-12	2	{10000}	\N	ytd	\N
-13	2	{10000}	\N	ytd	\N
-14	2	{10000}	\N	ytd	\N
-15	2	{10000}	\N	ytd	\N
-16	2	{10000}	\N	ytd	\N
 \.
 
 
@@ -208,21 +185,21 @@ COPY public.watchlist (user_id, stock_id) FROM stdin;
 -- Name: stocks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.stocks_id_seq', 11, true);
+SELECT pg_catalog.setval('public.stocks_id_seq', 1, true);
 
 
 --
 -- Name: user_portfolio_portfolio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.user_portfolio_portfolio_id_seq', 16, true);
+SELECT pg_catalog.setval('public.user_portfolio_portfolio_id_seq', 1, false);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 48, true);
+SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 
 --
