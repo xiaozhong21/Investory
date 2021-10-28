@@ -6,6 +6,18 @@ load_dotenv_if_exists();
 
 const db = initDb();
 
+export const getWatchlist = (sub) =>
+  db.any(
+    "SELECT watchlist.*, stocks.* FROM watchlist LEFT JOIN stocks on stock_id=stocks.id LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
+    { sub },
+  );
+
+export const getPortfolios = (sub) =>
+  db.any(
+    "SELECT user_portfolio.* FROM user_portfolio LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
+    { sub },
+  );
+
 export const addOrUpdateUser = (user) =>
   db.one(
     `INSERT INTO users(given_name, family_name, picture, email, sub)
@@ -35,30 +47,12 @@ export const addOrUpdateStock = (stock) =>
     stock,
   );
 
-export const getWatchlist = (sub) =>
-  db.any(
-    "SELECT watchlist.*, stocks.* FROM watchlist LEFT JOIN stocks on stock_id=stocks.id LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
-    { sub },
-  );
-
 export const addStockToWatchlist = (sub, ticker) =>
   db.one(
     `INSERT INTO watchlist(user_id, stock_id)
       VALUES((SELECT id FROM users WHERE sub=$<sub>), (SELECT id FROM stocks WHERE ticker=$<ticker>))
       RETURNING *`,
     { sub, ticker },
-  );
-
-export const deleteStockFromWatchlist = (sub, ticker) =>
-  db.none(
-    "DELETE FROM watchlist WHERE user_id = (SELECT id FROM users WHERE sub=$<sub>) AND stock_id = (SELECT id FROM stocks WHERE ticker=$<ticker>)",
-    { sub, ticker },
-  );
-
-export const getPortfolios = (sub) =>
-  db.any(
-    "SELECT user_portfolio.* FROM user_portfolio LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
-    { sub },
   );
 
 export const addUserPortfolio = (sub, portfolio) =>
@@ -71,11 +65,22 @@ export const addUserPortfolio = (sub, portfolio) =>
 
 export const addPortfolioStocks = (portfolioID, ticker, allocation) =>
   db.one(
-    `INSERT INTO portfolio_stock(portfolio_id, stock_id)
-    VALUES($<portfolioID>, (SELECT id FROM stocks WHERE ticker=$<ticker>))
+    `INSERT INTO portfolio_stock(portfolio_id, stock_id, allocation)
+    VALUES($<portfolioID>, (SELECT id FROM stocks WHERE ticker=$<ticker>), $<allocation>)
       RETURNING *`,
     { portfolioID, ticker, allocation },
   );
+
+export const deleteStockFromWatchlist = (sub, ticker) =>
+  db.none(
+    "DELETE FROM watchlist WHERE user_id = (SELECT id FROM users WHERE sub=$<sub>) AND stock_id = (SELECT id FROM stocks WHERE ticker=$<ticker>)",
+    { sub, ticker },
+  );
+
+export const deletePortfolio = (portfolioID) =>
+  db.none("DELETE FROM user_portfolio WHERE portfolio_id = $<portfolioID>", {
+    portfolioID,
+  });
 
 function initDb() {
   let connection;

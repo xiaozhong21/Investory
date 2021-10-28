@@ -8,6 +8,7 @@ const makeApi = (accessToken) => {
     getMostActive: () => _get("/api/market/mostActive"),
     getStockQuote: (ticker) => _get(`/api/market/stock/${ticker}/quote`),
     getWatchlist: () => _get("/api/watchlist"),
+    getPortfolios: () => _get("/api/portfolios"),
     updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
     addOrUpdateStock: (stock) => _post("/api/stocks", stock),
     addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
@@ -17,6 +18,7 @@ const makeApi = (accessToken) => {
       _post(`/api/portfolios/${portfolioID}/stocks`, stocks),
     deleteStockFromWatchlist: (ticker) =>
       _delete(`/api/watchlist/stocks/${ticker}`),
+    deletePortfolio: (portfolioID) => _delete(`/api/portfolios/${portfolioID}`),
   };
 
   const _get = async (url) => (await _fetch(url)).json();

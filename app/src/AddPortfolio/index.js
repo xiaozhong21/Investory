@@ -66,7 +66,7 @@ const AddPortfolio = () => {
     alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
     await apiClient.updateStockQuotes(data.assets);
     const portfolio = await apiClient.addUserPortfolio(data);
-    await apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
+    apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
   };
 
   return (

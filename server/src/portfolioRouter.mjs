@@ -27,4 +27,9 @@ router.post("/:portfolioID/stocks", async (request, response) => {
   response.status(201).json(stocksArray);
 });
 
+router.delete("/:portfolioID", async (request, response) => {
+  await db.deletePortfolio(request.params.portfolioID);
+  response.status(204).end();
+});
+
 export default router;
