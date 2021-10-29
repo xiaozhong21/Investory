@@ -1,12 +1,15 @@
 import * as React from "react";
 
 import { useForm, useFieldArray } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import useApi from "../auth/useApi";
+
 import "./styles.module.scss";
 
 const AddPortfolio = () => {
   const { apiClient } = useApi();
+  const navigate = useNavigate();
 
   const { register, control, handleSubmit, reset, formState, watch } =
     useForm();
@@ -62,11 +65,10 @@ const AddPortfolio = () => {
   }, [append, fields.length, numberOfAssets, remove, update, watch]);
 
   const onSubmit = async (data) => {
-    //To show the data as alert for now before I work on stock chart page
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
     await apiClient.updateStockQuotes(data.assets);
     const portfolio = await apiClient.addUserPortfolio(data);
-    await apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
+    apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
+    navigate("/mystocks");
   };
 
   return (

@@ -20,9 +20,6 @@ router.post("/update-quotes", async (request, response) => {
   const updatedStocklist = await axios.get(
     `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${tickers}&types=quote&displayPercent=true&token=${process.env.IEX_API_KEY}`,
   );
-  for (let key in updatedStocklist.data) {
-    await db.addOrUpdateStock(updatedStocklist.data[key].quote);
-  }
   response.json(updatedStocklist.data);
 });
 

@@ -9,6 +9,13 @@ router.get("/", async (request, response) => {
   response.json(portfolios);
 });
 
+router.get("/:portfolioID/stocks", async (request, response) => {
+  const portfolioStocks = await db.getPortfolioStocks(
+    request.params.portfolioID,
+  );
+  response.json(portfolioStocks);
+});
+
 router.use(express.json());
 router.post("/", async (request, response) => {
   const portfolio = await db.addUserPortfolio(request.user.sub, request.body);
@@ -25,6 +32,11 @@ router.post("/:portfolioID/stocks", async (request, response) => {
     );
   }
   response.status(201).json(stocksArray);
+});
+
+router.delete("/:portfolioID", async (request, response) => {
+  await db.deletePortfolio(request.params.portfolioID);
+  response.status(204).end();
 });
 
 export default router;

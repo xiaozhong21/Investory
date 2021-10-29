@@ -12,7 +12,7 @@ const Nav = () => (
     </NavLink>{" "}
     | <NavLink to="discover">Discover</NavLink> |{" "}
     <NavLink to="mystocks">My Stocks</NavLink> |{" "}
-    <NavLink to="addPortfolio">Add Portfolio</NavLink> <Auth />
+    <NavLink to="addPortfolio">Backtest Portfolio</NavLink> <Auth />
   </nav>
 );
 

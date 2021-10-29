@@ -25,7 +25,6 @@ const App = () => {
   );
 
   const handleAddToWatchlist = async (stock) => {
-    await apiClient.addOrUpdateStock(stock);
     await apiClient.addStockToWatchlist(stock.symbol);
     loadWatchlist();
   };
@@ -36,7 +35,7 @@ const App = () => {
   };
 
   const updateWatchListButton = (stock) =>
-    !watchlist.map((stock) => stock.ticker).includes(stock.symbol) ? (
+    !watchlist.map((stock) => stock.symbol).includes(stock.symbol) ? (
       <button type="button" onClick={() => handleAddToWatchlist(stock)}>
         add to watchlist
       </button>
