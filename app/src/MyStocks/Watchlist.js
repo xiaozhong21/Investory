@@ -12,13 +12,8 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
     [apiClient, setWatchlist],
   );
 
-  const updateStockQuotes = async (stocks) => {
-    await apiClient.updateStockQuotes(stocks);
-    loadWatchlist();
-  };
-
   const handleDeleteFromWatchlist = async (stock) => {
-    await apiClient.deleteStockFromWatchlist(stock.ticker);
+    await apiClient.deleteStockFromWatchlist(stock.symbol);
     loadWatchlist();
   };
 
@@ -29,14 +24,14 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
   ) : (
     <section>
       <h2>Watchlist</h2>
-      <button type="button" onClick={() => updateStockQuotes(watchlist)}>
+      <button type="button" onClick={() => loadWatchlist()}>
         Get real-time quotes
       </button>
       {watchlist.map((stock) => (
-        <li key={stock.ticker}>
-          <Link to={`/stocks/${stock.ticker}`}> {stock.ticker} </Link> |{" "}
-          {stock.company_name} | {Number(stock.change_percent).toFixed(2)} |{" "}
-          {Number(stock.latest_price).toFixed(2)}
+        <li key={stock.symbol}>
+          <Link to={`/stocks/${stock.symbol}`}> {stock.symbol} </Link> |{" "}
+          {stock.companyName} | {Number(stock.changePercent).toFixed(2)} |{" "}
+          {Number(stock.latestPrice).toFixed(2)}
           <button
             type="button"
             onClick={() => handleDeleteFromWatchlist(stock)}

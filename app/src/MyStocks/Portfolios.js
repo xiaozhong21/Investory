@@ -29,20 +29,58 @@ const Portfolios = () => {
   ) : (
     <section>
       <h2>Portfolios</h2>
+      {portfolios.map((portfolio) => (
+        <div key={portfolio.portfolio_id}>
+          <details>
+            <summary>Portfolio {portfolio.portfolio_id}</summary>
+            <p>
+              Historical time period:
+              {portfolio.time_period}
+            </p>
+            <p>Initial Amount: ${portfolio.portfolio_values[0]}</p>
+            <PortfolioStocks {...{ portfolio }} />
+          </details>
+          <button
+            type="button"
+            onClick={() => handleDeletePortfolio(portfolio)}
+          >
+            delete portfolio
+          </button>
+        </div>
+      ))}
+    </section>
+  );
+};
+
+const PortfolioStocks = ({ portfolio }) => {
+  const { loading, apiClient } = useApi();
+  const [portfolioStocks, setPortfolioStocks] = React.useState([]);
+
+  const loadPortfolioStocks = React.useCallback(
+    async () =>
+      setPortfolioStocks(
+        await apiClient.getPortfolioStocks(portfolio.portfolio_id),
+      ),
+    [apiClient, portfolio.portfolio_id],
+  );
+
+  React.useEffect(() => {
+    if (!loading) {
+      loadPortfolioStocks();
+    }
+  }, [loading, loadPortfolioStocks]);
+
+  return (
+    <>
+      <p>Holdings for portfolio {portfolio.portfolio_id} </p>
       <ul>
-        {portfolios.map((portfolio) => (
-          <li key={portfolio.portfolio_id}>
-            Historical time period: {portfolio.time_period}
-            <button
-              type="button"
-              onClick={() => handleDeletePortfolio(portfolio)}
-            >
-              delete portfolio
-            </button>
+        {portfolioStocks.map((stock) => (
+          <li key={stock.ticker}>
+            {stock.ticker} | {stock.allocation}%
           </li>
         ))}
       </ul>
-    </section>
+    </>
   );
 };
 
