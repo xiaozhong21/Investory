@@ -16,6 +16,10 @@ const Portfolios = () => {
     loadPortfolios();
   };
 
+  const handleViewChart = () => {
+    //
+  };
+
   React.useEffect(() => {
     if (!loading) {
       loadPortfolios();
@@ -44,7 +48,10 @@ const Portfolios = () => {
             type="button"
             onClick={() => handleDeletePortfolio(portfolio)}
           >
-            delete portfolio
+            Delete Portfolio
+          </button>
+          <button type="button" onClick={() => handleViewChart(portfolio)}>
+            View Historical Performance
           </button>
         </div>
       ))}
