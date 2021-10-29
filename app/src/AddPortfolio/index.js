@@ -91,10 +91,12 @@ const AddPortfolio = () => {
                 className="form-control"
                 required
               >
+                <option value="3m">3-Month</option>
+                <option value="6m">6-Month</option>
                 <option value="ytd">Year-to-Date</option>
-                <option value="1y">One-Year</option>
-                <option value="2y">Two-Year</option>
-                <option value="5y">Five-Year</option>
+                <option value="1y">1-Year</option>
+                <option value="2y">2-Year</option>
+                <option value="5y">5-Year</option>
               </select>
             </div>
             <div className="form-group col-md-6">
