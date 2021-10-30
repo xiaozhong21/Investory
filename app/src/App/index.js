@@ -5,6 +5,8 @@ import { Routes, Route } from "react-router-dom";
 import AddPortfolio from "../AddPortfolio";
 import Discover from "../Discover";
 import MyStocks from "../MyStocks";
+import Portfolios from "../MyStocks/Portfolios";
+import PortfolioDetail from "../PortfolioDetail";
 import StockDetail from "../StockDetail";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
@@ -89,6 +91,14 @@ const App = () => {
                 {...{ updateWatchListButton }}
               />
             }
+          />
+          <Route
+            path="/portfolios"
+            element={<Protected component={Portfolios} />}
+          />
+          <Route
+            path="/:portfolio_id"
+            element={<Protected component={PortfolioDetail} />}
           />
           <Route
             path="/addPortfolio"

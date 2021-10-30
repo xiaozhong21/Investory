@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { Link } from "react-router-dom";
+
 import useApi from "../auth/useApi";
 
 const Portfolios = () => {
@@ -16,10 +18,6 @@ const Portfolios = () => {
     loadPortfolios();
   };
 
-  const handleViewChart = () => {
-    //
-  };
-
   React.useEffect(() => {
     if (!loading) {
       loadPortfolios();
@@ -33,42 +31,44 @@ const Portfolios = () => {
   ) : (
     <section>
       <h2>Portfolios</h2>
-      {portfolios.map((portfolio) => (
-        <div key={portfolio.portfolio_id}>
-          <details>
-            <summary>Portfolio {portfolio.portfolio_id}</summary>
-            <p>
-              Historical time period:
-              {portfolio.time_period}
-            </p>
-            <p>Initial Amount: ${portfolio.portfolio_values[0]}</p>
-            <PortfolioStocks {...{ portfolio }} />
-          </details>
-          <button
-            type="button"
-            onClick={() => handleDeletePortfolio(portfolio)}
-          >
-            Delete Portfolio
-          </button>
-          <button type="button" onClick={() => handleViewChart(portfolio)}>
-            View Historical Performance
-          </button>
-        </div>
-      ))}
+      {portfolios.map(
+        ({ portfolio_id, portfolio_name, time_period, portfolio_values }) => (
+          <div key={portfolio_id}>
+            <details>
+              <summary>
+                {portfolio_name ? portfolio_name : "Portfolio " + portfolio_id}
+              </summary>
+              <p>
+                Historical time period:
+                {time_period}
+              </p>
+              <p>Initial Amount: ${portfolio_values[0]}</p>
+              <PortfolioStocks {...{ portfolio_id }} />
+            </details>
+            <button
+              type="button"
+              onClick={() => handleDeletePortfolio(portfolio_id)}
+            >
+              Delete Portfolio
+            </button>
+            <Link to={`/${portfolio_id}`}>
+              <button type="button">View Historical Performance</button>
+            </Link>
+          </div>
+        ),
+      )}
     </section>
   );
 };
 
-const PortfolioStocks = ({ portfolio }) => {
+const PortfolioStocks = ({ portfolio_id }) => {
   const { loading, apiClient } = useApi();
   const [portfolioStocks, setPortfolioStocks] = React.useState([]);
 
   const loadPortfolioStocks = React.useCallback(
     async () =>
-      setPortfolioStocks(
-        await apiClient.getPortfolioStocks(portfolio.portfolio_id),
-      ),
-    [apiClient, portfolio.portfolio_id],
+      setPortfolioStocks(await apiClient.getPortfolioStocks(portfolio_id)),
+    [apiClient, portfolio_id],
   );
 
   React.useEffect(() => {
@@ -79,11 +79,12 @@ const PortfolioStocks = ({ portfolio }) => {
 
   return (
     <>
-      <p>Holdings for portfolio {portfolio.portfolio_id} </p>
+      <p>Holdings for portfolio {portfolio_id} </p>
       <ul>
         {portfolioStocks.map((stock) => (
           <li key={stock.ticker}>
-            {stock.ticker} | {stock.allocation}%
+            <Link to={`/stocks/${stock.ticker}`}>{stock.ticker} </Link> |{" "}
+            {stock.allocation}%
           </li>
         ))}
       </ul>
