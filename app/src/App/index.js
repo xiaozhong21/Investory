@@ -97,7 +97,7 @@ const App = () => {
             element={<Protected component={Portfolios} />}
           />
           <Route
-            path="/:portfolio_id"
+            path="/portfolios/:portfolio_id"
             element={<Protected component={PortfolioDetail} />}
           />
           <Route
