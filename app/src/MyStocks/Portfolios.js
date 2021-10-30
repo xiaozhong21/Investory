@@ -51,7 +51,7 @@ const Portfolios = () => {
             >
               Delete Portfolio
             </button>
-            <Link to={`/${portfolio_id}`}>
+            <Link to={`/portfolios/${portfolio_id}`}>
               <button type="button">Portfolio Historical Performance</button>
             </Link>
           </div>
