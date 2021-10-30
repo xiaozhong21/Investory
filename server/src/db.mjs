@@ -18,6 +18,11 @@ export const getPortfolios = (sub) =>
     { sub },
   );
 
+export const getPortfolio = (portfolioID) =>
+  db.one("SELECT * FROM user_portfolio WHERE portfolio_id=$<portfolioID>", {
+    portfolioID,
+  });
+
 export const getPortfolioStocks = (portfolioID) =>
   db.any(
     "SELECT * FROM portfolio_stock ps LEFT JOIN user_portfolio up on ps.portfolio_id = up.portfolio_id WHERE up.portfolio_id = $<portfolioID>",

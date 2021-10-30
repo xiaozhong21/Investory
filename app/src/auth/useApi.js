@@ -9,8 +9,9 @@ const makeApi = (accessToken) => {
     getStockQuote: (ticker) => _get(`/api/market/stock/${ticker}/quote`),
     getWatchlist: () => _get("/api/watchlist"),
     getPortfolios: () => _get("/api/portfolios"),
+    getPortfolio: (portfolioID) => _get(`/api/portfolios/${portfolioID}`),
     getPortfolioStocks: (portfolioID) =>
-      _get(`api/portfolios/${portfolioID}/stocks`),
+      _get(`/api/portfolios/${portfolioID}/stocks`),
     updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
     addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),

@@ -9,6 +9,11 @@ router.get("/", async (request, response) => {
   response.json(portfolios);
 });
 
+router.get("/:portfolioID", async (request, response) => {
+  const portfolio = await db.getPortfolio(request.params.portfolioID);
+  response.json(portfolio);
+});
+
 router.get("/:portfolioID/stocks", async (request, response) => {
   const portfolioStocks = await db.getPortfolioStocks(
     request.params.portfolioID,
