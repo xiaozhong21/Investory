@@ -35,7 +35,7 @@ const StockChart = ({ ticker }) => {
     yAxis: [
       {
         title: {
-          text: "Price",
+          text: "Price ($)",
         },
       },
     ],

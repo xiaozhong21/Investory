@@ -62,7 +62,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
     yAxis: [
       {
         title: {
-          text: "Value",
+          text: "Portfolio Value ($)",
         },
       },
     ],
@@ -92,7 +92,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
   ) : (
     <div>
       <p>Holding period return: {portfolioReturn}%</p>
-      <p>Initial portfolio value: {initial_amount}</p>
+      <p>Initial portfolio value: ${initial_amount}</p>
       <p>Ending portfolio value: ${endingPortfolioValue}</p>
       <HighchartsReact
         highcharts={Highcharts}
