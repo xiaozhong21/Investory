@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import HighchartsReact from "highcharts-react-official";
+import Highcharts from "highcharts/highstock";
 import { useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";

@@ -12,6 +12,8 @@ const makeApi = (accessToken) => {
     getPortfolio: (portfolioID) => _get(`/api/portfolios/${portfolioID}`),
     getPortfolioStocks: (portfolioID) =>
       _get(`/api/portfolios/${portfolioID}/stocks`),
+    getChartData: (timePeriod, tickers) =>
+      _get(`/api/market/chart?tickers=${tickers}&range=${timePeriod}`),
     updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
     addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),

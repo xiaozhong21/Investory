@@ -4,6 +4,8 @@ import { useParams, Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
+import PortfolioChart from "./PortfolioChart";
+
 const PortfolioDetail = () => {
   const { loading, apiClient } = useApi();
   const [portfolio, setPortfolio] = React.useState();
@@ -56,7 +58,12 @@ const PortfolioDetail = () => {
     <p>Loading...</p>
   ) : (
     <>
-      <p>This is portfolio detail page for portfolio {portfolio_id}</p>
+      <p>
+        This is portfolio detail page for{" "}
+        {portfolio.portfolio_name
+          ? portfolio.portfolio_name
+          : `portfolio ${portfolio_id}`}
+      </p>
       <p>Historical holding period: {portfolio.time_period}</p>
       <ul>
         {portfolioStocks.map((stock) => (
@@ -66,6 +73,7 @@ const PortfolioDetail = () => {
           </li>
         ))}
       </ul>
+      <PortfolioChart {...{ portfolio, portfolioStocks }} />
     </>
   );
 };
