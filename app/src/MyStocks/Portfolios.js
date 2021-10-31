@@ -32,7 +32,7 @@ const Portfolios = () => {
     <section>
       <h2>Portfolios</h2>
       {portfolios.map(
-        ({ portfolio_id, portfolio_name, time_period, portfolio_values }) => (
+        ({ portfolio_id, portfolio_name, time_period, initial_amount }) => (
           <div key={portfolio_id}>
             <details>
               <summary>
@@ -42,7 +42,7 @@ const Portfolios = () => {
                 Historical time period:
                 {time_period}
               </p>
-              <p>Initial Amount: ${portfolio_values[0]}</p>
+              <p>Initial Amount: ${initial_amount}</p>
               <PortfolioStocks {...{ portfolio_id }} />
             </details>
             <button

@@ -39,10 +39,9 @@ CREATE TABLE public.portfolio_stock (
 CREATE TABLE public.user_portfolio (
     portfolio_id integer NOT NULL,
     user_id integer,
-    portfolio_values text[],
-    portfolio_value_dates text[],
     time_period text,
-    portfolio_name text
+    portfolio_name text,
+    initial_amount text
 );
 
 
@@ -125,7 +124,7 @@ COPY public.portfolio_stock (portfolio_id, allocation, updated_at, ticker) FROM 
 -- Data for Name: user_portfolio; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.user_portfolio (portfolio_id, user_id, portfolio_values, portfolio_value_dates, time_period, portfolio_name) FROM stdin;
+COPY public.user_portfolio (portfolio_id, user_id, time_period, portfolio_name, initial_amount) FROM stdin;
 \.
 
 

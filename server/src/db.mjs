@@ -51,8 +51,8 @@ export const addStockToWatchlist = (sub, ticker) =>
 
 export const addUserPortfolio = (sub, portfolio) =>
   db.one(
-    `INSERT INTO user_portfolio(user_id, portfolio_name, time_period, portfolio_values)
-    VALUES((SELECT id FROM users WHERE sub=$<sub>), $<portfolioName>, $<timePeriod>, ARRAY [$<initialAmount>])
+    `INSERT INTO user_portfolio(user_id, portfolio_name, time_period, initial_amount)
+    VALUES((SELECT id FROM users WHERE sub=$<sub>), $<portfolioName>, $<timePeriod>, $<initialAmount>)
       RETURNING *`,
     { sub, ...portfolio },
   );

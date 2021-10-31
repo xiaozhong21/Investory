@@ -62,9 +62,11 @@ router.get("/chart", (request, response) => {
           (dailyReturn) => (dailyReturn * allocations[index]) / 100,
         ),
       );
-      const portfolioReturns = weightedReturns.reduce((acc, ele) => {
-        return acc.map((dailyReturn, index) => (dailyReturn += ele[index]));
-      }, new Array(weightedReturns[0].length).fill(0));
+      const portfolioReturns = weightedReturns
+        .reduce((acc, ele) => {
+          return acc.map((dailyReturn, index) => (dailyReturn += ele[index]));
+        }, new Array(weightedReturns[0].length).fill(0))
+        .map((portfolioReturn) => Number(portfolioReturn.toFixed(2)));
       const returnAndLabels = portfolioReturns.map((returns, index) => [
         new Date(timeLabels[index]).getTime(),
         returns,
@@ -74,6 +76,7 @@ router.get("/chart", (request, response) => {
         prices: prices,
         returns: returns,
         timeLabels: timeLabels,
+        portfolioReturns: portfolioReturns,
         priceAndLabels: priceAndLabels,
         returnAndLabels: returnAndLabels,
       });

@@ -9,8 +9,11 @@ require("highcharts/modules/exporting")(Highcharts);
 
 const PortfolioChart = ({ portfolio, portfolioStocks }) => {
   const { loading, apiClient } = useApi();
-  const { portfolio_id, portfolio_name, time_period } = portfolio;
+  const { portfolio_id, portfolio_name, time_period, initial_amount } =
+    portfolio;
   const [chartData, setChartData] = React.useState({});
+  const [portfolioReturn, setPortfolioReturn] = React.useState(0);
+  const [endingPortfolioValue, setEndingPortfolioValue] = React.useState(0);
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
 
@@ -31,6 +34,9 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
         )
         .then((response) => {
           setChartData(response);
+          setPortfolioReturn(
+            response.portfolioReturns[response.portfolioReturns.length - 1],
+          );
           setError(false);
         })
         .catch((err) => {
@@ -64,12 +70,20 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
     !loading && portfolioStockTickers && loadChartData();
   }, [loading, portfolioStockTickers, loadChartData]);
 
+  React.useEffect(
+    () => setEndingPortfolioValue(initial_amount * (1 + portfolioReturn / 100)),
+    [portfolioReturn, initial_amount],
+  );
+
   return error === true ? (
     <p>{errorMessage}</p>
   ) : !chartData ? (
     <p>Loading...</p>
   ) : (
     <div>
+      <p>Holding period return: {portfolioReturn}%</p>
+      <p>Initial portfolio value: {initial_amount}</p>
+      <p>Ending portfolio value: ${endingPortfolioValue}</p>
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
