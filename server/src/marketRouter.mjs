@@ -33,6 +33,7 @@ router.get("/stock/:ticker/quote", (request, response) => {
 });
 
 router.get("/chart", (request, response) => {
+  const initialAmount = Number(request.query.initialAmount);
   const allocations = request.query.allocations
     .split(",")
     .map((allocation) => Number(allocation));
@@ -67,10 +68,16 @@ router.get("/chart", (request, response) => {
           return acc.map((dailyReturn, index) => (dailyReturn += ele[index]));
         }, new Array(weightedReturns[0].length).fill(0))
         .map((portfolioReturn) => Number(portfolioReturn.toFixed(2)));
-      const returnAndLabels = portfolioReturns.map((returns, index) => [
+      const returnAndLabels = portfolioReturns.map((dailyReturn, index) => [
         new Date(timeLabels[index]).getTime(),
-        returns,
+        dailyReturn,
       ]);
+      const valueAndLabels = portfolioReturns
+        .map((dailyReturn) => initialAmount * (1 + dailyReturn / 100))
+        .map((dailyValue, index) => [
+          new Date(timeLabels[index]).getTime(),
+          dailyValue,
+        ]);
       response.json({
         tickers: tickers,
         prices: prices,
@@ -79,6 +86,7 @@ router.get("/chart", (request, response) => {
         portfolioReturns: portfolioReturns,
         priceAndLabels: priceAndLabels,
         returnAndLabels: returnAndLabels,
+        valueAndLabels: valueAndLabels,
       });
     })
     .catch((error) => {

@@ -12,9 +12,9 @@ const makeApi = (accessToken) => {
     getPortfolio: (portfolioID) => _get(`/api/portfolios/${portfolioID}`),
     getPortfolioStocks: (portfolioID) =>
       _get(`/api/portfolios/${portfolioID}/stocks`),
-    getChartData: (timePeriod, tickers, allocations) =>
+    getChartData: (timePeriod, tickers, allocations, initialAmount) =>
       _get(
-        `/api/market/chart?tickers=${tickers}&range=${timePeriod}&allocations=${allocations}`,
+        `/api/market/chart?tickers=${tickers}&range=${timePeriod}&allocations=${allocations}&initialAmount=${initialAmount}`,
       ),
     updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
     addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),

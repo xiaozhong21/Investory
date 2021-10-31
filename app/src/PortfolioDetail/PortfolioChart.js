@@ -31,6 +31,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
           time_period,
           portfolioStockTickers,
           portfolioStockAllocations,
+          initial_amount,
         )
         .then((response) => {
           setChartData(response);
@@ -43,7 +44,13 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
           setError(true);
           setErrorMessage(err.message);
         }),
-    [apiClient, time_period, portfolioStockTickers, portfolioStockAllocations],
+    [
+      apiClient,
+      time_period,
+      portfolioStockTickers,
+      portfolioStockAllocations,
+      initial_amount,
+    ],
   );
 
   const options = {
@@ -55,13 +62,13 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
     yAxis: [
       {
         title: {
-          text: "Return",
+          text: "Value",
         },
       },
     ],
     series: [
       {
-        data: chartData.returnAndLabels,
+        data: chartData.valueAndLabels,
       },
     ],
   };
@@ -71,7 +78,10 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
   }, [loading, portfolioStockTickers, loadChartData]);
 
   React.useEffect(
-    () => setEndingPortfolioValue(initial_amount * (1 + portfolioReturn / 100)),
+    () =>
+      setEndingPortfolioValue(
+        Number(initial_amount * (1 + portfolioReturn / 100)).toFixed(0),
+      ),
     [portfolioReturn, initial_amount],
   );
 
