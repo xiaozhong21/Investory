@@ -7,21 +7,16 @@ import useApi from "../auth/useApi";
 
 require("highcharts/modules/exporting")(Highcharts);
 
-const PortfolioChart = ({ portfolio, portfolioStocks }) => {
+const StockChart = ({ ticker }) => {
   const { loading, apiClient } = useApi();
-  const { portfolio_id, portfolio_name, time_period } = portfolio;
   const [chartData, setChartData] = React.useState({});
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
 
-  const portfolioStockTickers = portfolioStocks
-    .map((stock) => stock.ticker)
-    .join(",");
-
   const loadChartData = React.useCallback(
     () =>
       apiClient
-        .getChartData(time_period, portfolioStockTickers)
+        .getChartData("1y", ticker)
         .then((response) => {
           setChartData(response);
           setError(false);
@@ -30,37 +25,30 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
           setError(true);
           setErrorMessage(err.message);
         }),
-    [apiClient, time_period, portfolioStockTickers],
+    [apiClient, ticker],
   );
 
   const options = {
     title: {
-      text: `Historical Performance for ${
-        portfolio_name ? portfolio_name : `portfolio ${portfolio_id}`
-      }`,
+      text: `Historical Performance for ${ticker}`,
     },
-    xAxis: [
-      {
-        type: "datetime",
-      },
-    ],
     yAxis: [
       {
         title: {
-          text: "Return",
+          text: "Price",
         },
       },
     ],
     series: [
       {
-        data: chartData.returns,
+        data: chartData.priceAndLabels,
       },
     ],
   };
 
   React.useEffect(() => {
-    !loading && portfolioStockTickers && loadChartData();
-  }, [loading, portfolioStockTickers, loadChartData]);
+    !loading && ticker && loadChartData();
+  }, [loading, ticker, loadChartData]);
 
   return error === true ? (
     <p>{errorMessage}</p>
@@ -68,6 +56,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
     <p>Loading...</p>
   ) : (
     <div>
+      {/* {chartData.timeLabels[0]} */}
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
@@ -77,4 +66,4 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
   );
 };
 
-export default PortfolioChart;
+export default StockChart;

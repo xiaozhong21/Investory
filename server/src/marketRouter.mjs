@@ -33,22 +33,32 @@ router.get("/stock/:ticker/quote", (request, response) => {
 });
 
 router.get("/chart", (request, response) => {
-  console.log(request.query.tickers, request.query.range);
-  // response.json("success");
   axios
     .get(
       `https://sandbox.iexapis.com/stable/stock/market/batch?token=${process.env.IEX_API_KEY}&symbols=${request.query.tickers}&types=quote,chart&range=${request.query.range}`,
     )
     .then((result) => {
-      // const tickers = Object.keys(result.data);
-      // const timeLabels = Object.values(result.data)
-      //   .map((stock) => stock.chart)[0]
-      //   .map((dailyData) => dailyData.label);
+      const tickers = Object.keys(result.data);
+      const timeLabels = Object.values(result.data)
+        .map((stock) => stock.chart)[0]
+        .map((dailyData) => dailyData.date);
+      const prices = Object.values(result.data)
+        .map((stock) => stock.chart)[0]
+        .map((dailyData) => dailyData.close);
       const returns = Object.values(result.data)
         .map((stock) => stock.chart)[0]
         .map((dailyData) => dailyData.changeOverTime * 100);
-      // response.json({ tickers: tickers });
-      response.json(returns);
+      const priceAndLabels = prices.map((price, index) => [
+        new Date(timeLabels[index]).getTime(),
+        price,
+      ]);
+      response.json({
+        tickers: tickers,
+        prices: prices,
+        returns: returns,
+        timeLabels: timeLabels,
+        priceAndLabels: priceAndLabels,
+      });
     })
     .catch((error) => {
       response.status(error.response.status).end();
