@@ -17,11 +17,18 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
   const portfolioStockTickers = portfolioStocks
     .map((stock) => stock.ticker)
     .join(",");
+  const portfolioStockAllocations = portfolioStocks
+    .map((stock) => stock.allocation)
+    .join(",");
 
   const loadChartData = React.useCallback(
     () =>
       apiClient
-        .getChartData(time_period, portfolioStockTickers)
+        .getChartData(
+          time_period,
+          portfolioStockTickers,
+          portfolioStockAllocations,
+        )
         .then((response) => {
           setChartData(response);
           setError(false);
@@ -30,7 +37,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
           setError(true);
           setErrorMessage(err.message);
         }),
-    [apiClient, time_period, portfolioStockTickers],
+    [apiClient, time_period, portfolioStockTickers, portfolioStockAllocations],
   );
 
   const options = {
@@ -39,11 +46,6 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
         portfolio_name ? portfolio_name : `portfolio ${portfolio_id}`
       }`,
     },
-    xAxis: [
-      {
-        type: "datetime",
-      },
-    ],
     yAxis: [
       {
         title: {
@@ -53,7 +55,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
     ],
     series: [
       {
-        data: chartData.returns,
+        data: chartData.returnAndLabels,
       },
     ],
   };

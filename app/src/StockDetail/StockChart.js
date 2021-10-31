@@ -16,7 +16,7 @@ const StockChart = ({ ticker }) => {
   const loadChartData = React.useCallback(
     () =>
       apiClient
-        .getChartData("1y", ticker)
+        .getChartData("5y", ticker, 100)
         .then((response) => {
           setChartData(response);
           setError(false);
@@ -56,7 +56,6 @@ const StockChart = ({ ticker }) => {
     <p>Loading...</p>
   ) : (
     <div>
-      {/* {chartData.timeLabels[0]} */}
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
