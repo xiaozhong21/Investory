@@ -14,3 +14,5 @@ const DOTENV_FILE = path.join(
   new URL(".", import.meta.url).pathname,
   "../../.env",
 );
+
+export const baseApiUrl = "https://sandbox.iexapis.com/stable/stock";
