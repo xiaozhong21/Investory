@@ -11,7 +11,7 @@ const AddPortfolio = () => {
   const { loading, apiClient } = useApi();
   const { portfolio_id } = useParams();
   const navigate = useNavigate();
-  let isAddMode = !portfolio_id;
+  const isAddMode = !portfolio_id;
   const [portfolio, setPortfolio] = React.useState();
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
@@ -61,11 +61,6 @@ const AddPortfolio = () => {
     const newVal = parseInt(numberOfAssets || 0);
     const oldVal = fields.length;
     if (newVal > oldVal) {
-      // update({
-      //   timePeriod: watchFields2[0],
-      //   initialAmount: watchFields2[1],
-      //   portfolioName: watchFields2[2],
-      // });
       for (let i = 0; i < oldVal; i++) {
         update(i, {
           ticker: watchFields[i],
@@ -120,13 +115,12 @@ const AddPortfolio = () => {
       apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
       navigate("/mystocks");
     } else {
-      console.log(data);
-      // const updatedPortfolio = await apiClient.updateUserPortfolio(
-      //   portfolio_id,
-      //   data,
-      // );
-      // console.log(updatedPortfolio);
-      // apiClient.updatePortfolioStocks(portfolio.portfolio_id, data.assets);
+      const updatedPortfolio = await apiClient.updateUserPortfolio(
+        portfolio_id,
+        data,
+      );
+      console.log(updatedPortfolio);
+      // apiClient.updatePortfolioStocks(portfolio_id, data.assets);
       // navigate("/mystocks");
     }
   };
@@ -135,7 +129,9 @@ const AddPortfolio = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="card m-3">
         <h5 className="card-header">
-          Create Your Portfolio to Start Backtesting
+          {isAddMode
+            ? `Create Your Portfolio to Start Backtesting`
+            : `Edit Your Portfolio`}
         </h5>
         <div className="card-body border-bottom">
           <div className="form-row">
