@@ -65,6 +65,15 @@ export const addPortfolioStocks = (portfolioID, ticker, allocation) =>
     { portfolioID, ticker, allocation },
   );
 
+export const updateUserPortfolio = (portfolioID, portfolio) =>
+  db.one(
+    `UPDATE user_portfolio
+    SET portfolio_name=$<portfolioName>, time_period=$<timePeriod>, initial_amount=$<initialAmount>
+    WHERE portfolio_id=$<portfolioID>
+      RETURNING *`,
+    { portfolioID, ...portfolio },
+  );
+
 export const deleteStockFromWatchlist = (sub, ticker) =>
   db.none(
     "DELETE FROM watchlist WHERE user_id = (SELECT id FROM users WHERE sub=$<sub>) AND ticker=$<ticker>",

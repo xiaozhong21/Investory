@@ -11,11 +11,11 @@ const AddPortfolio = () => {
   const { loading, apiClient } = useApi();
   const { portfolio_id } = useParams();
   const navigate = useNavigate();
-  const isAddMode = !portfolio_id;
+  let isAddMode = !portfolio_id;
   const [portfolio, setPortfolio] = React.useState();
-  const [portfolioStocks, setPortfolioStocks] = React.useState([]);
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [autopopulate, setAutopopulate] = React.useState(true);
 
   const loadPortfolio = React.useCallback(
     () =>
@@ -32,94 +32,72 @@ const AddPortfolio = () => {
     [apiClient, portfolio_id],
   );
 
-  const loadPortfolioStocks = React.useCallback(
-    () =>
-      apiClient
-        .getPortfolioStocks(portfolio_id)
-        .then((response) => {
-          setPortfolioStocks(response);
-          setError(false);
-        })
-        .catch((err) => {
-          setError(true);
-          setErrorMessage(err.message);
-        }),
-    [apiClient, portfolio_id],
-  );
-
-  const { register, control, handleSubmit, reset, formState, watch } =
+  const { register, control, handleSubmit, reset, setValue, formState, watch } =
     useForm();
   const { errors } = formState;
   const { fields, append, remove, update } = useFieldArray({
     name: "assets",
     control,
   });
-  const numberOfAssets = isAddMode
-    ? watch("numberOfAssets")
-    : portfolioStocks.length;
+  const numberOfAssets = watch("numberOfAssets");
 
   React.useEffect(() => {
     portfolio_id !== undefined && !loading && loadPortfolio();
   }, [loading, portfolio_id, loadPortfolio]);
 
   React.useEffect(() => {
-    portfolio_id !== undefined && !loading && loadPortfolioStocks();
-  }, [loading, portfolio_id, loadPortfolioStocks]);
-
-  React.useEffect(() => {
-    if (isAddMode) {
-      const watchFields = [];
-      for (let i = 0; i < numberOfAssets; i++) {
-        watchFields.push(watch(`assets[${i}]ticker`));
+    if (!isAddMode) {
+      if (portfolio && autopopulate) {
+        setValue("timePeriod", portfolio.time_period);
+        setValue("initialAmount", portfolio.initial_amount);
+        setValue("portfolioName", portfolio.portfolio_name);
+        setAutopopulate(false);
       }
-      const newVal = parseInt(numberOfAssets || 0);
-      const oldVal = fields.length;
-      if (newVal > oldVal) {
-        for (let i = 0; i < oldVal; i++) {
-          update(i, {
-            ticker: watchFields[i],
-            allocation:
-              100 % newVal === 0 ? 100 / newVal : (100 / newVal).toFixed(2),
-          });
-        }
-        for (let i = oldVal; i < newVal; i++) {
-          append({
-            ticker: "",
-            allocation:
-              100 % newVal === 0
-                ? 100 / newVal
-                : i === newVal - 1
-                ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
-                : (100 / newVal).toFixed(2),
-          });
-        }
-      } else {
-        for (let i = oldVal; i > newVal; i--) {
-          remove(i - 1);
-        }
-        for (let i = 0; i < newVal; i++) {
-          update(i, {
-            ticker: watchFields[i],
-            allocation:
-              100 % newVal === 0
-                ? 100 / newVal
-                : i === newVal - 1
-                ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
-                : (100 / newVal).toFixed(2),
-          });
-        }
-      }
-    } else {
-      for (let i = 0; i < numberOfAssets; i++) {
+    }
+    const watchFields = [];
+    for (let i = 0; i < numberOfAssets; i++) {
+      watchFields.push(watch(`assets[${i}]ticker`));
+    }
+    const newVal = parseInt(numberOfAssets || 0);
+    const oldVal = fields.length;
+    if (newVal > oldVal) {
+      // update({
+      //   timePeriod: watchFields2[0],
+      //   initialAmount: watchFields2[1],
+      //   portfolioName: watchFields2[2],
+      // });
+      for (let i = 0; i < oldVal; i++) {
         update(i, {
-          ticker: portfolioStocks.map((stock) => stock.ticker)[i],
-          allocation: portfolioStocks.map((stock) => stock.allocation[i]),
+          ticker: watchFields[i],
+          allocation:
+            100 % newVal === 0 ? 100 / newVal : (100 / newVal).toFixed(2),
         });
       }
-      const newNumberOfAssets = watch("numberOfAssets");
-      const watchFields = [];
-      for (let i = 0; i < newNumberOfAssets; i++) {
-        watchFields.push(watch(`assets[${i}]ticker`));
+      for (let i = oldVal; i < newVal; i++) {
+        append({
+          ticker: "",
+          allocation:
+            100 % newVal === 0
+              ? 100 / newVal
+              : i === newVal - 1
+              ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
+              : (100 / newVal).toFixed(2),
+        });
+      }
+    } else {
+      for (let i = oldVal; i > newVal; i--) {
+        remove(i - 1);
+      }
+      for (let i = 0; i < newVal; i++) {
+        update(i, {
+          ticker: watchFields[i],
+          allocation:
+            100 % newVal === 0
+              ? 100 / newVal
+              : i === newVal - 1
+              ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
+              : (100 / newVal).toFixed(2),
+        });
       }
     }
   }, [
@@ -130,21 +108,30 @@ const AddPortfolio = () => {
     update,
     watch,
     isAddMode,
-    portfolioStocks,
+    portfolio,
+    setValue,
+    autopopulate,
   ]);
 
   const onSubmit = async (data) => {
-    await apiClient.updateStockQuotes(data.assets);
-    const portfolio = await apiClient.addUserPortfolio(data);
-    apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
-    navigate("/mystocks");
+    if (isAddMode) {
+      // await apiClient.updateStockQuotes(data.assets);
+      const portfolio = await apiClient.addUserPortfolio(data);
+      apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
+      navigate("/mystocks");
+    } else {
+      console.log(data);
+      // const updatedPortfolio = await apiClient.updateUserPortfolio(
+      //   portfolio_id,
+      //   data,
+      // );
+      // console.log(updatedPortfolio);
+      // apiClient.updatePortfolioStocks(portfolio.portfolio_id, data.assets);
+      // navigate("/mystocks");
+    }
   };
 
-  return error === true ? (
-    <p>{errorMessage}</p>
-  ) : !portfolio || !portfolioStocks ? (
-    <p>Loading...</p>
-  ) : (
+  const formContent = (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="card m-3">
         <h5 className="card-header">
@@ -290,6 +277,16 @@ const AddPortfolio = () => {
         </div>
       </div>
     </form>
+  );
+
+  return isAddMode ? (
+    formContent
+  ) : error === true ? (
+    <p>{errorMessage}</p>
+  ) : !portfolio ? (
+    <p>Loading...</p>
+  ) : (
+    formContent
   );
 };
 

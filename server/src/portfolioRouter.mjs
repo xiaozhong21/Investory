@@ -27,6 +27,14 @@ router.post("/", async (request, response) => {
   response.status(201).json(portfolio);
 });
 
+router.post("/:portfolioID", async (request, response) => {
+  const updatedPortfolio = await db.updateUserPortfolio(
+    request.params.portfolioID,
+    request.body,
+  );
+  response.status(201).json(updatedPortfolio);
+});
+
 router.post("/:portfolioID/stocks", async (request, response) => {
   const stocksArray = request.body;
   for (let stock of stocksArray) {

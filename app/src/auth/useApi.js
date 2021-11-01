@@ -16,12 +16,14 @@ const makeApi = (accessToken) => {
       _get(
         `/api/market/chart?tickers=${tickers}&range=${timePeriod}&allocations=${allocations}&initialAmount=${initialAmount}`,
       ),
-    updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
     addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
     addUserPortfolio: (portfolio) => _post("/api/portfolios", portfolio),
     addPortfolioStocks: (portfolioID, stocks) =>
       _post(`/api/portfolios/${portfolioID}/stocks`, stocks),
+    updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
+    updateUserPortfolio: (portfolioID, portfolio) =>
+      _post(`/api/portfolios/${portfolioID}`, portfolio),
     deleteStockFromWatchlist: (ticker) =>
       _delete(`/api/watchlist/stocks/${ticker}`),
     deletePortfolio: (portfolioID) => _delete(`/api/portfolios/${portfolioID}`),
