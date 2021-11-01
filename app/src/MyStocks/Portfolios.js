@@ -13,8 +13,8 @@ const Portfolios = () => {
     [apiClient],
   );
 
-  const handleDeletePortfolio = async (portfolio) => {
-    await apiClient.deletePortfolio(portfolio.portfolio_id);
+  const handleDeletePortfolio = async (portfolio_id) => {
+    await apiClient.deletePortfolio(portfolio_id);
     loadPortfolios();
   };
 

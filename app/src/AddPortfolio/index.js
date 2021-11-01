@@ -109,16 +109,18 @@ const AddPortfolio = () => {
   ]);
 
   const onSubmit = async (data) => {
-    if (isAddMode) {
+    const sumAllocations = data.assets.reduce(
+      (acc, ele) => acc + Number(ele.allocation),
+      0,
+    );
+    if (sumAllocations !== 100) {
+      alert("Asset allocations must sum up to 100");
+    } else if (isAddMode) {
       const portfolio = await apiClient.addUserPortfolio(data);
-      apiClient.addOrUpdatePortfolioStocks(portfolio.portfolio_id, data.assets);
+      apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
       navigate("/mystocks");
     } else {
-      const updatedPortfolio = await apiClient.updateUserPortfolio(
-        portfolio_id,
-        data,
-      );
-      console.log(updatedPortfolio);
+      await apiClient.updateUserPortfolio(portfolio_id, data);
       await apiClient.deletePortfolioStocks(portfolio_id);
       apiClient.addPortfolioStocks(portfolio_id, data.assets);
       navigate("/mystocks");
