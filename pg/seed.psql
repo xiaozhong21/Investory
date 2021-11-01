@@ -25,7 +25,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.portfolio_stock (
-    portfolio_id integer,
+    portfolio_id integer NOT NULL,
     allocation numeric,
     updated_at timestamp without time zone DEFAULT now(),
     ticker text NOT NULL
@@ -165,6 +165,14 @@ SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 --
 
 SELECT pg_catalog.setval('public.watchlist_id_seq', 1, false);
+
+
+--
+-- Name: portfolio_stock pk_portfolio_stock; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.portfolio_stock
+    ADD CONSTRAINT pk_portfolio_stock PRIMARY KEY (portfolio_id, ticker);
 
 
 --

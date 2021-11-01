@@ -110,9 +110,8 @@ const AddPortfolio = () => {
 
   const onSubmit = async (data) => {
     if (isAddMode) {
-      // await apiClient.updateStockQuotes(data.assets);
       const portfolio = await apiClient.addUserPortfolio(data);
-      apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
+      apiClient.addOrUpdatePortfolioStocks(portfolio.portfolio_id, data.assets);
       navigate("/mystocks");
     } else {
       const updatedPortfolio = await apiClient.updateUserPortfolio(
@@ -120,8 +119,9 @@ const AddPortfolio = () => {
         data,
       );
       console.log(updatedPortfolio);
-      // apiClient.updatePortfolioStocks(portfolio_id, data.assets);
-      // navigate("/mystocks");
+      await apiClient.deletePortfolioStocks(portfolio_id);
+      apiClient.addPortfolioStocks(portfolio_id, data.assets);
+      navigate("/mystocks");
     }
   };
 

@@ -27,6 +27,8 @@ const makeApi = (accessToken) => {
     deleteStockFromWatchlist: (ticker) =>
       _delete(`/api/watchlist/stocks/${ticker}`),
     deletePortfolio: (portfolioID) => _delete(`/api/portfolios/${portfolioID}`),
+    deletePortfolioStocks: (portfolioID) =>
+      _delete(`/api/portfolios/${portfolioID}/stocks`),
   };
 
   const _get = async (url) => (await _fetch(url)).json();

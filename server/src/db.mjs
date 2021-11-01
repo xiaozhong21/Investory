@@ -52,7 +52,7 @@ export const addStockToWatchlist = (sub, ticker) =>
 export const addUserPortfolio = (sub, portfolio) =>
   db.one(
     `INSERT INTO user_portfolio(user_id, portfolio_name, time_period, initial_amount)
-    VALUES((SELECT id FROM users WHERE sub=$<sub>), $<portfolioName>, $<timePeriod>, $<initialAmount>)
+      VALUES((SELECT id FROM users WHERE sub=$<sub>), $<portfolioName>, $<timePeriod>, $<initialAmount>)
       RETURNING *`,
     { sub, ...portfolio },
   );
@@ -60,7 +60,7 @@ export const addUserPortfolio = (sub, portfolio) =>
 export const addPortfolioStocks = (portfolioID, ticker, allocation) =>
   db.one(
     `INSERT INTO portfolio_stock(portfolio_id, ticker, allocation)
-    VALUES($<portfolioID>, $<ticker>, $<allocation>)
+      VALUES($<portfolioID>, $<ticker>, $<allocation>)
       RETURNING *`,
     { portfolioID, ticker, allocation },
   );
@@ -68,8 +68,8 @@ export const addPortfolioStocks = (portfolioID, ticker, allocation) =>
 export const updateUserPortfolio = (portfolioID, portfolio) =>
   db.one(
     `UPDATE user_portfolio
-    SET portfolio_name=$<portfolioName>, time_period=$<timePeriod>, initial_amount=$<initialAmount>
-    WHERE portfolio_id=$<portfolioID>
+      SET portfolio_name=$<portfolioName>, time_period=$<timePeriod>, initial_amount=$<initialAmount>
+      WHERE portfolio_id=$<portfolioID>
       RETURNING *`,
     { portfolioID, ...portfolio },
   );
@@ -82,6 +82,11 @@ export const deleteStockFromWatchlist = (sub, ticker) =>
 
 export const deletePortfolio = (portfolioID) =>
   db.none("DELETE FROM user_portfolio WHERE portfolio_id = $<portfolioID>", {
+    portfolioID,
+  });
+
+export const deletePortfolioStocks = (portfolioID) =>
+  db.any("DELETE FROM portfolio_stock WHERE portfolio_id = $<portfolioID>", {
     portfolioID,
   });
 

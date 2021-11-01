@@ -64,7 +64,10 @@ const PortfolioDetail = () => {
           ? portfolio.portfolio_name
           : `portfolio ${portfolio_id}`}
       </p>
-      <p>Historical holding period: {portfolio.time_period}</p>
+      <p>
+        Historical holding period: {portfolio.time_period} (bounded by data
+        availability of portfolio stocks)
+      </p>
       <ul>
         {portfolioStocks.map((stock) => (
           <li key={stock.ticker}>

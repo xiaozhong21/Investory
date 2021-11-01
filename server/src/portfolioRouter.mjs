@@ -52,4 +52,9 @@ router.delete("/:portfolioID", async (request, response) => {
   response.status(204).end();
 });
 
+router.delete("/:portfolioID/stocks", async (request, response) => {
+  await db.deletePortfolioStocks(request.params.portfolioID);
+  response.status(204).end();
+});
+
 export default router;
