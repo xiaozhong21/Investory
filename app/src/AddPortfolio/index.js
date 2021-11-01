@@ -58,40 +58,45 @@ const AddPortfolio = () => {
     for (let i = 0; i < numberOfAssets; i++) {
       watchFields.push(watch(`assets[${i}]ticker`));
     }
-    const newVal = parseInt(numberOfAssets || 0);
-    const oldVal = fields.length;
-    if (newVal > oldVal) {
-      for (let i = 0; i < oldVal; i++) {
+    const updatedAssetCount = parseInt(numberOfAssets || 0);
+    const currentAssetCount = fields.length;
+    const updatePrefilledAllocation = (i) => {
+      if (100 % updatedAssetCount === 0) {
+        return 100 / updatedAssetCount;
+      } else {
+        if (i === updatedAssetCount - 1) {
+          return Number(
+            (
+              100 -
+              (100 / updatedAssetCount).toFixed(2) * (updatedAssetCount - 1)
+            ).toFixed(2),
+          );
+        } else {
+          return Number((100 / updatedAssetCount).toFixed(2));
+        }
+      }
+    };
+    if (updatedAssetCount > currentAssetCount) {
+      for (let i = 0; i < currentAssetCount; i++) {
         update(i, {
           ticker: watchFields[i],
-          allocation:
-            100 % newVal === 0 ? 100 / newVal : (100 / newVal).toFixed(2),
+          allocation: updatePrefilledAllocation(i),
         });
       }
-      for (let i = oldVal; i < newVal; i++) {
+      for (let i = currentAssetCount; i < updatedAssetCount; i++) {
         append({
           ticker: "",
-          allocation:
-            100 % newVal === 0
-              ? 100 / newVal
-              : i === newVal - 1
-              ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
-              : (100 / newVal).toFixed(2),
+          allocation: updatePrefilledAllocation(i),
         });
       }
     } else {
-      for (let i = oldVal; i > newVal; i--) {
+      for (let i = currentAssetCount; i > updatedAssetCount; i--) {
         remove(i - 1);
       }
-      for (let i = 0; i < newVal; i++) {
+      for (let i = 0; i < updatedAssetCount; i++) {
         update(i, {
           ticker: watchFields[i],
-          allocation:
-            100 % newVal === 0
-              ? 100 / newVal
-              : i === newVal - 1
-              ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
-              : (100 / newVal).toFixed(2),
+          allocation: updatePrefilledAllocation(i),
         });
       }
     }
