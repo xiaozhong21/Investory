@@ -1,15 +1,51 @@
 import * as React from "react";
 
 import { useForm, useFieldArray } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
 import "./styles.module.scss";
 
 const AddPortfolio = () => {
-  const { apiClient } = useApi();
+  const { loading, apiClient } = useApi();
+  const { portfolio_id } = useParams();
   const navigate = useNavigate();
+  const isAddMode = !portfolio_id;
+  const [portfolio, setPortfolio] = React.useState();
+  const [portfolioStocks, setPortfolioStocks] = React.useState([]);
+  const [error, setError] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
+
+  const loadPortfolio = React.useCallback(
+    () =>
+      apiClient
+        .getPortfolio(portfolio_id)
+        .then((response) => {
+          setPortfolio(response);
+          setError(false);
+        })
+        .catch((err) => {
+          setError(true);
+          setErrorMessage(err.message);
+        }),
+    [apiClient, portfolio_id],
+  );
+
+  const loadPortfolioStocks = React.useCallback(
+    () =>
+      apiClient
+        .getPortfolioStocks(portfolio_id)
+        .then((response) => {
+          setPortfolioStocks(response);
+          setError(false);
+        })
+        .catch((err) => {
+          setError(true);
+          setErrorMessage(err.message);
+        }),
+    [apiClient, portfolio_id],
+  );
 
   const { register, control, handleSubmit, reset, formState, watch } =
     useForm();
@@ -18,51 +54,84 @@ const AddPortfolio = () => {
     name: "assets",
     control,
   });
-  const numberOfAssets = watch("numberOfAssets");
+  const numberOfAssets = isAddMode
+    ? watch("numberOfAssets")
+    : portfolioStocks.length;
 
   React.useEffect(() => {
-    const watchFields = [];
-    for (let i = 0; i < numberOfAssets; i++) {
-      watchFields.push(watch(`assets[${i}]ticker`));
-    }
-    const newVal = parseInt(numberOfAssets || 0);
-    const oldVal = fields.length;
-    if (newVal > oldVal) {
-      for (let i = 0; i < oldVal; i++) {
-        update(i, {
-          ticker: watchFields[i],
-          allocation:
-            100 % newVal === 0 ? 100 / newVal : (100 / newVal).toFixed(2),
-        });
+    portfolio_id !== undefined && !loading && loadPortfolio();
+  }, [loading, portfolio_id, loadPortfolio]);
+
+  React.useEffect(() => {
+    portfolio_id !== undefined && !loading && loadPortfolioStocks();
+  }, [loading, portfolio_id, loadPortfolioStocks]);
+
+  React.useEffect(() => {
+    if (isAddMode) {
+      const watchFields = [];
+      for (let i = 0; i < numberOfAssets; i++) {
+        watchFields.push(watch(`assets[${i}]ticker`));
       }
-      for (let i = oldVal; i < newVal; i++) {
-        append({
-          ticker: "",
-          allocation:
-            100 % newVal === 0
-              ? 100 / newVal
-              : i === newVal - 1
-              ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
-              : (100 / newVal).toFixed(2),
-        });
+      const newVal = parseInt(numberOfAssets || 0);
+      const oldVal = fields.length;
+      if (newVal > oldVal) {
+        for (let i = 0; i < oldVal; i++) {
+          update(i, {
+            ticker: watchFields[i],
+            allocation:
+              100 % newVal === 0 ? 100 / newVal : (100 / newVal).toFixed(2),
+          });
+        }
+        for (let i = oldVal; i < newVal; i++) {
+          append({
+            ticker: "",
+            allocation:
+              100 % newVal === 0
+                ? 100 / newVal
+                : i === newVal - 1
+                ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
+                : (100 / newVal).toFixed(2),
+          });
+        }
+      } else {
+        for (let i = oldVal; i > newVal; i--) {
+          remove(i - 1);
+        }
+        for (let i = 0; i < newVal; i++) {
+          update(i, {
+            ticker: watchFields[i],
+            allocation:
+              100 % newVal === 0
+                ? 100 / newVal
+                : i === newVal - 1
+                ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
+                : (100 / newVal).toFixed(2),
+          });
+        }
       }
     } else {
-      for (let i = oldVal; i > newVal; i--) {
-        remove(i - 1);
-      }
-      for (let i = 0; i < newVal; i++) {
+      for (let i = 0; i < numberOfAssets; i++) {
         update(i, {
-          ticker: watchFields[i],
-          allocation:
-            100 % newVal === 0
-              ? 100 / newVal
-              : i === newVal - 1
-              ? (100 - (100 / newVal).toFixed(2) * (newVal - 1)).toFixed(2)
-              : (100 / newVal).toFixed(2),
+          ticker: portfolioStocks.map((stock) => stock.ticker)[i],
+          allocation: portfolioStocks.map((stock) => stock.allocation[i]),
         });
       }
+      const newNumberOfAssets = watch("numberOfAssets");
+      const watchFields = [];
+      for (let i = 0; i < newNumberOfAssets; i++) {
+        watchFields.push(watch(`assets[${i}]ticker`));
+      }
     }
-  }, [append, fields.length, numberOfAssets, remove, update, watch]);
+  }, [
+    append,
+    fields.length,
+    numberOfAssets,
+    remove,
+    update,
+    watch,
+    isAddMode,
+    portfolioStocks,
+  ]);
 
   const onSubmit = async (data) => {
     await apiClient.updateStockQuotes(data.assets);
@@ -71,7 +140,11 @@ const AddPortfolio = () => {
     navigate("/mystocks");
   };
 
-  return (
+  return error === true ? (
+    <p>{errorMessage}</p>
+  ) : !portfolio || !portfolioStocks ? (
+    <p>Loading...</p>
+  ) : (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="card m-3">
         <h5 className="card-header">
