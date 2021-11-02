@@ -24,7 +24,7 @@ const Portfolios = () => {
     }
   }, [loading, loadPortfolios]);
 
-  return portfolios.length === 0 ? (
+  return !portfolios.length ? (
     <section>
       <h2>You have not added any portfolio yet</h2>
     </section>

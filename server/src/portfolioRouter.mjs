@@ -10,15 +10,23 @@ router.get("/", async (request, response) => {
 });
 
 router.get("/:portfolioID", async (request, response) => {
-  const portfolio = await db.getPortfolio(request.params.portfolioID);
-  response.json(portfolio);
+  try {
+    const portfolio = await db.getPortfolio(request.params.portfolioID);
+    response.json(portfolio);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 router.get("/:portfolioID/stocks", async (request, response) => {
-  const portfolioStocks = await db.getPortfolioStocks(
-    request.params.portfolioID,
-  );
-  response.json(portfolioStocks);
+  try {
+    const portfolioStocks = await db.getPortfolioStocks(
+      request.params.portfolioID,
+    );
+    response.json(portfolioStocks);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 router.use(express.json());

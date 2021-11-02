@@ -12,12 +12,12 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
     [apiClient, setWatchlist],
   );
 
-  const handleDeleteFromWatchlist = async (stock) => {
-    await apiClient.deleteStockFromWatchlist(stock.symbol);
+  const handleDeleteFromWatchlist = async (ticker) => {
+    await apiClient.deleteStockFromWatchlist(ticker);
     loadWatchlist();
   };
 
-  return watchlist.length === 0 ? (
+  return !watchlist.length ? (
     <section>
       <h2>You don't have any stocks in watchlist yet</h2>
     </section>
@@ -34,7 +34,7 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
           {Number(stock.latestPrice).toFixed(2)}
           <button
             type="button"
-            onClick={() => handleDeleteFromWatchlist(stock)}
+            onClick={() => handleDeleteFromWatchlist(stock.symbol)}
           >
             delete from watchlist
           </button>
