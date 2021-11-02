@@ -25,82 +25,11 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.portfolio_stock (
-    portfolio_id integer,
-    stock_id integer,
-    shares integer,
-    purchase_price numeric,
-    open_price numeric,
-    average_cost numeric,
-    purchase_date timestamp without time zone,
-    updated_at timestamp without time zone DEFAULT now()
-);
-
-
---
--- Name: stocks; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.stocks (
-    id integer NOT NULL,
-    ticker character varying(10) NOT NULL,
+    portfolio_id integer NOT NULL,
+    allocation numeric,
     updated_at timestamp without time zone DEFAULT now(),
-    company_name text,
-    market_cap numeric,
-    pe_ratio numeric,
-    week52_high numeric,
-    week52_low numeric,
-    ytd_change numeric,
-    volume numeric,
-    latest_price numeric,
-    change_percent numeric,
-    historical_prices numeric[],
-    historical_dates date[]
+    ticker text NOT NULL
 );
-
-
---
--- Name: stocks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-ALTER TABLE public.stocks ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME public.stocks_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1
-);
-
-
---
--- Name: tasks; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.tasks (
-    id integer NOT NULL,
-    name text NOT NULL,
-    user_id integer NOT NULL
-);
-
-
---
--- Name: tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.tasks_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
 
 
 --
@@ -110,8 +39,9 @@ ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
 CREATE TABLE public.user_portfolio (
     portfolio_id integer NOT NULL,
     user_id integer,
-    portfolio_values numeric[],
-    portfolio_value_dates date[]
+    time_period text,
+    portfolio_name text,
+    initial_amount text
 );
 
 
@@ -162,46 +92,31 @@ ALTER TABLE public.users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 --
 
 CREATE TABLE public.watchlist (
+    id integer NOT NULL,
     user_id integer NOT NULL,
-    stock_id integer NOT NULL
+    ticker text NOT NULL
 );
 
 
 --
--- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: watchlist_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
+ALTER TABLE public.watchlist ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.watchlist_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
 --
 -- Data for Name: portfolio_stock; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.portfolio_stock (portfolio_id, stock_id, shares, purchase_price, open_price, average_cost, purchase_date, updated_at) FROM stdin;
-\.
-
-
---
--- Data for Name: stocks; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.stocks (id, ticker, updated_at, company_name, market_cap, pe_ratio, week52_high, week52_low, ytd_change, volume, latest_price, change_percent, historical_prices, historical_dates) FROM stdin;
-1	CASH0	2021-10-24 00:50:16.593797	Cash	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-\.
-
-
---
--- Data for Name: tasks; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.tasks (id, name, user_id) FROM stdin;
-1	🙏 Be nice when you add test entries	1
-2	⏲ Added entries will be reset every Sunday	1
-3	End white supremacy	1
-4	Advocate for living wage	1
-5	Provide universal health care	1
-6	test	2
+COPY public.portfolio_stock (portfolio_id, allocation, updated_at, ticker) FROM stdin;
 \.
 
 
@@ -209,7 +124,7 @@ COPY public.tasks (id, name, user_id) FROM stdin;
 -- Data for Name: user_portfolio; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.user_portfolio (portfolio_id, user_id, portfolio_values, portfolio_value_dates) FROM stdin;
+COPY public.user_portfolio (portfolio_id, user_id, time_period, portfolio_name, initial_amount) FROM stdin;
 \.
 
 
@@ -227,22 +142,8 @@ COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 -- Data for Name: watchlist; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.watchlist (user_id, stock_id) FROM stdin;
+COPY public.watchlist (id, user_id, ticker) FROM stdin;
 \.
-
-
---
--- Name: stocks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.stocks_id_seq', 1, true);
-
-
---
--- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.tasks_id_seq', 6, true);
 
 
 --
@@ -260,11 +161,18 @@ SELECT pg_catalog.setval('public.users_id_seq', 2, true);
 
 
 --
--- Name: stocks pk_stocks; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: watchlist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.stocks
-    ADD CONSTRAINT pk_stocks PRIMARY KEY (id);
+SELECT pg_catalog.setval('public.watchlist_id_seq', 1, false);
+
+
+--
+-- Name: portfolio_stock pk_portfolio_stock; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.portfolio_stock
+    ADD CONSTRAINT pk_portfolio_stock PRIMARY KEY (portfolio_id, ticker);
 
 
 --
@@ -280,23 +188,7 @@ ALTER TABLE ONLY public.user_portfolio
 --
 
 ALTER TABLE ONLY public.watchlist
-    ADD CONSTRAINT pk_watchlist PRIMARY KEY (user_id, stock_id);
-
-
---
--- Name: stocks stocks_ticker_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.stocks
-    ADD CONSTRAINT stocks_ticker_key UNIQUE (ticker);
-
-
---
--- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT pk_watchlist PRIMARY KEY (id);
 
 
 --
@@ -316,19 +208,11 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: tasks fk_user; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: watchlist watchlist_ticker_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
--- Name: portfolio_stock portfoliostock_stocks_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.portfolio_stock
-    ADD CONSTRAINT portfoliostock_stocks_fkey FOREIGN KEY (stock_id) REFERENCES public.stocks(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.watchlist
+    ADD CONSTRAINT watchlist_ticker_key UNIQUE (ticker);
 
 
 --
@@ -345,14 +229,6 @@ ALTER TABLE ONLY public.portfolio_stock
 
 ALTER TABLE ONLY public.user_portfolio
     ADD CONSTRAINT userportfolio_user_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: watchlist watchlist_stock_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.watchlist
-    ADD CONSTRAINT watchlist_stock_id_fkey FOREIGN KEY (stock_id) REFERENCES public.stocks(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

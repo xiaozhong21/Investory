@@ -1,10 +1,34 @@
-import pgp from "pg-promise";
+import pgPromise from "pg-promise";
 
 import { load_dotenv_if_exists } from "./utils.mjs";
 
 load_dotenv_if_exists();
 
+const pgp = pgPromise();
 const db = initDb();
+
+export const getWatchlist = (sub) =>
+  db.any(
+    "SELECT watchlist.* FROM watchlist LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
+    { sub },
+  );
+
+export const getPortfolios = (sub) =>
+  db.any(
+    "SELECT * FROM user_portfolio LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
+    { sub },
+  );
+
+export const getPortfolio = (portfolioID) =>
+  db.one("SELECT * FROM user_portfolio WHERE portfolio_id=$<portfolioID>", {
+    portfolioID,
+  });
+
+export const getPortfolioStocks = (portfolioID) =>
+  db.any(
+    "SELECT * FROM portfolio_stock ps LEFT JOIN user_portfolio up on ps.portfolio_id = up.portfolio_id WHERE up.portfolio_id = $<portfolioID>",
+    { portfolioID },
+  );
 
 export const addOrUpdateUser = (user) =>
   db.one(
@@ -17,57 +41,55 @@ export const addOrUpdateUser = (user) =>
     user,
   );
 
-export const addOrUpdateStock = (stock) =>
-  db.one(
-    `
-    INSERT INTO stocks(ticker, updated_at, company_name, market_cap, PE_ratio,
-      week52_high, week52_low, YTD_change, volume, latest_price, change_percent)
-    VALUES($<symbol>, NOW(), $<companyName>, $<marketCap>, $<peRatio>,
-      $<week52High>, $<week52Low>, $<ytdChange>, $<volume>, $<latestPrice>,
-      $<changePercent>)
-    ON CONFLICT (ticker) DO UPDATE
-      SET updated_at = NOW(), market_cap = $<marketCap>, PE_ratio = $<peRatio>,
-      week52_high = $<week52High>, week52_low = $<week52Low>,
-      YTD_change = $<ytdChange>, volume = $<volume>,
-      latest_price = $<latestPrice>, change_percent = $<changePercent>
-    RETURNING *
-    `,
-    stock,
-  );
-
-export const getWatchlist = (sub) =>
-  db.any(
-    "SELECT watchlist.*, stocks.* FROM watchlist LEFT JOIN stocks on stock_id=stocks.id LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
-    { sub },
-  );
-
 export const addStockToWatchlist = (sub, ticker) =>
   db.one(
-    `INSERT INTO watchlist(user_id, stock_id)
-      VALUES((SELECT id FROM users WHERE sub=$<sub>), (SELECT id FROM stocks WHERE ticker=$<ticker>))
+    `INSERT INTO watchlist(user_id, ticker)
+      VALUES((SELECT id FROM users WHERE sub=$<sub>), $<ticker>)
+      ON CONFLICT (ticker) DO NOTHING
       RETURNING *`,
     { sub, ticker },
+  );
+
+export const addUserPortfolio = (sub, portfolio) =>
+  db.one(
+    `INSERT INTO user_portfolio(user_id, portfolio_name, time_period, initial_amount)
+      VALUES((SELECT id FROM users WHERE sub=$<sub>), $<portfolioName>, $<timePeriod>, $<initialAmount>)
+      RETURNING *`,
+    { sub, ...portfolio },
+  );
+
+export const addPortfolioStocks = (stocksArray) => {
+  const columnSet = new pgp.helpers.ColumnSet(
+    ["portfolio_id", "ticker", "allocation"],
+    { table: "portfolio_stock" },
+  );
+  db.none(pgp.helpers.insert(stocksArray, columnSet));
+};
+
+export const updateUserPortfolio = (portfolioID, portfolio) =>
+  db.one(
+    `UPDATE user_portfolio
+      SET portfolio_name=$<portfolioName>, time_period=$<timePeriod>, initial_amount=$<initialAmount>
+      WHERE portfolio_id=$<portfolioID>
+      RETURNING *`,
+    { portfolioID, ...portfolio },
   );
 
 export const deleteStockFromWatchlist = (sub, ticker) =>
   db.none(
-    "DELETE FROM watchlist WHERE user_id = (SELECT id FROM users WHERE sub=$<sub>) AND stock_id = (SELECT id FROM stocks WHERE ticker=$<ticker>)",
+    "DELETE FROM watchlist WHERE user_id = (SELECT id FROM users WHERE sub=$<sub>) AND ticker=$<ticker>",
     { sub, ticker },
   );
 
-export const getPortfolios = (sub) =>
-  db.any(
-    "SELECT user_portfolio.* FROM user_portfolio LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
-    { sub },
-  );
+export const deletePortfolio = (portfolioID) =>
+  db.none("DELETE FROM user_portfolio WHERE portfolio_id = $<portfolioID>", {
+    portfolioID,
+  });
 
-export const addUserPortfolio = (sub) =>
-  db.one(
-    `INSERT INTO user_portfolio(user_id)
-      VALUES((SELECT id FROM users WHERE sub=$<sub>))
-      RETURNING *`,
-    { sub },
-  );
+export const deletePortfolioStocks = (portfolioID) =>
+  db.any("DELETE FROM portfolio_stock WHERE portfolio_id = $<portfolioID>", {
+    portfolioID,
+  });
 
 function initDb() {
   let connection;
@@ -86,5 +108,5 @@ function initDb() {
     };
   }
 
-  return pgp()(connection);
+  return pgPromise()(connection);
 }

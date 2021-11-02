@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
+import StockChart from "./StockChart";
+
 const StockDetail = ({ updateWatchListButton }) => {
   const { loading, apiClient } = useApi();
   const [stock, setStock] = React.useState();
@@ -40,8 +42,7 @@ const StockDetail = ({ updateWatchListButton }) => {
       {stock.companyName} | {stock.latestPrice} |{" "}
       {stock.changePercent.toFixed(2)}
       {updateWatchListButton(stock)}
-      <button type="button">Buy</button>
-      <button type="button">Sell</button>
+      <StockChart {...{ ticker }} />
     </div>
   );
 };

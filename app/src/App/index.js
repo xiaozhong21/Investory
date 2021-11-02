@@ -5,6 +5,8 @@ import { Routes, Route } from "react-router-dom";
 import AddPortfolio from "../AddPortfolio";
 import Discover from "../Discover";
 import MyStocks from "../MyStocks";
+import Portfolios from "../MyStocks/Portfolios";
+import PortfolioDetail from "../PortfolioDetail";
 import StockDetail from "../StockDetail";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
@@ -25,7 +27,6 @@ const App = () => {
   );
 
   const handleAddToWatchlist = async (stock) => {
-    await apiClient.addOrUpdateStock(stock);
     await apiClient.addStockToWatchlist(stock.symbol);
     loadWatchlist();
   };
@@ -36,7 +37,7 @@ const App = () => {
   };
 
   const updateWatchListButton = (stock) =>
-    !watchlist.map((stock) => stock.ticker).includes(stock.symbol) ? (
+    !watchlist.map((stock) => stock.symbol).includes(stock.symbol) ? (
       <button type="button" onClick={() => handleAddToWatchlist(stock)}>
         add to watchlist
       </button>
@@ -49,7 +50,6 @@ const App = () => {
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
       apiClient.addOrUpdateUser(user);
-      // apiClient.addUserPortfolio();
     }
   }, [isAuthenticated, user, loading, apiClient]);
 
@@ -60,7 +60,7 @@ const App = () => {
   }, [isAuthenticated, loading, loadWatchlist]);
 
   return (
-    <>
+    <div>
       <header>
         <Nav />
       </header>
@@ -93,12 +93,24 @@ const App = () => {
             }
           />
           <Route
+            path="/portfolios"
+            element={<Protected component={Portfolios} />}
+          />
+          <Route
+            path="/portfolios/:portfolio_id"
+            element={<Protected component={PortfolioDetail} />}
+          />
+          <Route
             path="/addPortfolio"
+            element={<Protected component={AddPortfolio} />}
+          />
+          <Route
+            path="/editPortfolio/:portfolio_id"
             element={<Protected component={AddPortfolio} />}
           />
         </Routes>
       </main>
-    </>
+    </div>
   );
 };
 

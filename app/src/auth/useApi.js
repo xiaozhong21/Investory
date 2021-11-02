@@ -7,16 +7,28 @@ const makeApi = (accessToken) => {
     getTopGainers: () => _get("/api/market/topGainers"),
     getMostActive: () => _get("/api/market/mostActive"),
     getStockQuote: (ticker) => _get(`/api/market/stock/${ticker}/quote`),
-    // getBatchStockQuotes: (tickerList) =>
-    //   _get(`/api/stocks/quotes/${tickerList}`),
     getWatchlist: () => _get("/api/watchlist"),
-    updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
-    addOrUpdateStock: (stock) => _post("/api/stocks", stock),
+    getPortfolios: () => _get("/api/portfolios"),
+    getPortfolio: (portfolioID) => _get(`/api/portfolios/${portfolioID}`),
+    getPortfolioStocks: (portfolioID) =>
+      _get(`/api/portfolios/${portfolioID}/stocks`),
+    getChartData: (timePeriod, tickers, allocations, initialAmount) =>
+      _get(
+        `/api/market/chart?tickers=${tickers}&range=${timePeriod}&allocations=${allocations}&initialAmount=${initialAmount}`,
+      ),
     addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
-    addUserPortfolio: () => _post("/api/portfolios"),
+    addUserPortfolio: (portfolio) => _post("/api/portfolios", portfolio),
+    addPortfolioStocks: (portfolioID, stocks) =>
+      _post(`/api/portfolios/${portfolioID}/stocks`, stocks),
+    updateStockQuotes: (stocks) => _post("/api/stocks/update-quotes", stocks),
+    updateUserPortfolio: (portfolioID, portfolio) =>
+      _post(`/api/portfolios/${portfolioID}`, portfolio),
     deleteStockFromWatchlist: (ticker) =>
       _delete(`/api/watchlist/stocks/${ticker}`),
+    deletePortfolio: (portfolioID) => _delete(`/api/portfolios/${portfolioID}`),
+    deletePortfolioStocks: (portfolioID) =>
+      _delete(`/api/portfolios/${portfolioID}/stocks`),
   };
 
   const _get = async (url) => (await _fetch(url)).json();
@@ -35,15 +47,6 @@ const makeApi = (accessToken) => {
   };
 
   const _delete = (url) => _fetch(url, { method: "DELETE" });
-
-  // const _fetch = (url, options) =>
-  //   fetch(url, {
-  //     ...options,
-  //     headers: {
-  //       ...(options?.headers ?? {}),
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   });
 
   const _fetch = async (url, options) => {
     const response = await fetch(url, {

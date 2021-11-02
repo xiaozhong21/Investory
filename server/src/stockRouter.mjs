@@ -2,7 +2,7 @@ import axios from "axios";
 import express from "express";
 
 import * as db from "./db.mjs";
-import { load_dotenv_if_exists } from "./utils.mjs";
+import { baseApiUrl, load_dotenv_if_exists } from "./utils.mjs";
 
 load_dotenv_if_exists();
 
@@ -18,11 +18,8 @@ router.post("/update-quotes", async (request, response) => {
   const stocks = request.body;
   const tickers = stocks.map((stock) => stock.ticker).join(", ");
   const updatedStocklist = await axios.get(
-    `https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${tickers}&types=quote&displayPercent=true&token=${process.env.IEX_API_KEY}`,
+    `${baseApiUrl}/market/batch?symbols=${tickers}&types=quote&displayPercent=true&token=${process.env.IEX_API_KEY}`,
   );
-  for (let key in updatedStocklist.data) {
-    await db.addOrUpdateStock(updatedStocklist.data[key].quote);
-  }
   response.json(updatedStocklist.data);
 });
 

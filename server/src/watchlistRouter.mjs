@@ -1,12 +1,24 @@
+import axios from "axios";
 import express from "express";
 
 import * as db from "./db.mjs";
+import { baseApiUrl } from "./utils.mjs";
 
 const router = express.Router();
 
 router.get("/", async (request, response) => {
   const watchlist = await db.getWatchlist(request.user.sub);
-  response.json(watchlist);
+  let updateWatchlistArray = [];
+  if (watchlist.length) {
+    const tickers = watchlist.map((stock) => stock.ticker).join(", ");
+    const updatedWatchlist = await axios.get(
+      `${baseApiUrl}/market/batch?symbols=${tickers}&types=quote&displayPercent=true&token=${process.env.IEX_API_KEY}`,
+    );
+    updateWatchlistArray = Object.values(updatedWatchlist.data).map(
+      (stock) => stock.quote,
+    );
+  }
+  response.json(updateWatchlistArray);
 });
 
 router.use(express.json());
