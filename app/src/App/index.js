@@ -7,13 +7,12 @@ import Discover from "../Discover";
 import Home from "../Home";
 import MyStocks from "../MyStocks";
 import Portfolios from "../MyStocks/Portfolios";
+import Nav from "../Nav";
 import PortfolioDetail from "../PortfolioDetail";
 import StockDetail from "../StockDetail";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
-import Nav from "../widgets/Nav";
-import SearchBar from "../widgets/SearchBar";
 
 import styles from "./styles.module.scss";
 
@@ -61,12 +60,11 @@ const App = () => {
   }, [isAuthenticated, loading, loadWatchlist]);
 
   return (
-    <div>
+    <div className={styles.app}>
       <header>
         <Nav />
       </header>
       <main>
-        <SearchBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route

@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import styles from "./styles.module.scss";
+import searchIcon from "./search@3x.png";
 
 const SearchBar = () => {
   const navigate = useNavigate();
@@ -20,18 +20,17 @@ const SearchBar = () => {
   };
 
   return (
-    <section className={styles.searchBar}>
-      <form {...{ onSubmit }}>
-        <label>
-          <input
-            onChange={(e) => setTicker(e.currentTarget.value)}
-            value={ticker}
-            placeholder="Search by Ticker"
-          />
-        </label>
-        <button disabled={!canAdd}>Search</button>
-      </form>
-    </section>
+    <form {...{ onSubmit }}>
+      <input
+        onChange={(e) => setTicker(e.currentTarget.value)}
+        value={ticker}
+        placeholder="Search by Ticker"
+        size="10"
+      />
+      <button disabled={!canAdd}>
+        <img src={searchIcon} alt="magnifying glasses" />
+      </button>
+    </form>
   );
 };
 
