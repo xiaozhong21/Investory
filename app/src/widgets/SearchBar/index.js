@@ -2,6 +2,8 @@ import * as React from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import styles from "./styles.module.scss";
+
 const SearchBar = () => {
   const navigate = useNavigate();
 
@@ -18,16 +20,18 @@ const SearchBar = () => {
   };
 
   return (
-    <form {...{ onSubmit }}>
-      <label>
-        <input
-          onChange={(e) => setTicker(e.currentTarget.value)}
-          value={ticker}
-          placeholder="Search by Ticker"
-        />
-      </label>
-      <button disabled={!canAdd}>Search</button>
-    </form>
+    <section className={styles.searchBar}>
+      <form {...{ onSubmit }}>
+        <label>
+          <input
+            onChange={(e) => setTicker(e.currentTarget.value)}
+            value={ticker}
+            placeholder="Search by Ticker"
+          />
+        </label>
+        <button disabled={!canAdd}>Search</button>
+      </form>
+    </section>
   );
 };
 

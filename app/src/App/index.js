@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 import AddPortfolio from "../AddPortfolio";
 import Discover from "../Discover";
+import Home from "../Home";
 import MyStocks from "../MyStocks";
 import Portfolios from "../MyStocks/Portfolios";
 import PortfolioDetail from "../PortfolioDetail";
@@ -111,20 +112,6 @@ const App = () => {
         </Routes>
       </main>
     </div>
-  );
-};
-
-const Home = () => {
-  const { isAuthenticated } = useAuth0();
-
-  return (
-    <>
-      <header className={styles.header}>
-        <h1>{process.env.REACT_APP_TITLE}</h1>
-        <p>{process.env.REACT_APP_SUBTITLE}</p>
-      </header>
-      {isAuthenticated ? "placeholder" : null}
-    </>
   );
 };
 

@@ -7,12 +7,25 @@ import styles from "./styles.module.scss";
 
 const Nav = () => (
   <nav className={styles.nav}>
-    <NavLink to="/" end>
-      Home
-    </NavLink>{" "}
-    | <NavLink to="discover">Discover</NavLink> |{" "}
-    <NavLink to="mystocks">My Stocks</NavLink> |{" "}
-    <NavLink to="addPortfolio">Backtest Portfolio</NavLink> <Auth />
+    <ul>
+      <li>
+        <NavLink to="/" end>
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="discover">Discover</NavLink>
+      </li>
+      <li>
+        <NavLink to="mystocks">My Stocks</NavLink>
+      </li>
+      <li>
+        <NavLink to="addPortfolio">Backtest Portfolio</NavLink>
+      </li>
+      <li>
+        <Auth />
+      </li>
+    </ul>
   </nav>
 );
 

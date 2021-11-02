@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+
 body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  margin-left: 30px;
-  margin-right: 30px;
+  font-family: "Open Sans", sans-serif;
+  margin: 0 auto;
+  // background-color: #eeeeee;
 }
 
 html {
@@ -14,7 +16,31 @@ html {
   box-sizing: inherit;
 }
 
+main {
+  padding: 0;
+  margin-top: 30px;
+}
+
 h1 {
-  font-size: 1.25rem;
+  font-size: 2rem;
   margin: 1.5rem 0 0.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+button {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(119, 51, 234);
+  color: white;
+
+  &:hover {
+    background-color: white;
+    color: rgb(119, 51, 234);
+    border: rgb(119, 51, 234) 1px solid;
+    border-radius: 5%;
+  }
 }
