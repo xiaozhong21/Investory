@@ -8,15 +8,15 @@ const router = express.Router();
 
 router.get("/", async (request, response) => {
   const watchlist = await db.getWatchlist(request.user.sub);
-  const updateWatchlistArray = [];
+  let updateWatchlistArray = [];
   if (watchlist.length) {
     const tickers = watchlist.map((stock) => stock.ticker).join(", ");
     const updatedWatchlist = await axios.get(
       `${baseApiUrl}/market/batch?symbols=${tickers}&types=quote&displayPercent=true&token=${process.env.IEX_API_KEY}`,
     );
-    for (let stock in updatedWatchlist.data) {
-      updateWatchlistArray.push(updatedWatchlist.data[stock].quote);
-    }
+    updateWatchlistArray = Object.values(updatedWatchlist.data).map(
+      (stock) => stock.quote,
+    );
   }
   response.json(updateWatchlistArray);
 });

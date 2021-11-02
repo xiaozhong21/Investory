@@ -36,14 +36,12 @@ router.post("/:portfolioID", async (request, response) => {
 });
 
 router.post("/:portfolioID/stocks", async (request, response) => {
-  const stocksArray = request.body;
-  for (let stock of stocksArray) {
-    await db.addPortfolioStocks(
-      request.params.portfolioID,
-      stock.ticker.toUpperCase(),
-      stock.allocation,
-    );
-  }
+  const stocksArray = request.body.map((stock) => ({
+    portfolio_id: request.params.portfolioID,
+    ticker: stock.ticker.toUpperCase(),
+    allocation: stock.allocation,
+  }));
+  await db.addPortfolioStocks(stocksArray);
   response.status(201).json(stocksArray);
 });
 

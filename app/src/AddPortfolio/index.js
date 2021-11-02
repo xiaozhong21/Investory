@@ -121,6 +121,7 @@ const AddPortfolio = () => {
     if (sumAllocations !== 100) {
       alert("Asset allocations must sum up to 100");
     } else if (isAddMode) {
+      console.log(data.assets);
       const portfolio = await apiClient.addUserPortfolio(data);
       apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
       navigate("/mystocks");

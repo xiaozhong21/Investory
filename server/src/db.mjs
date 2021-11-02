@@ -1,9 +1,10 @@
-import pgp from "pg-promise";
+import pgPromise from "pg-promise";
 
 import { load_dotenv_if_exists } from "./utils.mjs";
 
 load_dotenv_if_exists();
 
+const pgp = pgPromise();
 const db = initDb();
 
 export const getWatchlist = (sub) =>
@@ -57,13 +58,13 @@ export const addUserPortfolio = (sub, portfolio) =>
     { sub, ...portfolio },
   );
 
-export const addPortfolioStocks = (portfolioID, ticker, allocation) =>
-  db.one(
-    `INSERT INTO portfolio_stock(portfolio_id, ticker, allocation)
-      VALUES($<portfolioID>, $<ticker>, $<allocation>)
-      RETURNING *`,
-    { portfolioID, ticker, allocation },
+export const addPortfolioStocks = (stocksArray) => {
+  const columnSet = new pgp.helpers.ColumnSet(
+    ["portfolio_id", "ticker", "allocation"],
+    { table: "portfolio_stock" },
   );
+  db.none(pgp.helpers.insert(stocksArray, columnSet));
+};
 
 export const updateUserPortfolio = (portfolioID, portfolio) =>
   db.one(
@@ -107,5 +108,5 @@ function initDb() {
     };
   }
 
-  return pgp()(connection);
+  return pgPromise()(connection);
 }
