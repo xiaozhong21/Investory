@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import searchIcon from "./search.svg";
+import searchIcon from "../images/search.svg";
 
 const SearchBar = () => {
   const navigate = useNavigate();

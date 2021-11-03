@@ -3,11 +3,11 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
+import fileOpen from "../images/fileOpen.svg";
+import refresh from "../images/refresh.svg";
+import trashCan from "../images/trashCan.svg";
 
-import fileOpen from "./fileOpen.svg";
-import refresh from "./refresh.svg";
 import styles from "./styles.module.scss";
-import trashCan from "./trashCan.svg";
 
 const Watchlist = ({ watchlist, setWatchlist }) => {
   const { apiClient } = useApi();

@@ -1,6 +1,7 @@
-import discoverIdeas from "./discoverIdeas.png";
-import moneyTree from "./moneyTree.png";
-import stockChart from "./stockChart.png";
+import discoverIdeas from "../images/discoverIdeas.png";
+import moneyTree from "../images/moneyTree.png";
+import stockChart from "../images/stockChart.png";
+
 import styles from "./styles.module.scss";
 
 const Home = () => {

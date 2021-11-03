@@ -3,9 +3,9 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
+import burnFire from "../images/burnFire.svg";
+import lineChartUp from "../images/lineChartUp.svg";
 
-import burnFire from "./burnFire.svg";
-import lineChartUp from "./lineChartUp.svg";
 import styles from "./styles.module.scss";
 
 const Discover = ({ updateWatchListButton }) => {

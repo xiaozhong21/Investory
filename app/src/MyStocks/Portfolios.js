@@ -3,8 +3,8 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
+import diamond from "../images/diamond.svg";
 
-import diamond from "./diamond.svg";
 import styles from "./styles.module.scss";
 
 const Portfolios = () => {

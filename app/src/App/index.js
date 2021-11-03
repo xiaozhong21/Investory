@@ -13,9 +13,9 @@ import StockDetail from "../StockDetail";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
+import emptyHeart from "../images/emptyHeart.svg";
+import filledHeart from "../images/filledHeart.svg";
 
-import emptyHeart from "./emptyHeart.svg";
-import filledHeart from "./filledHeart.svg";
 import styles from "./styles.module.scss";
 
 const App = () => {
