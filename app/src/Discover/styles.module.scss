@@ -55,19 +55,78 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        font-weight: 1000;
 
         .symbol {
           background: linear-gradient(90deg, #7c83ff 30%, #7cc1ff);
           border-radius: 10px;
           border: none;
           color: white;
-          font-weight: 700px;
+          font-weight: 1000;
         }
 
         .changePercent {
           color: rgb(102, 249, 218);
         }
       }
+
+      img {
+        filter: brightness(0) saturate(100%) invert(69%) sepia(75%)
+          saturate(204%) hue-rotate(305deg) brightness(98%) contrast(107%);
+      }
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: 2rem auto;
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      max-width: 100%;
+      margin-right: 2rem;
+      text-align: center;
+    }
+
+    tr:nth-child(even) {
+      background-color: #d4c8e4;
+    }
+
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      background-color: #4d148c;
+      color: white;
+    }
+
+    a {
+      text-decoration: none;
+      color: darkblue;
+      font-size: smaller;
+      font-weight: 1000;
+
+      &:hover {
+        color: rgb(133, 133, 133);
+      }
+    }
+
+    img {
+      filter: brightness(0) saturate(100%) invert(15%) sepia(96%)
+        saturate(4750%) hue-rotate(324deg) brightness(104%) contrast(111%);
+    }
+
+    .companyName {
+      text-align: left;
+    }
+
+    .positive {
+      color: green;
+    }
+
+    .negative {
+      color: red;
     }
   }
 
@@ -81,14 +140,6 @@
 
     &:hover {
       cursor: pointer;
-    }
-
-    img {
-      // filter: invert(17%) sepia(86%) saturate(6859%) hue-rotate(323deg)
-      //   brightness(101%) contrast(105%);
-      filter: brightness(0) saturate(100%) invert(69%) sepia(75%) saturate(204%)
-        hue-rotate(305deg) brightness(98%) contrast(107%);
-      // color: #ffb6c1;
     }
   }
 }

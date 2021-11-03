@@ -65,16 +65,46 @@ const TopGainersList = ({ topGainers, updateWatchListButton }) => (
 );
 
 const MostActiveList = ({ mostActive, updateWatchListButton }) => (
-  <ul>
-    {mostActive.map((stock) => (
-      <li key={stock.symbol}>
-        <Link to={`/stocks/${stock.symbol}`}>{stock.symbol}</Link> |{" "}
-        {stock.companyName} | {stock.changePercent?.toFixed(2)} |
-        {stock.latestPrice?.toFixed(2)}
-        {updateWatchListButton(stock)}
-      </li>
-    ))}
-  </ul>
+  <table>
+    <thead>
+      <tr>
+        <th>Ticker</th>
+        <th>Company Name</th>
+        <th>Change from Last Day</th>
+        <th>Latest Price</th>
+        <th>Watchlist Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {mostActive.map((stock) => (
+        <tr key={stock.symbol}>
+          <td>
+            <Link to={`/stocks/${stock.symbol}`}>{stock.symbol}</Link>
+          </td>
+          <td className={styles.companyName}>
+            <Link to={`/stocks/${stock.symbol}`}>{stock.companyName}</Link>
+          </td>
+          <td>
+            <Link
+              to={`/stocks/${stock.symbol}`}
+              className={
+                stock.changePercent > 0 ? styles.positive : styles.negative
+              }
+            >
+              {stock.changePercent > 0 ? "+" : null}
+              {stock.changePercent?.toFixed(2)}%
+            </Link>
+          </td>
+          <td>
+            <Link to={`/stocks/${stock.symbol}`}>
+              {stock.latestPrice?.toFixed(2)}
+            </Link>
+          </td>
+          <td>{updateWatchListButton(stock)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
 );
 
 export default Discover;
