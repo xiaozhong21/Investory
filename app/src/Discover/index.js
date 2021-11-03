@@ -48,11 +48,16 @@ const Discover = ({ updateWatchListButton }) => {
 };
 
 const TopGainersList = ({ topGainers, updateWatchListButton }) => (
-  <ul>
+  <ul className={styles.gainers}>
     {topGainers.map((stock) => (
       <li key={stock.symbol}>
-        <Link to={`/stocks/${stock.symbol}`}>{stock.symbol}</Link> |{" "}
-        {stock.changePercent?.toFixed(2)} |{stock.latestPrice?.toFixed(2)}
+        <Link to={`/stocks/${stock.symbol}`}>
+          <button className={styles.symbol}>{stock.symbol}</button>
+          <span className={styles.changePercent}>
+            +{stock.changePercent?.toFixed(2)}%
+          </span>
+          <span>${stock.latestPrice?.toFixed(2)}</span>
+        </Link>
         {updateWatchListButton(stock)}
       </li>
     ))}

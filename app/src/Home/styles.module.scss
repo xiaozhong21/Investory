@@ -5,10 +5,8 @@
   justify-content: center;
   margin-top: 50px;
 
-  // margin-top: 20px;
-
   .slogan {
-    background-color: rgb(35, 9, 57);
+    background-color: rgba(46, 12, 74, 0.996);
     padding: 70px;
     display: flex;
     flex-direction: column;
@@ -70,7 +68,8 @@
     }
   }
 
-  .backtest {
-    background-color: #eeeeee;
+  .discover,
+  .myStocks {
+    background-color: white;
   }
 }

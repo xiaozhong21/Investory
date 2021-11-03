@@ -1,7 +1,5 @@
 .discover {
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 100px;
+  margin: 100px 40px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -17,6 +15,80 @@
 
     span {
       color: #703de1;
+    }
+  }
+
+  .gainers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px auto;
+    padding: 0;
+
+    li {
+      color: white;
+      min-width: 150px;
+      display: flex;
+      flex-direction: column;
+      margin: 10px auto;
+      border-radius: 10px;
+      align-items: center;
+      max-width: 30%;
+      padding: 20px;
+      background-image: linear-gradient(
+        140deg,
+        #150050 0%,
+        #3d2c8d 25%,
+        #916bbf 50%,
+        #8236cb 75%
+      );
+
+      &:hover {
+        box-shadow: 0 0 10px #fff, -2px 0 10px #f0f, 2px 0 10px #0ff;
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .symbol {
+          background: linear-gradient(90deg, #7c83ff 30%, #7cc1ff);
+          border-radius: 10px;
+          border: none;
+          color: white;
+          font-weight: 700px;
+        }
+
+        .changePercent {
+          color: rgb(102, 249, 218);
+        }
+      }
+    }
+  }
+
+  button[type="button"] {
+    padding: 0;
+    border: none;
+    background: none;
+    color: white;
+    padding: 2px;
+    outline: inherit;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    img {
+      // filter: invert(17%) sepia(86%) saturate(6859%) hue-rotate(323deg)
+      //   brightness(101%) contrast(105%);
+      filter: brightness(0) saturate(100%) invert(69%) sepia(75%) saturate(204%)
+        hue-rotate(305deg) brightness(98%) contrast(107%);
+      // color: #ffb6c1;
     }
   }
 }

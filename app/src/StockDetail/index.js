@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import useApi from "../auth/useApi";
 
 import StockChart from "./StockChart";
+import styles from "./styles.module.scss";
 
 const StockDetail = ({ updateWatchListButton }) => {
   const { loading, apiClient } = useApi();
@@ -37,7 +38,7 @@ const StockDetail = ({ updateWatchListButton }) => {
   ) : !stock ? (
     <p>Loading...</p>
   ) : (
-    <div>
+    <div className={styles.stockDetail}>
       <h2>{ticker}</h2>
       {stock.companyName} | {stock.latestPrice} |{" "}
       {stock.changePercent.toFixed(2)}

@@ -14,6 +14,8 @@ import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
 
+import emptyHeart from "./emptyHeart.svg";
+import filledHeart from "./filledHeart.svg";
 import styles from "./styles.module.scss";
 
 const App = () => {
@@ -38,12 +40,20 @@ const App = () => {
 
   const updateWatchListButton = (stock) =>
     !watchlist.map((stock) => stock.symbol).includes(stock.symbol) ? (
-      <button type="button" onClick={() => handleAddToWatchlist(stock)}>
-        add to watchlist
+      <button
+        type="button"
+        onClick={() => handleAddToWatchlist(stock)}
+        title="Add to Watchlist"
+      >
+        <img src={emptyHeart} alt="add to watchlist" />
       </button>
     ) : (
-      <button type="button" onClick={() => handleDeleteFromWatchlist(stock)}>
-        delete from watchlist
+      <button
+        type="button"
+        onClick={() => handleDeleteFromWatchlist(stock)}
+        title="Delete from Watchlist"
+      >
+        <img src={filledHeart} alt="delete from watchlist" />
       </button>
     );
 

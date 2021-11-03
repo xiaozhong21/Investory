@@ -5,6 +5,8 @@ import Highcharts from "highcharts/highstock";
 
 import useApi from "../auth/useApi";
 
+import styles from "./styles.module.scss";
+
 require("highcharts/modules/exporting")(Highcharts);
 
 const StockChart = ({ ticker }) => {
@@ -60,6 +62,7 @@ const StockChart = ({ ticker }) => {
         highcharts={Highcharts}
         constructorType={"stockChart"}
         options={options}
+        className={styles.stockChart}
       />
     </div>
   );
