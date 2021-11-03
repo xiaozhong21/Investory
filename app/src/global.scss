@@ -1,9 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;700&family=Roboto:wght@500&display=swap");
 
 body {
   font-family: "Open Sans", sans-serif;
-  margin: 0 auto;
-  // background-color: #eeeeee;
+  margin: 0;
 }
 
 html {
@@ -18,7 +17,6 @@ html {
 
 main {
   padding: 0;
-  margin-top: 100px;
 }
 
 h1 {
@@ -28,4 +26,8 @@ h1 {
 
 h2 {
   font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1rem;
 }

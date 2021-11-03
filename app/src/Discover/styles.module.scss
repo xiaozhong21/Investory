@@ -1,0 +1,22 @@
+.discover {
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  .header {
+    display: flex;
+    gap: 10px;
+
+    img {
+      filter: invert(30%) sepia(77%) saturate(1636%) hue-rotate(240deg)
+        brightness(85%) contrast(109%);
+    }
+
+    span {
+      color: #703de1;
+    }
+  }
+}

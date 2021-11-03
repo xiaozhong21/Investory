@@ -1,6 +1,7 @@
 nav {
   ul {
-    background-color: white;
+    z-index: 999;
+    background-color: #4d148c;
     text-align: center;
     list-style: none;
     margin: 0 auto;
@@ -19,20 +20,18 @@ nav {
     padding: 5px;
 
     a {
-      color: black;
+      color: white;
       text-decoration: none;
       padding: 5px;
 
       &:hover {
-        color: #703de1;
+        color: yellow;
         border-bottom: #70e2ac 2px solid;
         text-decoration: none;
       }
     }
     a[class="active"] {
-      background-color: #703de1;
-      border-radius: 10%;
-      color: white;
+      border-bottom: #70e2ac 2px solid;
       text-decoration: none;
     }
 
@@ -61,17 +60,25 @@ nav {
       }
     }
     form {
-      input::placeholder {
-        font-size: 12px;
+      input {
+        border-radius: 5%;
+        &::placeholder {
+          font-size: 12px;
+        }
       }
+
       img {
         width: 1em;
         height: 1em;
       }
-      button:enabled {
+
+      button {
+        background-color: lightpink;
         border-radius: 5px;
-        background-color: rgb(173, 144, 223);
-        color: white;
+
+        &:enabled {
+          background-color: hotpink;
+        }
       }
     }
   }

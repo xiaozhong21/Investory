@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
-import "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 const AddPortfolio = () => {
   const { loading, apiClient } = useApi();
@@ -134,7 +134,7 @@ const AddPortfolio = () => {
   };
 
   const formContent = (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.addPortfolio}>
       <div className="card m-3">
         <h5 className="card-header">
           {isAddMode

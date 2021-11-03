@@ -2,11 +2,32 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
-  gap: 40px;
+  justify-content: center;
+  margin-top: 50px;
 
-  span {
-    color: #703de1;
+  // margin-top: 20px;
+
+  .slogan {
+    background-color: rgb(35, 9, 57);
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    h1 {
+      color: rgb(193, 186, 235);
+      font-weight: 700;
+    }
+
+    p {
+      color: white;
+    }
+
+    span {
+      font-size: 40px;
+      font-weight: 1000;
+      color: white;
+    }
   }
 
   .mainSection {
@@ -18,10 +39,27 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       gap: 30px;
 
       p {
         text-align: left;
+      }
+
+      button {
+        width: 100px;
+        border: none;
+        border-radius: 5px;
+        background-color: rgb(119, 51, 234);
+        color: white;
+        padding: 2px;
+
+        &:hover {
+          background-color: white;
+          color: rgb(119, 51, 234);
+          border: rgb(119, 51, 234) 1px solid;
+          border-radius: 5%;
+        }
       }
     }
 
@@ -30,5 +68,9 @@
       width: 30%;
       height: 30%;
     }
+  }
+
+  .backtest {
+    background-color: #eeeeee;
   }
 }
