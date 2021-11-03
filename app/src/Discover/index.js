@@ -31,14 +31,14 @@ const Discover = ({ updateWatchListButton }) => {
     <section className={styles.discover}>
       <div>
         <h2 className={styles.header}>
-          <img src={lineChartUp} alt="uptrend line chart" />
+          <img src={lineChartUp} alt="uptrend line chart icon" />
           <span>Top Gainers</span>
         </h2>
         <TopGainersList {...{ topGainers, updateWatchListButton }} />
       </div>
       <div>
         <h2 className={styles.header}>
-          <img src={burnFire} alt="uptrend line chart" />
+          <img src={burnFire} alt="fire icon" />
           <span>Most Active</span>
         </h2>
         <MostActiveList {...{ mostActive, updateWatchListButton }} />
@@ -54,7 +54,7 @@ const TopGainersList = ({ topGainers, updateWatchListButton }) => (
         <Link to={`/stocks/${stock.symbol}`}>
           <button className={styles.symbol}>{stock.symbol}</button>
           <span className={styles.changePercent}>
-            +{stock.changePercent?.toFixed(2)}%
+            +{stock.changePercent?.toFixed(2) + "%"}
           </span>
           <span>${stock.latestPrice?.toFixed(2)}</span>
         </Link>
@@ -78,10 +78,10 @@ const MostActiveList = ({ mostActive, updateWatchListButton }) => (
     <tbody>
       {mostActive.map((stock) => (
         <tr key={stock.symbol}>
-          <td>
+          <td className={styles.leftAlign}>
             <Link to={`/stocks/${stock.symbol}`}>{stock.symbol}</Link>
           </td>
-          <td className={styles.companyName}>
+          <td className={styles.leftAlign}>
             <Link to={`/stocks/${stock.symbol}`}>{stock.companyName}</Link>
           </td>
           <td>
@@ -92,7 +92,9 @@ const MostActiveList = ({ mostActive, updateWatchListButton }) => (
               }
             >
               {stock.changePercent > 0 ? "+" : null}
-              {stock.changePercent?.toFixed(2)}%
+              {stock.changePercent
+                ? stock.changePercent.toFixed(2) + "%"
+                : "N/A"}
             </Link>
           </td>
           <td>

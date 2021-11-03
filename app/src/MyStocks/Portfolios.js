@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
+import diamond from "./diamond.svg";
+import styles from "./styles.module.scss";
+
 const Portfolios = () => {
   const { loading, apiClient } = useApi();
   const [portfolios, setPortfolios] = React.useState([]);
@@ -30,7 +33,10 @@ const Portfolios = () => {
     </section>
   ) : (
     <section>
-      <h2>Portfolios</h2>
+      <h2 className={styles.header}>
+        <img src={diamond} alt="diamond icon" />
+        <span>Portfolios</span>
+      </h2>
       {portfolios.map(
         ({ portfolio_id, portfolio_name, time_period, initial_amount }) => (
           <div key={portfolio_id}>

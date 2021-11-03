@@ -9,8 +9,8 @@
     gap: 10px;
 
     img {
-      filter: invert(30%) sepia(77%) saturate(1636%) hue-rotate(240deg)
-        brightness(85%) contrast(109%);
+      filter: brightness(0) saturate(100%) invert(30%) sepia(77%)
+        saturate(1636%) hue-rotate(240deg) brightness(85%) contrast(109%);
     }
 
     span {
@@ -117,7 +117,7 @@
         saturate(4750%) hue-rotate(324deg) brightness(104%) contrast(111%);
     }
 
-    .companyName {
+    .leftAlign {
       text-align: left;
     }
 

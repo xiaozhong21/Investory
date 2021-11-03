@@ -1,8 +1,84 @@
 .myStocks {
-  margin-top: 100px;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin: 100px 40px;
   display: flex;
   flex-direction: column;
   gap: 40px;
+
+  .header {
+    display: flex;
+    gap: 10px;
+
+    img[alt="open file icon"],
+    img[alt="diamond icon"] {
+      filter: brightness(0) saturate(100%) invert(30%) sepia(77%)
+        saturate(1636%) hue-rotate(240deg) brightness(85%) contrast(109%);
+    }
+
+    span {
+      color: #703de1;
+    }
+  }
+
+  .watchlist {
+    table {
+      border-collapse: collapse;
+      margin: 2rem auto;
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 0.5rem;
+        max-width: 100%;
+        margin-right: 2rem;
+        text-align: center;
+      }
+
+      tr:nth-child(even) {
+        background-color: #d4c8e4;
+      }
+
+      th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background-color: #4d148c;
+        color: white;
+      }
+
+      a {
+        text-decoration: none;
+        color: darkblue;
+        font-size: smaller;
+        font-weight: 1000;
+
+        &:hover {
+          color: rgb(133, 133, 133);
+        }
+      }
+
+      .leftAlign {
+        text-align: left;
+      }
+
+      .positive {
+        color: green;
+      }
+
+      .negative {
+        color: red;
+      }
+    }
+
+    button[type="button"] {
+      padding: 0;
+      border: none;
+      background: none;
+      color: white;
+      padding: 2px;
+      outline: inherit;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }

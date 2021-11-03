@@ -45,7 +45,7 @@ const App = () => {
         onClick={() => handleAddToWatchlist(stock)}
         title="Add to Watchlist"
       >
-        <img src={emptyHeart} alt="add to watchlist" />
+        <img src={emptyHeart} alt="an empty heart" />
       </button>
     ) : (
       <button
@@ -53,7 +53,7 @@ const App = () => {
         onClick={() => handleDeleteFromWatchlist(stock)}
         title="Delete from Watchlist"
       >
-        <img src={filledHeart} alt="delete from watchlist" />
+        <img src={filledHeart} alt="a filled heart" />
       </button>
     );
 
