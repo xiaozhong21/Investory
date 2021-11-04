@@ -28,7 +28,7 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
     </section>
   ) : (
     <section className={styles.watchlist}>
-      <h2 className={styles.header}>
+      <h2 className={`${styles.header} ${styles.watchlistHeader}`}>
         <img src={fileOpen} alt="open file icon" />
         <span>Watchlist</span>
         <button
@@ -44,9 +44,9 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
           <tr>
             <th>Ticker</th>
             <th>Company Name</th>
-            <th>Change from Last Day</th>
+            <th>Daily Change</th>
             <th>Latest Price</th>
-            <th>Delete from Watchlist</th>
+            <th>Unwatch</th>
           </tr>
         </thead>
         <tbody>
@@ -73,7 +73,7 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
               </td>
               <td>
                 <Link to={`/stocks/${stock.symbol}`}>
-                  {stock.latestPrice?.toFixed(2)}
+                  ${stock.latestPrice?.toFixed(2)}
                 </Link>
               </td>
               <td>

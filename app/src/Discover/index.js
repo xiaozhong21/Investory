@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 import burnFire from "../images/burnFire.svg";
-import lineChartUp from "../images/lineChartUp.svg";
+import trendingUp from "../images/trendingUp.svg";
 
 import styles from "./styles.module.scss";
 
@@ -31,7 +31,7 @@ const Discover = ({ updateWatchListButton }) => {
     <section className={styles.discover}>
       <div>
         <h2 className={styles.header}>
-          <img src={lineChartUp} alt="uptrend line chart icon" />
+          <img src={trendingUp} alt="uptrend icon" />
           <span>Top Gainers</span>
         </h2>
         <TopGainersList {...{ topGainers, updateWatchListButton }} />
@@ -70,7 +70,7 @@ const MostActiveList = ({ mostActive, updateWatchListButton }) => (
       <tr>
         <th>Ticker</th>
         <th>Company Name</th>
-        <th>Change from Last Day</th>
+        <th>Daily Change</th>
         <th>Latest Price</th>
         <th>Watchlist Status</th>
       </tr>
@@ -99,7 +99,7 @@ const MostActiveList = ({ mostActive, updateWatchListButton }) => (
           </td>
           <td>
             <Link to={`/stocks/${stock.symbol}`}>
-              {stock.latestPrice?.toFixed(2)}
+              ${stock.latestPrice?.toFixed(2)}
             </Link>
           </td>
           <td>{updateWatchListButton(stock)}</td>

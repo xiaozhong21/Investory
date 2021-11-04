@@ -19,7 +19,47 @@
     }
   }
 
+  .portfolios {
+    .portfolioCard {
+      // margin-top: 30px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        border: red 1px solid;
+        width: 100%;
+
+        .portfolioIcons {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .portfolioComposition {
+          width: 70%;
+          border: blue 1px solid;
+        }
+      }
+    }
+  }
+
   .watchlist {
+    margin-top: 40px;
+
+    .watchlistHeader {
+      display: flex;
+      align-items: center;
+    }
+
     table {
       border-collapse: collapse;
       margin: 2rem auto;
