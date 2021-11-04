@@ -136,7 +136,7 @@ const AddPortfolio = () => {
   const formContent = (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.addPortfolio}>
       <div className="card m-3">
-        <h5 className="card-header">
+        <h5 className={`card-header ${styles.cardHeader}`}>
           {isAddMode
             ? `Create Your Portfolio to Start Backtesting`
             : `Edit Your Portfolio`}
@@ -269,7 +269,7 @@ const AddPortfolio = () => {
         </div>
         <div className="card-footer text-center border-top-0">
           <button type="submit" className="btn btn-primary mr-1">
-            Analyze Portfolio
+            {isAddMode ? "Analyze Portfolio" : "Edit Portfolio"}
           </button>
           <button
             onClick={() => reset()}

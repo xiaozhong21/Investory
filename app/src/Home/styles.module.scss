@@ -45,17 +45,16 @@
       }
 
       button {
-        width: 100px;
-        border: none;
+        width: 120px;
+        border: rgb(119, 51, 234) 1px solid;
         border-radius: 5px;
         background-color: rgb(119, 51, 234);
         color: white;
-        padding: 2px;
+        padding: 3px;
 
         &:hover {
           background-color: white;
           color: rgb(119, 51, 234);
-          border: rgb(119, 51, 234) 1px solid;
           border-radius: 5%;
         }
       }
