@@ -128,17 +128,17 @@ const PortfolioStocks = ({
   const options = {
     chart: {
       type: "variablepie",
-      // margin: 30,
-      padding: 0,
       backgroundColor: "transparent",
       style: {
-        cursor: "pointer",
+        maxWidth: "100%",
+        margin: "auto",
+        padding: "3% 0 7% 0",
       },
     },
     colors: [
-      "#E9A6A6",
       "#BC8CF2",
       "#24CBE5",
+      "#E9A6A6",
       "#64E572",
       "#FF9655",
       "#FFF263",
@@ -158,6 +158,7 @@ const PortfolioStocks = ({
       text: portfolio_name ? portfolio_name : "Portfolio " + portfolio_id,
       style: {
         color: "#703de1",
+        fontSize: "20px",
       },
     },
     subtitle: {
@@ -166,17 +167,19 @@ const PortfolioStocks = ({
         convertTimePeriod(time_period) +
         "<br>Initial Amount: $" +
         Number(initial_amount).toLocaleString(),
+      style: {
+        fontSize: "15px",
+      },
     },
     tooltip: {
       headerFormat: "",
       pointFormat:
         '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
-        "Allocation (%): <b>{point.y}</b><br/>",
+        "Allocation: <b>{point.y}%",
     },
     series: [
       {
         innerSize: "30%",
-        // data: portfolioStocks && portfolioStocks,
         data: formattedData,
       },
     ],
@@ -192,7 +195,7 @@ const PortfolioStocks = ({
     <HighchartsReact
       highcharts={Highcharts}
       options={options}
-      className={styles.pieChart}
+      containerProps={{ style: { padding: 0 } }}
     />
   );
 };
