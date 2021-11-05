@@ -11,7 +11,7 @@ const Nav = () => (
     <ul>
       <li>
         <NavLink to="/" end>
-          Home
+          About Inve<span>$</span>tory
         </NavLink>
       </li>
       <li>

@@ -25,6 +25,10 @@
       font-size: 40px;
       font-weight: 1000;
       color: white;
+
+      .green {
+        color: rgb(6, 174, 6);
+      }
     }
   }
 
@@ -40,8 +44,13 @@
       align-items: center;
       gap: 30px;
 
+      h2 {
+        color: rgb(119, 51, 234);
+      }
+
       p {
         text-align: left;
+        font-weight: 500;
       }
 
       button {
@@ -50,6 +59,7 @@
         border-radius: 5px;
         background-color: rgb(119, 51, 234);
         color: white;
+        font-weight: 500;
         padding: 3px;
 
         &:hover {

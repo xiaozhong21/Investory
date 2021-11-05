@@ -9,7 +9,11 @@ const Home = () => {
     <section className={styles.home}>
       <div className={styles.slogan}>
         <h1>
-          Own Your Investment Story with <span>Investory</span>.
+          Own Your Investment Story with{" "}
+          <span>
+            Inve<span className={styles.green}>$</span>tory
+          </span>
+          .
         </h1>
         <p>
           Backtest Portfolio Strategies, Visualize Risk and Return, and more...
