@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 import fileOpen from "../images/fileOpen.svg";
+import infoCircle from "../images/infoCircle.svg";
 import refresh from "../images/refresh.svg";
 import trashCan from "../images/trashCan.svg";
 
@@ -23,8 +24,15 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
   };
 
   return !watchlist.length ? (
-    <section>
-      <h2>You don't have any stocks in watchlist yet</h2>
+    <section className={styles.addStockReminder}>
+      <h2>
+        <img src={infoCircle} alt="information icon" />
+        You don't have any stocks in watchlist yet
+      </h2>
+      <h3>
+        <Link to={"/discover"}>Get inspirations</Link> from daily top gainers
+        and active stocks
+      </h3>
     </section>
   ) : (
     <section className={styles.watchlist}>

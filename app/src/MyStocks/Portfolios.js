@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import useApi from "../auth/useApi";
 import diamond from "../images/diamond.svg";
 import edit from "../images/edit.svg";
+import infoCircle from "../images/infoCircle.svg";
 import lineChartUp from "../images/lineChartUp.svg";
 import trashCan from "../images/trashCan.svg";
 
@@ -36,8 +37,14 @@ const Portfolios = () => {
   }, [loading, loadPortfolios]);
 
   return !portfolios.length ? (
-    <section>
-      <h2>You have not added any portfolio yet</h2>
+    <section className={styles.addStockReminder}>
+      <h2>
+        <img src={infoCircle} alt="information icon" />
+        You have not added any portfolio yet
+      </h2>
+      <h3>
+        <Link to={`/addPortfolio`}>Create portfolio</Link> to start backtesting
+      </h3>
     </section>
   ) : (
     <section className={styles.portfolios}>

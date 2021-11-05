@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import useApi from "../auth/useApi";
 
 import PortfolioChart from "./PortfolioChart";
+import styles from "./styles.module.scss";
 
 const PortfolioDetail = () => {
   const { loading, apiClient } = useApi();
@@ -57,7 +58,7 @@ const PortfolioDetail = () => {
   ) : !portfolio || !portfolioStocks ? (
     <p>Loading...</p>
   ) : (
-    <>
+    <div className={styles.portfolioDetail}>
       <p>
         This is portfolio detail page for{" "}
         {portfolio.portfolio_name
@@ -77,7 +78,7 @@ const PortfolioDetail = () => {
         ))}
       </ul>
       <PortfolioChart {...{ portfolio, portfolioStocks }} />
-    </>
+    </div>
   );
 };
 

@@ -11,7 +11,7 @@ router.get("/topGainers", async (request, response) => {
   const result = await axios.get(
     `${baseApiUrl}/market/list/gainers?displayPercent=true&token=${process.env.IEX_API_KEY}`,
   );
-  response.json(result.data.filter((stock, index) => index <= 4));
+  response.json(result.data);
 });
 
 router.get("/mostActive", async (request, response) => {
