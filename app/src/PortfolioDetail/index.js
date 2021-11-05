@@ -59,19 +59,24 @@ const PortfolioDetail = () => {
     <p>Loading...</p>
   ) : (
     <div className={styles.portfolioDetail}>
+      <h2 className={styles.center}>
+        Here is your investment <span className={styles.green}>$</span>tory for{" "}
+        <span className={styles.purple}>
+          {portfolio.portfolio_name
+            ? portfolio.portfolio_name
+            : `portfolio ${portfolio_id}`}
+        </span>
+      </h2>
       <p>
-        This is portfolio detail page for{" "}
-        {portfolio.portfolio_name
-          ? portfolio.portfolio_name
-          : `portfolio ${portfolio_id}`}
-      </p>
-      <p>
-        Historical holding period: {portfolio.time_period} (bounded by data
-        availability of portfolio stocks)
+        Historical holding period:{" "}
+        <span className={styles.normalFontWeight}>
+          {portfolio.time_period} (constrained by data availability of portfolio
+          stocks)
+        </span>
       </p>
       <ul>
         {portfolioStocks.map((stock) => (
-          <li key={stock.ticker}>
+          <li key={stock.ticker} className={styles.normalFontWeight}>
             <Link to={`/stocks/${stock.ticker}`}>{stock.ticker} </Link> |{" "}
             {stock.allocation}%
           </li>

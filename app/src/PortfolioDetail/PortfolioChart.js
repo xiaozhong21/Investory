@@ -5,6 +5,8 @@ import Highcharts from "highcharts/highstock";
 
 import useApi from "../auth/useApi";
 
+import styles from "./styles.module.scss";
+
 require("highcharts/modules/exporting")(Highcharts);
 
 const PortfolioChart = ({ portfolio, portfolioStocks }) => {
@@ -91,9 +93,24 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
     <p>Loading...</p>
   ) : (
     <div>
-      <p>Holding period return: {portfolioReturn}%</p>
-      <p>Initial portfolio value: ${initial_amount}</p>
-      <p>Ending portfolio value: ${endingPortfolioValue}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Holding Period</th>
+            <th>Holding Period Return</th>
+            <th>Initial Portfolio Value</th>
+            <th>Ending Portfolio Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{time_period}</td>
+            <td>{portfolioReturn}%</td>
+            <td>${initial_amount}</td>
+            <td>${endingPortfolioValue}</td>
+          </tr>
+        </tbody>
+      </table>
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
