@@ -4,6 +4,7 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts/highstock";
 
 import useApi from "../auth/useApi";
+import { convertHoldingPeriod, convertNumToThousandths } from "../utils.js";
 
 import styles from "./styles.module.scss";
 
@@ -96,7 +97,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
       <table>
         <thead>
           <tr>
-            <th>Holding Period</th>
+            <th>Holding Period*</th>
             <th>Holding Period Return</th>
             <th>Initial Portfolio Value</th>
             <th>Ending Portfolio Value</th>
@@ -104,12 +105,21 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
         </thead>
         <tbody>
           <tr>
-            <td>{time_period}</td>
-            <td>{portfolioReturn}%</td>
-            <td>${initial_amount}</td>
-            <td>${endingPortfolioValue}</td>
+            <td>{convertHoldingPeriod(time_period)}</td>
+            <td
+              className={
+                portfolioReturn > 0 ? styles.positive : styles.negative
+              }
+            >
+              {portfolioReturn}%
+            </td>
+            <td>${convertNumToThousandths(initial_amount)}</td>
+            <td>${convertNumToThousandths(endingPortfolioValue)}</td>
           </tr>
         </tbody>
+        <p className={styles.normalFontWeight}>
+          * Constrained by data availability of portfolio stocks
+        </p>
       </table>
       <HighchartsReact
         highcharts={Highcharts}

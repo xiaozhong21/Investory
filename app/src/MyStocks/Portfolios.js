@@ -11,6 +11,7 @@ import edit from "../images/edit.svg";
 import infoCircle from "../images/infoCircle.svg";
 import lineChartUp from "../images/lineChartUp.svg";
 import trashCan from "../images/trashCan.svg";
+import { convertHoldingPeriod, convertNumToThousandths } from "../utils.js";
 
 import styles from "./styles.module.scss";
 
@@ -108,25 +109,6 @@ const PortfolioStocks = ({
     [apiClient, portfolio_id],
   );
 
-  const convertTimePeriod = (timePeriod) => {
-    switch (timePeriod) {
-      case "3m":
-        return "3-Month";
-      case "6m":
-        return "6-Month";
-      case "ytd":
-        return "Year-to-Date";
-      case "1y":
-        return "1-Year";
-      case "2y":
-        return "2-Year";
-      case "5y":
-        return "5-Year";
-      default:
-        return null;
-    }
-  };
-
   const formattedData = portfolioStocks.map((stock) => ({
     name: stock.ticker,
     y: Number(stock.allocation),
@@ -171,9 +153,9 @@ const PortfolioStocks = ({
     subtitle: {
       text:
         "Holding Period: " +
-        convertTimePeriod(time_period) +
+        convertHoldingPeriod(time_period) +
         "<br>Initial Amount: $" +
-        Number(initial_amount).toLocaleString(),
+        convertNumToThousandths(initial_amount),
       style: {
         fontSize: "15px",
       },

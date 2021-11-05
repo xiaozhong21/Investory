@@ -3,6 +3,7 @@ import * as React from "react";
 import { useParams, Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
+import { sortedArrayByAllocation } from "../utils.js";
 
 import PortfolioChart from "./PortfolioChart";
 import styles from "./styles.module.scss";
@@ -59,30 +60,29 @@ const PortfolioDetail = () => {
     <p>Loading...</p>
   ) : (
     <div className={styles.portfolioDetail}>
-      <h2 className={styles.center}>
-        Here is your investment <span className={styles.green}>$</span>tory for{" "}
+      <h2>
+        Your investment <span className={styles.green}>$</span>tory for{" "}
         <span className={styles.purple}>
           {portfolio.portfolio_name
             ? portfolio.portfolio_name
             : `portfolio ${portfolio_id}`}
         </span>
       </h2>
-      <p>
-        Historical holding period:{" "}
-        <span className={styles.normalFontWeight}>
-          {portfolio.time_period} (constrained by data availability of portfolio
-          stocks)
-        </span>
-      </p>
-      <ul>
-        {portfolioStocks.map((stock) => (
-          <li key={stock.ticker} className={styles.normalFontWeight}>
-            <Link to={`/stocks/${stock.ticker}`}>{stock.ticker} </Link> |{" "}
-            {stock.allocation}%
-          </li>
-        ))}
-      </ul>
-      <PortfolioChart {...{ portfolio, portfolioStocks }} />
+      <div>
+        <h3 className={styles.purple}>Portfolio Composition</h3>
+        <ul>
+          {sortedArrayByAllocation(portfolioStocks).map((stock) => (
+            <li key={stock.ticker} className={styles.normalFontWeight}>
+              <Link to={`/stocks/${stock.ticker}`}>{stock.ticker}</Link>:{" "}
+              {stock.allocation}%
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 className={styles.purple}>Portfolio Statistics</h3>
+        <PortfolioChart {...{ portfolio, portfolioStocks }} />
+      </div>
     </div>
   );
 };
