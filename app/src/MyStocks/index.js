@@ -10,10 +10,10 @@ const MyStocks = ({ watchlist, setWatchlist }) => {
   const { loading } = useApi();
 
   return loading ? null : (
-    <secton className={styles.myStocks}>
+    <section className={styles.myStocks}>
       <Portfolios />
       <Watchlist {...{ watchlist, setWatchlist }} />
-    </secton>
+    </section>
   );
 };
 

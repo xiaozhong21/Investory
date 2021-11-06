@@ -11,7 +11,10 @@ const Nav = () => (
     <ul>
       <li>
         <NavLink to="/" end>
-          About Inve<span>$</span>tory
+          About{" "}
+          <span className={styles.yellow}>
+            Inve<span className={styles.green}>$</span>tory
+          </span>
         </NavLink>
       </li>
       <li>

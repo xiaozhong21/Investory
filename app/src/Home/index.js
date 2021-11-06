@@ -10,7 +10,7 @@ const Home = () => {
       <div className={styles.slogan}>
         <h1>
           Own Your Investment Story with{" "}
-          <span>
+          <span className={styles.yellow}>
             Inve<span className={styles.green}>$</span>tory
           </span>
           .

@@ -6,15 +6,27 @@
   margin-top: 50px;
 
   .slogan {
-    background-color: rgba(46, 12, 74, 0.996);
+    // background-color: rgba(46, 12, 74, 0.996);
+    background-image: linear-gradient(
+        rgba(115, 29, 184, 0.996),
+        rgba(161, 72, 239, 0.996)
+      ),
+      url("../images/stocks.gif");
+    background-size: cover;
+    background-blend-mode: multiply;
     padding: 70px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 
     h1 {
-      color: rgb(193, 186, 235);
+      // color: rgb(204, 198, 239);
+      color: white;
       font-weight: 700;
+
+      .yellow {
+        color: yellow;
+      }
     }
 
     p {
