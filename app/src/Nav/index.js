@@ -7,32 +7,52 @@ import SearchBar from "./SearchBar";
 import styles from "./styles.module.scss";
 
 const Nav = () => (
-  <nav className={styles.nav}>
-    <ul>
-      <li>
-        <NavLink to="/" end>
-          About{" "}
-          <span className={styles.yellow}>
-            Inve<span className={styles.green}>$</span>tory
-          </span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="discover">Discover</NavLink>
-      </li>
-      <li>
-        <NavLink to="addPortfolio">Backtest Portfolio</NavLink>
-      </li>
-      <li>
-        <NavLink to="mystocks">My Stocks</NavLink>
-      </li>
-      <li>
-        <SearchBar />
-      </li>
-      <li>
-        <Auth />
-      </li>
-    </ul>
+  <nav className="navbar fixed-top navbar-expand-lg navbar-dark">
+    <NavLink to="/" className={`navbar-brand ${styles.navbarBrand}`} end>
+      <span className={styles.yellow}>
+        Inve<span className={styles.green}>$</span>tory
+      </span>
+    </NavLink>
+    <button
+      className="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span className="navbar-toggler-icon"></span>
+    </button>
+
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item">
+          <NavLink to="/" className="nav-link">
+            Home
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="discover" className="nav-link">
+            Discover
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="addPortfolio" className="nav-link">
+            Backtest Portfolio
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="mystocks" className="nav-link">
+            My Stocks
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <SearchBar />
+        </li>
+      </ul>
+      <Auth />
+    </div>
   </nav>
 );
 
