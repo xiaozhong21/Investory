@@ -36,31 +36,6 @@
       border-bottom: #ddd 2px solid;
     }
 
-    p {
-      margin-top: 15px;
-      font-size: smaller;
-    }
-
-    a {
-      text-decoration: none;
-      color: darkblue;
-      font-size: smaller;
-      font-weight: 1000;
-
-      &:hover {
-        color: rgb(133, 133, 133);
-      }
-    }
-
-    img {
-      filter: brightness(0) saturate(100%) invert(15%) sepia(96%)
-        saturate(4750%) hue-rotate(324deg) brightness(104%) contrast(111%);
-    }
-
-    .leftAlign {
-      text-align: left;
-    }
-
     .positive {
       color: green;
     }
@@ -68,6 +43,10 @@
     .negative {
       color: red;
     }
+  }
+
+  p {
+    font-size: smaller;
   }
 
   .purple {

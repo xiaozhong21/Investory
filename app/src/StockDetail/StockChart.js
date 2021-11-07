@@ -31,8 +31,20 @@ const StockChart = ({ ticker }) => {
   );
 
   const options = {
+    chart: {
+      backgroundColor: "transparent",
+      style: {
+        maxWidth: "100%",
+        margin: "auto",
+        padding: "0",
+      },
+    },
     title: {
-      text: `Historical Performance for ${ticker}`,
+      text: `${ticker} Price Chart`,
+      style: {
+        color: "rgb(119, 51, 234)",
+        fontFamily: "'Open Sans', sans-serif",
+      },
     },
     yAxis: [
       {
@@ -43,6 +55,7 @@ const StockChart = ({ ticker }) => {
     ],
     series: [
       {
+        name: `${ticker} Price`,
         data: chartData.priceAndLabels,
       },
     ],
@@ -57,12 +70,11 @@ const StockChart = ({ ticker }) => {
   ) : !chartData ? (
     <p>Loading...</p>
   ) : (
-    <div>
+    <div className={styles.stockChart}>
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
         options={options}
-        className={styles.stockChart}
       />
     </div>
   );

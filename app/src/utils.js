@@ -21,3 +21,6 @@ export const convertNumToThousandths = (num) => Number(num).toLocaleString();
 
 export const sortedArrayByAllocation = (portfolioStocks) =>
   portfolioStocks.sort((a, b) => b.allocation - a.allocation);
+
+export const getPortfolioReturn = (portfolioReturns) =>
+  portfolioReturns[portfolioReturns.length - 1];

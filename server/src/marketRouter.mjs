@@ -32,6 +32,17 @@ router.get("/stock/:ticker/quote", (request, response) => {
     });
 });
 
+router.get("/stock/:ticker/news", (request, response) => {
+  axios
+    .get(
+      `${baseApiUrl}/${request.params.ticker}/news/last/3?token=${process.env.IEX_API_KEY}`,
+    )
+    .then((result) => response.json(result.data))
+    .catch((error) => {
+      response.status(error.response.status).end();
+    });
+});
+
 router.get("/chart", (request, response) => {
   const initialAmount = Number(request.query.initialAmount);
   const allocations = request.query.allocations
