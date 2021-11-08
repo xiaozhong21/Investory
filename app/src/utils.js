@@ -24,3 +24,37 @@ export const sortedArrayByAllocation = (portfolioStocks) =>
 
 export const getPortfolioReturn = (portfolioReturns) =>
   portfolioReturns[portfolioReturns.length - 1];
+
+export const epochTimeConverter = (epochTime) => {
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  return (
+    monthNames[new Date(epochTime).getMonth()] +
+    " " +
+    new Date(epochTime).getDate()
+  );
+};
+
+export const bigNumConverter = (num) => {
+  const abbreviatedStr = ["", "K", "M", "B", "T"];
+  const sNum = Math.floor(num.toString().length / 3);
+  let sVal = parseFloat(
+    (sNum !== 0 ? num / Math.pow(1000, sNum) : num).toPrecision(4),
+  );
+  if (sVal % 1 !== 0) {
+    sVal = sVal.toFixed(2);
+  }
+  return sVal + abbreviatedStr[sNum];
+};

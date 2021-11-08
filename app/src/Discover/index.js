@@ -3,7 +3,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
-import burnFire from "../images/burnFire.svg";
+import flame from "../images/flame.svg";
 import trendingUp from "../images/trendingUp.svg";
 
 import styles from "./styles.module.scss";
@@ -38,7 +38,7 @@ const Discover = ({ updateWatchListButton }) => {
       </div>
       <div>
         <h2 className={styles.header}>
-          <img src={burnFire} alt="fire icon" />
+          <img src={flame} alt="flame icon" />
           <span>Most Active</span>
         </h2>
         <MostActiveList {...{ mostActive, updateWatchListButton }} />

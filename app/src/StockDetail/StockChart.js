@@ -35,12 +35,12 @@ const StockChart = ({ ticker }) => {
       backgroundColor: "transparent",
       style: {
         maxWidth: "100%",
-        margin: "auto",
+        // margin: "0 auto",
         padding: "0",
       },
     },
     title: {
-      text: `${ticker} Price Chart`,
+      text: `${ticker.toUpperCase()} Price Chart`,
       style: {
         color: "rgb(119, 51, 234)",
         fontFamily: "'Open Sans', sans-serif",

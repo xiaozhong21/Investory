@@ -2,104 +2,173 @@
   margin: 100px 40px 50px;
   display: flex;
   flex-direction: column;
+  gap: 30px;
 
   .chartAndPrice {
     display: flex;
-    gap: 30px;
+    flex-direction: column;
 
-    .stockChart {
-      width: 80%;
-      height: 500px;
-    }
-
-    .priceInfo {
+    .priceChartContent {
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      gap: 3rem;
 
-      .price {
-        font-size: 30px;
+      .stockChart {
+        width: 80%;
+        height: 100%;
       }
 
-      button[type="button"] {
-        padding: 0;
-        border: none;
-        background: none;
-        color: white;
-        padding: 2px;
-        outline: inherit;
+      .priceInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
 
-        &:hover {
-          cursor: pointer;
+        .price {
+          font-size: 2rem;
         }
 
-        img {
-          filter: brightness(0) saturate(100%) invert(15%) sepia(96%)
-            saturate(4750%) hue-rotate(324deg) brightness(104%) contrast(111%);
+        button[type="button"] {
+          padding: 0;
+          border: none;
+          background: none;
+          color: white;
+          padding: 2px;
+          outline: inherit;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          img {
+            filter: brightness(0) saturate(100%) invert(15%) sepia(96%)
+              saturate(4750%) hue-rotate(324deg) brightness(104%) contrast(111%);
+          }
         }
-      }
 
-      .positive {
-        color: green;
-      }
+        .positive {
+          color: green;
+        }
 
-      .negative {
-        color: red;
+        .negative {
+          color: red;
+        }
       }
     }
   }
 
-  .keyInfoAndNews {
+  .keyInfo {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    flex-direction: column;
 
-    .keyInfo {
+    .keyInfoContent {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .keyInfoStat {
+        text-align: center;
+        width: 20%;
+
+        .keyInfoKey {
+          margin-top: 20px;
+          color: rgb(114, 113, 113);
+        }
+      }
+    }
+  }
+
+  .news {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    ul {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      max-width: 50%;
+      margin: auto;
+      max-width: 70%;
+      gap: 20px;
+      padding: 0;
 
-      .keyInfoContent {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
+      li {
+        background-color: #ebe4f4;
+        border-radius: 10px;
 
-        .keyInfoStat {
-          width: 25%;
+        &:hover {
+          box-shadow: 0 0 10px #fff, -2px 0 10px #f0f, 2px 0 10px #0ff;
+        }
 
-          .keyInfoKey {
-            margin-top: 20px;
-            color: rgb(114, 113, 113);
+        a {
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px;
+          color: black;
+
+          img {
+            width: 20%;
+            border-radius: 5px;
+          }
+
+          .newsText {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            gap: 0.3rem;
+
+            .newsHeader {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 100%;
+
+              .newsHeadline {
+                width: 80%;
+                margin: 0;
+                display: -webkit-box;
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+              }
+
+              .newsDate {
+                font-size: x-small;
+                color: rgb(114, 113, 113);
+              }
+            }
+
+            .newsSummary {
+              max-width: 100%;
+              margin: 0;
+              display: -webkit-box;
+              overflow: hidden;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 3;
+              font-size: x-small;
+              font-weight: 300;
+            }
+          }
+
+          p {
+            font-size: smaller;
           }
         }
       }
     }
+  }
 
-    .news {
-      display: flex;
-      flex-direction: column;
-      max-width: 50%;
-      gap: 20px;
+  .header {
+    display: flex;
+    gap: 10px;
 
-      .newsContent {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
+    img {
+      filter: brightness(0) saturate(100%) invert(30%) sepia(77%)
+        saturate(1636%) hue-rotate(240deg) brightness(85%) contrast(109%);
     }
 
-    .header {
-      display: flex;
-      gap: 10px;
-
-      img {
-        filter: brightness(0) saturate(100%) invert(30%) sepia(77%)
-          saturate(1636%) hue-rotate(240deg) brightness(85%) contrast(109%);
-      }
-
-      span {
-        color: #703de1;
-      }
+    span {
+      color: #703de1;
     }
   }
 }
