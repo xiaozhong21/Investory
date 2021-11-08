@@ -96,15 +96,7 @@ const StockDetail = ({ updateWatchListButton }) => {
         <div className={styles.keyInfoContent}>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>Open</p>
-            <p>${stock.open.toFixed(2) || "-"}</p>
-          </div>
-          <div className={styles.keyInfoStat}>
-            <p className={styles.keyInfoKey}>High</p>
-            <p>${stock.high.toFixed(2) || "-"}</p>
-          </div>
-          <div className={styles.keyInfoStat}>
-            <p className={styles.keyInfoKey}>Low</p>
-            <p>${stock.low.toFixed(2) || "-"}</p>
+            <p>${stock.iexOpen.toFixed(2) || "-"}</p>
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>52-week High</p>
@@ -132,7 +124,7 @@ const StockDetail = ({ updateWatchListButton }) => {
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>Volume</p>
-            <p>{bigNumConverter(stock.previousVolume) || "-"}</p>
+            <p>{bigNumConverter(stock.iexVolume) || "-"}</p>
           </div>
         </div>
       </div>
