@@ -5,6 +5,8 @@ import Highcharts from "highcharts/highstock";
 
 import useApi from "../auth/useApi";
 
+import styles from "./styles.module.scss";
+
 require("highcharts/modules/exporting")(Highcharts);
 
 const StockChart = ({ ticker }) => {
@@ -29,8 +31,20 @@ const StockChart = ({ ticker }) => {
   );
 
   const options = {
+    chart: {
+      backgroundColor: "transparent",
+      style: {
+        maxWidth: "100%",
+        // margin: "0 auto",
+        padding: "0",
+      },
+    },
     title: {
-      text: `Historical Performance for ${ticker}`,
+      text: `${ticker.toUpperCase()} Price Chart`,
+      style: {
+        color: "rgb(119, 51, 234)",
+        fontFamily: "'Open Sans', sans-serif",
+      },
     },
     yAxis: [
       {
@@ -41,6 +55,7 @@ const StockChart = ({ ticker }) => {
     ],
     series: [
       {
+        name: `${ticker} Price`,
         data: chartData.priceAndLabels,
       },
     ],
@@ -55,7 +70,7 @@ const StockChart = ({ ticker }) => {
   ) : !chartData ? (
     <p>Loading...</p>
   ) : (
-    <div>
+    <div className={styles.stockChart}>
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}

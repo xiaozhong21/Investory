@@ -1,0 +1,150 @@
+.myStocks {
+  margin: 100px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  .addStockReminder {
+    h2 {
+      color: #703de1;
+      display: flex;
+      gap: 7px;
+
+      img {
+        filter: brightness(0) saturate(100%) invert(30%) sepia(77%)
+          saturate(1636%) hue-rotate(240deg) brightness(85%) contrast(109%);
+      }
+    }
+  }
+
+  .header {
+    display: flex;
+    gap: 10px;
+
+    img[alt="open file icon"],
+    img[alt="diamond icon"] {
+      filter: brightness(0) saturate(100%) invert(30%) sepia(77%)
+        saturate(1636%) hue-rotate(240deg) brightness(85%) contrast(109%);
+    }
+
+    span {
+      color: #703de1;
+    }
+  }
+
+  .portfolios {
+    .portfolioCard {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 70%;
+        padding: 0 0 10px 0;
+        border-radius: 10px;
+        background-color: #d9e4f5;
+        background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
+
+        &:hover {
+          box-shadow: 0 0 10px #fff, -2px 0 10px #f0f, 2px 0 10px #0ff;
+        }
+
+        .portfolioIcons {
+          display: flex;
+          justify-content: space-evenly;
+          width: 100%;
+
+          img {
+            max-width: 100%;
+          }
+        }
+
+        .portfolioComposition {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .watchlist {
+    margin-top: 40px;
+
+    .watchlistHeader {
+      display: flex;
+      align-items: center;
+    }
+
+    table {
+      margin: 2rem auto;
+
+      th,
+      td {
+        border-bottom: 1px solid #ddd;
+        padding: 0.5rem;
+        max-width: 100%;
+        margin-right: 2rem;
+        text-align: center;
+      }
+
+      tr {
+        &:nth-child(even) {
+          background-color: #d4c8e4;
+        }
+
+        &:hover {
+          background-color: yellow;
+        }
+      }
+
+      th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background-color: #4d148c;
+        color: white;
+      }
+
+      a {
+        text-decoration: none;
+        color: darkblue;
+        font-size: smaller;
+
+        &:hover {
+          color: rgb(133, 133, 133);
+        }
+      }
+
+      .leftAlign {
+        text-align: left;
+      }
+
+      .positive {
+        color: green;
+      }
+
+      .negative {
+        color: red;
+      }
+    }
+  }
+
+  button[type="button"] {
+    padding: 0;
+    border: none;
+    background: none;
+    color: white;
+    padding: 2px;
+    outline: inherit;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,6 +1,5 @@
-.header {
-  p {
-    color: blue;
-    margin-top: 0;
-  }
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

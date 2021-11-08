@@ -4,15 +4,17 @@ import { Routes, Route } from "react-router-dom";
 
 import AddPortfolio from "../AddPortfolio";
 import Discover from "../Discover";
+import Home from "../Home";
 import MyStocks from "../MyStocks";
 import Portfolios from "../MyStocks/Portfolios";
+import Nav from "../Nav";
 import PortfolioDetail from "../PortfolioDetail";
 import StockDetail from "../StockDetail";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
-import Nav from "../widgets/Nav";
-import SearchBar from "../widgets/SearchBar";
+import emptyHeart from "../images/emptyHeart.svg";
+import filledHeart from "../images/filledHeart.svg";
 
 import styles from "./styles.module.scss";
 
@@ -38,12 +40,20 @@ const App = () => {
 
   const updateWatchListButton = (stock) =>
     !watchlist.map((stock) => stock.symbol).includes(stock.symbol) ? (
-      <button type="button" onClick={() => handleAddToWatchlist(stock)}>
-        add to watchlist
+      <button
+        type="button"
+        onClick={() => handleAddToWatchlist(stock)}
+        title="Add to Watchlist"
+      >
+        <img src={emptyHeart} alt="an empty heart" />
       </button>
     ) : (
-      <button type="button" onClick={() => handleDeleteFromWatchlist(stock)}>
-        delete from watchlist
+      <button
+        type="button"
+        onClick={() => handleDeleteFromWatchlist(stock)}
+        title="Delete from Watchlist"
+      >
+        <img src={filledHeart} alt="a filled heart" />
       </button>
     );
 
@@ -60,12 +70,11 @@ const App = () => {
   }, [isAuthenticated, loading, loadWatchlist]);
 
   return (
-    <div>
+    <div className={styles.app}>
       <header>
         <Nav />
       </header>
       <main>
-        <SearchBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -111,20 +120,6 @@ const App = () => {
         </Routes>
       </main>
     </div>
-  );
-};
-
-const Home = () => {
-  const { isAuthenticated } = useAuth0();
-
-  return (
-    <>
-      <header className={styles.header}>
-        <h1>{process.env.REACT_APP_TITLE}</h1>
-        <p>{process.env.REACT_APP_SUBTITLE}</p>
-      </header>
-      {isAuthenticated ? "placeholder" : null}
-    </>
   );
 };
 

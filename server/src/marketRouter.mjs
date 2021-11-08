@@ -11,7 +11,7 @@ router.get("/topGainers", async (request, response) => {
   const result = await axios.get(
     `${baseApiUrl}/market/list/gainers?displayPercent=true&token=${process.env.IEX_API_KEY}`,
   );
-  response.json(result.data);
+  response.json(result.data.filter((stock, index) => index <= 7));
 });
 
 router.get("/mostActive", async (request, response) => {
@@ -25,6 +25,17 @@ router.get("/stock/:ticker/quote", (request, response) => {
   axios
     .get(
       `${baseApiUrl}/${request.params.ticker}/quote?displayPercent=true&token=${process.env.IEX_API_KEY}`,
+    )
+    .then((result) => response.json(result.data))
+    .catch((error) => {
+      response.status(error.response.status).end();
+    });
+});
+
+router.get("/stock/:ticker/news", (request, response) => {
+  axios
+    .get(
+      `${baseApiUrl}/${request.params.ticker}/news/last/3?token=${process.env.IEX_API_KEY}`,
     )
     .then((result) => response.json(result.data))
     .catch((error) => {

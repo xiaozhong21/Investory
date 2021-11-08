@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
-import "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 const AddPortfolio = () => {
   const { loading, apiClient } = useApi();
@@ -121,7 +121,6 @@ const AddPortfolio = () => {
     if (sumAllocations !== 100) {
       alert("Asset allocations must sum up to 100");
     } else if (isAddMode) {
-      console.log(data.assets);
       const portfolio = await apiClient.addUserPortfolio(data);
       apiClient.addPortfolioStocks(portfolio.portfolio_id, data.assets);
       navigate("/mystocks");
@@ -134,9 +133,9 @@ const AddPortfolio = () => {
   };
 
   const formContent = (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.addPortfolio}>
       <div className="card m-3">
-        <h5 className="card-header">
+        <h5 className={`card-header ${styles.cardHeader}`}>
           {isAddMode
             ? `Create Your Portfolio to Start Backtesting`
             : `Edit Your Portfolio`}
@@ -269,7 +268,7 @@ const AddPortfolio = () => {
         </div>
         <div className="card-footer text-center border-top-0">
           <button type="submit" className="btn btn-primary mr-1">
-            Analyze Portfolio
+            {isAddMode ? "Analyze Portfolio" : "Edit Portfolio"}
           </button>
           <button
             onClick={() => reset()}

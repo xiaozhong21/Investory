@@ -4,6 +4,13 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts/highstock";
 
 import useApi from "../auth/useApi";
+import {
+  convertHoldingPeriod,
+  convertNumToThousandths,
+  getPortfolioReturn,
+} from "../utils.js";
+
+import styles from "./styles.module.scss";
 
 require("highcharts/modules/exporting")(Highcharts);
 
@@ -35,9 +42,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
         )
         .then((response) => {
           setChartData(response);
-          setPortfolioReturn(
-            response.portfolioReturns[response.portfolioReturns.length - 1],
-          );
+          setPortfolioReturn(getPortfolioReturn(response.portfolioReturns));
           setError(false);
         })
         .catch((err) => {
@@ -54,10 +59,22 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
   );
 
   const options = {
+    chart: {
+      backgroundColor: "transparent",
+      style: {
+        maxWidth: "100%",
+        margin: " 20px auto 0",
+        padding: "0",
+      },
+    },
     title: {
-      text: `Historical Performance for ${
+      text: `Portfolio Performance for ${
         portfolio_name ? portfolio_name : `portfolio ${portfolio_id}`
       }`,
+      style: {
+        color: "rgb(119, 51, 234)",
+        fontFamily: "'Open Sans', sans-serif",
+      },
     },
     yAxis: [
       {
@@ -68,6 +85,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
     ],
     series: [
       {
+        name: "Portfolio Value ($)",
         data: chartData.valueAndLabels,
       },
     ],
@@ -91,9 +109,33 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
     <p>Loading...</p>
   ) : (
     <div>
-      <p>Holding period return: {portfolioReturn}%</p>
-      <p>Initial portfolio value: ${initial_amount}</p>
-      <p>Ending portfolio value: ${endingPortfolioValue}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Holding Period*</th>
+            <th>Holding Period Return</th>
+            <th>Initial Portfolio Value</th>
+            <th>Ending Portfolio Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{convertHoldingPeriod(time_period)}</td>
+            <td
+              className={
+                portfolioReturn > 0 ? styles.positive : styles.negative
+              }
+            >
+              {portfolioReturn}%
+            </td>
+            <td>${convertNumToThousandths(initial_amount)}</td>
+            <td>${convertNumToThousandths(endingPortfolioValue)}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p className={styles.normalFontWeight}>
+        * Constrained by data availability of portfolio stocks
+      </p>
       <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}

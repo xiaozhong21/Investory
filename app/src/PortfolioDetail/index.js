@@ -3,8 +3,10 @@ import * as React from "react";
 import { useParams, Link } from "react-router-dom";
 
 import useApi from "../auth/useApi";
+import { sortedArrayByAllocation } from "../utils.js";
 
 import PortfolioChart from "./PortfolioChart";
+import styles from "./styles.module.scss";
 
 const PortfolioDetail = () => {
   const { loading, apiClient } = useApi();
@@ -57,27 +59,31 @@ const PortfolioDetail = () => {
   ) : !portfolio || !portfolioStocks ? (
     <p>Loading...</p>
   ) : (
-    <>
-      <p>
-        This is portfolio detail page for{" "}
-        {portfolio.portfolio_name
-          ? portfolio.portfolio_name
-          : `portfolio ${portfolio_id}`}
-      </p>
-      <p>
-        Historical holding period: {portfolio.time_period} (bounded by data
-        availability of portfolio stocks)
-      </p>
-      <ul>
-        {portfolioStocks.map((stock) => (
-          <li key={stock.ticker}>
-            <Link to={`/stocks/${stock.ticker}`}>{stock.ticker} </Link> |{" "}
-            {stock.allocation}%
-          </li>
-        ))}
-      </ul>
-      <PortfolioChart {...{ portfolio, portfolioStocks }} />
-    </>
+    <div className={styles.portfolioDetail}>
+      <h2>
+        Your investment <span className={styles.green}>$</span>tory for{" "}
+        <span className={styles.purple}>
+          {portfolio.portfolio_name
+            ? portfolio.portfolio_name
+            : `portfolio ${portfolio_id}`}
+        </span>
+      </h2>
+      <div>
+        <h3 className={styles.purple}>Portfolio Composition</h3>
+        <ul>
+          {sortedArrayByAllocation(portfolioStocks).map((stock) => (
+            <li key={stock.ticker} className={styles.normalFontWeight}>
+              <Link to={`/stocks/${stock.ticker}`}>{stock.ticker}</Link>:{" "}
+              {stock.allocation}%
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 className={styles.purple}>Portfolio Statistics</h3>
+        <PortfolioChart {...{ portfolio, portfolioStocks }} />
+      </div>
+    </div>
   );
 };
 

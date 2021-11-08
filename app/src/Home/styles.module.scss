@@ -1,0 +1,97 @@
+.home {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 40px;
+
+  .slogan {
+    // background-color: rgba(46, 12, 74, 0.996);
+    background-image: linear-gradient(
+        rgba(115, 29, 184, 0.996),
+        rgba(161, 72, 239, 0.996)
+      ),
+      url("../images/stocks.gif");
+    background-size: cover;
+    background-blend-mode: multiply;
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    h1 {
+      // color: rgb(204, 198, 239);
+      color: white;
+      font-weight: 700;
+
+      .yellow {
+        color: #ffd700;
+      }
+    }
+
+    p {
+      color: white;
+    }
+
+    span {
+      font-size: 40px;
+      font-weight: 1000;
+      color: white;
+
+      .green {
+        color: rgb(6, 174, 6);
+      }
+    }
+  }
+
+  .mainSection {
+    display: flex;
+    justify-content: space-around;
+
+    .description {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      padding: 10px 0;
+
+      h2 {
+        color: rgb(119, 51, 234);
+      }
+
+      p {
+        text-align: left;
+        font-weight: 500;
+      }
+
+      button {
+        width: 120px;
+        border: rgb(119, 51, 234) 1px solid;
+        border-radius: 5px;
+        background-color: rgb(119, 51, 234);
+        color: white;
+        font-weight: 500;
+        padding: 3px;
+
+        &:hover {
+          background-color: white;
+          color: rgb(119, 51, 234);
+          border-radius: 5%;
+        }
+      }
+    }
+
+    img {
+      margin-top: 40px;
+      width: 30%;
+      height: 30%;
+    }
+  }
+
+  .discover,
+  .myStocks {
+    background-color: white;
+  }
+}
