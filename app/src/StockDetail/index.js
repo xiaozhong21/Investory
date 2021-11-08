@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 import barChart from "../images/barChart.svg";
+import circleStar from "../images/circleStar.svg";
 import lineChartUp from "../images/lineChartUp.svg";
 import newspaper from "../images/newspaper.svg";
 import {
@@ -18,9 +19,10 @@ import styles from "./styles.module.scss";
 const StockDetail = ({ updateWatchListButton }) => {
   const { loading, apiClient } = useApi();
   const [stock, setStock] = React.useState();
+  const [companyProfile, setCompanyProfile] = React.useState();
+  const [stockNews, setStockNews] = React.useState();
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
-  const [stockNews, setStockNews] = React.useState();
   const { ticker } = useParams();
 
   const loadStock = React.useCallback(
@@ -29,6 +31,21 @@ const StockDetail = ({ updateWatchListButton }) => {
         .getStockQuote(ticker)
         .then((response) => {
           setStock(response);
+          setError(false);
+        })
+        .catch((err) => {
+          setError(true);
+          setErrorMessage(err.message);
+        }),
+    [apiClient, ticker],
+  );
+
+  const loadCompanyProfle = React.useCallback(
+    () =>
+      apiClient
+        .getCompanyProfile(ticker)
+        .then((response) => {
+          setCompanyProfile(response);
           setError(false);
         })
         .catch((err) => {
@@ -58,12 +75,16 @@ const StockDetail = ({ updateWatchListButton }) => {
   }, [loading, ticker, loadStock]);
 
   React.useEffect(() => {
+    !loading && loadCompanyProfle();
+  }, [loading, ticker, loadCompanyProfle]);
+
+  React.useEffect(() => {
     !loading && loadStockNews();
   }, [loading, ticker, loadStockNews]);
 
   return error === true ? (
     <p>{errorMessage}</p>
-  ) : !stock || !stockNews ? (
+  ) : !stock || !stockNews || !companyProfile ? (
     <p>Loading...</p>
   ) : (
     <div className={styles.stockDetail}>
@@ -86,6 +107,15 @@ const StockDetail = ({ updateWatchListButton }) => {
               {stock.change} ({stock.changePercent.toFixed(2)}%)
             </p>
           </div>
+        </div>
+      </div>
+      <div className={styles.companyProfile}>
+        <h2 className={styles.header}>
+          <img src={circleStar} alt="start in a circle icon" />
+          <span>About {ticker.toUpperCase()}</span>
+        </h2>
+        <div className={styles.profileContent}>
+          {companyProfile.description}
         </div>
       </div>
       <div className={styles.keyInfo}>

@@ -55,6 +55,16 @@
     }
   }
 
+  .companyProfile {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .profileContent {
+      font-weight: 300;
+    }
+  }
+
   .keyInfo {
     display: flex;
     flex-direction: column;

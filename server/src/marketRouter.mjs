@@ -32,6 +32,17 @@ router.get("/stock/:ticker/quote", (request, response) => {
     });
 });
 
+router.get("/stock/:ticker/profile", (request, response) => {
+  axios
+    .get(
+      `${baseApiUrl}/${request.params.ticker}/company?token=${process.env.IEX_API_KEY}`,
+    )
+    .then((result) => response.json(result.data))
+    .catch((error) => {
+      response.status(error.response.status).end();
+    });
+});
+
 router.get("/stock/:ticker/news", (request, response) => {
   axios
     .get(

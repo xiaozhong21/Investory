@@ -16,6 +16,7 @@ const makeApi = (accessToken) => {
       _get(
         `/api/market/chart?tickers=${tickers}&range=${timePeriod}&allocations=${allocations}&initialAmount=${initialAmount}`,
       ),
+    getCompanyProfile: (ticker) => _get(`/api/market/stock/${ticker}/profile`),
     getStockNews: (ticker) => _get(`/api/market/stock/${ticker}/news`),
     addStockToWatchlist: (ticker) => _post("/api/watchlist/stocks", { ticker }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
