@@ -60,8 +60,33 @@
     flex-direction: column;
     gap: 10px;
 
-    .profileContent {
+    .profileContentWhole {
       font-weight: 300;
+    }
+
+    .profileContentPartial {
+      font-weight: 300;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+    }
+
+    button {
+      width: 80px;
+      border: rgb(119, 51, 234) 1px solid;
+      border-radius: 5px;
+      background-color: rgb(119, 51, 234);
+      color: white;
+      font-weight: 500;
+      font-size: smaller;
+      padding: 3px;
+
+      &:hover {
+        background-color: white;
+        color: rgb(119, 51, 234);
+        border-radius: 5px;
+      }
     }
   }
 

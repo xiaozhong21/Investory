@@ -23,6 +23,7 @@ const StockDetail = ({ updateWatchListButton }) => {
   const [stockNews, setStockNews] = React.useState();
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [readMore, setReadMore] = React.useState(false);
   const { ticker } = useParams();
 
   const loadStock = React.useCallback(
@@ -114,9 +115,21 @@ const StockDetail = ({ updateWatchListButton }) => {
           <img src={circleStar} alt="start in a circle icon" />
           <span>About {ticker.toUpperCase()}</span>
         </h2>
-        <div className={styles.profileContent}>
-          {companyProfile.description}
-        </div>
+        {readMore ? (
+          <div>
+            <p className={styles.profileContentWhole}>
+              {companyProfile.description}
+            </p>
+            <button onClick={() => setReadMore(!readMore)}>Show Less</button>
+          </div>
+        ) : (
+          <div>
+            <p className={styles.profileContentPartial}>
+              {companyProfile.description}
+            </p>
+            <button onClick={() => setReadMore(!readMore)}>Show More</button>
+          </div>
+        )}
       </div>
       <div className={styles.keyInfo}>
         <h2 className={styles.header}>
