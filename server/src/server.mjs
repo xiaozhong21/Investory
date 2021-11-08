@@ -4,14 +4,12 @@ import mime from "mime-types";
 import jwtCheck from "./jwtCheck.mjs";
 import marketRouter from "./marketRouter.mjs";
 import portfolioRouter from "./portfolioRouter.mjs";
-import stockRouter from "./stockRouter.mjs";
 import userRouter from "./userRouter.mjs";
 import watchlistRouter from "./watchlistRouter.mjs";
 
 const app = express();
 
 app.use("/api/users", jwtCheck, userRouter);
-app.use("/api/stocks", jwtCheck, stockRouter);
 app.use("/api/watchlist", jwtCheck, watchlistRouter);
 app.use("/api/market", jwtCheck, marketRouter);
 app.use("/api/portfolios", jwtCheck, portfolioRouter);

@@ -132,7 +132,7 @@ const StockDetail = ({ updateWatchListButton }) => {
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>Volume</p>
-            <p>{bigNumConverter(stock.volume) || "-"}</p>
+            <p>{bigNumConverter(stock.previousVolume) || "-"}</p>
           </div>
         </div>
       </div>

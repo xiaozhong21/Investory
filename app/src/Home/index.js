@@ -33,7 +33,7 @@ const Home = () => {
       </div>
       <div className={`${styles.mainSection} ${styles.backtest}`}>
         <div className={styles.description}>
-          <h2>Backtest a Portfolio</h2>
+          <h2>Backtest Portfolio</h2>
           <p>
             Create your investment story by building your customized portfolio
             of stocks and visualize how it has performed in the time frame you

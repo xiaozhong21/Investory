@@ -61,7 +61,7 @@ const PortfolioDetail = () => {
   ) : (
     <div className={styles.portfolioDetail}>
       <h2>
-        Your investment <span className={styles.green}>$</span>tory for{" "}
+        Your Investment <span className={styles.green}>$</span>tory for{" "}
         <span className={styles.purple}>
           {portfolio.portfolio_name
             ? portfolio.portfolio_name
