@@ -105,4 +105,13 @@ router.get("/chart", (request, response) => {
     });
 });
 
+router.post("/stocks/update-quotes", async (request, response) => {
+  const stocks = request.body;
+  const tickers = stocks.map((stock) => stock.ticker).join(", ");
+  const updatedStocklist = await axios.get(
+    `${baseApiUrl}/market/batch?symbols=${tickers}&types=quote&displayPercent=true&token=${process.env.IEX_API_KEY}`,
+  );
+  response.json(updatedStocklist.data);
+});
+
 export default router;

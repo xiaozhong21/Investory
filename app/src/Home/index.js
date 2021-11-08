@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import discoverIdeas from "../images/discoverIdeas.png";
 import moneyTree from "../images/moneyTree.png";
 import stockChart from "../images/stockChart.png";
@@ -24,7 +26,9 @@ const Home = () => {
         <div className={styles.description}>
           <h2>Discover</h2>
           <p>Get investment inspiration from daily gainers and top movers.</p>
-          <button>Learn More</button>
+          <Link to="/discover">
+            <button>Learn More</button>
+          </Link>
         </div>
       </div>
       <div className={`${styles.mainSection} ${styles.backtest}`}>
@@ -35,7 +39,9 @@ const Home = () => {
             Create your hypothetical portoflio of stocks to see how it has
             performed in the time frame you specified.
           </p>
-          <button>Learn More</button>
+          <Link to="/addPortfolio">
+            <button>Learn More</button>
+          </Link>
         </div>
       </div>
       <div className={`${styles.mainSection} ${styles.myStocks}`}>
@@ -46,7 +52,9 @@ const Home = () => {
             This is the center hub where you can track your portoflios and
             watchlist.
           </p>
-          <button>Learn More</button>
+          <Link to="/mystocks">
+            <button>Learn More</button>
+          </Link>
         </div>
       </div>
     </section>

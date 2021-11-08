@@ -79,7 +79,9 @@ const StockDetail = ({ updateWatchListButton }) => {
               {ticker.toUpperCase()} {updateWatchListButton(stock)}
             </h2>
             <p>{stock.companyName}</p>
-            <p className={styles.price}>${stock.latestPrice.toFixed(2)}</p>
+            <p className={styles.price}>
+              ${convertNumToThousandths(stock.latestPrice.toFixed(2))}
+            </p>
             <p className={stock.change > 0 ? styles.positive : styles.negative}>
               {stock.change} ({stock.changePercent.toFixed(2)}%)
             </p>
