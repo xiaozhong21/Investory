@@ -1,26 +1,67 @@
-# Starter Project With PostgreSQL, Express, and React
+<p align="center">
+  <h1 align="center">Inve$tory</h1>
 
-End-to-end React app backed by an Express API server, persisting data to
-PostgreSQL database. The project has a basic interface that fetches data from a
-single table in the database, and allows you to add rows to that table.
-
-[See the app in action][live].
+  <p align="center">
+    <a href="https://investory-app.herokuapp.com/">View Demo</a>
+    ·
+    <a href="https://github.com/xiaozhong21/Investory/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/xiaozhong21/Investory/issues">Request Feature</a>
+  </p>
+  
+</p>
 
 [![Deploy to Heroku][deploy-badge]][deploy-workflow]
 [![Reset Heroku DB][reset-badge]][reset-workflow]
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+## Contents
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
+  - [About](#about)
+  - [Features](#features)
+  - [Built with](#built-with)
+  - [Getting Started](#getting-started)
 
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+## About
+<div align="center"> <img width="900" alt="Inve$tory portfolio page demo" src="docs/images/portfolio-detail.png" href="https://investory-app.herokuapp.com/"> </div>
 
-## Prerequisites
+Want to learn about stock market investing and wonder how your investment ideas would have played out in a particular time period? Inve$tory is an educational tool that features portfolio backtesting and stock tracking.
 
-### Docker
+My inspiration of building this passion project originates from being asked by my friends to recommend "the next Bitcoin" or "the next [GME](https://en.wikipedia.org/wiki/GameStop_short_squeeze)". In stock marketing investing, new investors are easily intrigued by the return but are not usually aware of the risks involved. 
 
-This project relies on Docker to run the PostgreSQL server. You must install
-Docker first before continuing.
+By building **Inve$tory**, I hope to provide a fun beginner-friendly visualization tool for users to learn about not only the *return* (ending value - initial value) of a portfolio strategy, but more importantly, the *risk* (how the performance chart fluctuates throughout the time frame) involved.
+
+## Features
+Users can
+- View a list of daily top gainers and active stocks
+- Create a watchlist of stocks that allows for individual stock chart view
+   - Add gainers/active stocks directly to watchlist
+   - Add a stock to watchlist by searching for a ticker in top search bar
+   - Delete stocks from watchlist
+- Create customized portfolios and back-test portfolio performance in the specified time frame
+   - Customize asset allocations of portfolio stocks
+   - Specify preferred time frame and initial investment amount
+   - Visualize portfolio performance: portfolio composition, return, performance chart, etc.
+- View individual stock details
+   - Price chart and daily price changes
+   - Company profile
+   - Stock stats including open/52-week-high/52-week-low prices, year-to-date changes, market cap, P/E ratio, trading volume
+   - Latest news
+
+## Built With
+Inve$tory was built using a PostgreSQL, Express, React, and Node (PERN) stack. 
+
+It also uses
+* [IEX Cloud API](https://iexcloud.io/)
+* [Auth0](https://auth0.com/docs/get-started)
+* [Highcharts](https://www.highcharts.com/)
+* [React Hook Form](https://react-hook-form.com/)
+
+## Getting Started
+
+### Prerequisites
+**Docker**
+
+This project relies on Docker to run the PostgreSQL server. You must install Docker first before continuing.
 
 Use one of these methods:
 
@@ -30,15 +71,9 @@ Use one of these methods:
 Once you've installed Docker Desktop, you'll need to launch the app. On macOS,
 it's located in `/Applications/Docker`.
 
-### Node
+**Node**
 
 You'll need to install Node v14 or above. [`nvm`][nvm] is highly recommended.
-
-## Create a New Repository From This Template
-
-[Generate a new repository from this template](https://github.com/gsong/express-react-project-starter/generate).
-
-[See GitHub documentation for more details](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
 ## Set Up the Development Environment
 
@@ -98,61 +133,12 @@ Visit <http://localhost:3000>.
 npm run psql
 ```
 
-## Want More Details?
-
-- [Read about the application stack](docs/application-stack.md).
-- [Read about the Express server](server/README.md).
-- [Read about the React app](app/README.md).
-
-## Deployment
-
-[Read about setting up and deploying to Heroku](docs/deployment.md).
-
-## Examples Implemented Using This Template
-
-- [Adding a new feature step-by-step](https://github.com/gsong/express-react-project-starter/pull/29)
-- [Store binary data in PostgreSQL](https://github.com/gsong/express-react-project-starter/pull/36)
-- [Eventonica](https://github.com/gsong/express-react-project-starter/pull/25)
-- [Integrate Auth0](https://github.com/gsong/express-react-project-starter/pull/44)
-- [Integrate Google Calendar](https://github.com/gsong/express-react-project-starter/pull/3)
-
-[deploy-badge]: https://github.com/gsong/express-react-project-starter/actions/workflows/deploy.yaml/badge.svg
-[deploy-workflow]: https://github.com/gsong/express-react-project-starter/actions/workflows/deploy.yaml
+[deploy-badge]: https://github.com/xiaozhong21/investory/actions/workflows/deploy.yaml/badge.svg
+[deploy-workflow]: https://github.com/xiaozhong21/investory/actions/workflows/deploy.yaml
 [dh-postgres]: https://hub.docker.com/_/postgres
 [docker-www]: https://docs.docker.com/get-docker/
 [homebrew]: https://brew.sh
-[live]: https://tt-express-react-example.herokuapp.com
 [nvm]: https://github.com/nvm-sh/nvm
-[reset-badge]: https://github.com/gsong/express-react-project-starter/actions/workflows/reset-db.yml/badge.svg
-[reset-workflow]: https://github.com/gsong/express-react-project-starter/actions/workflows/reset-db.yml
+[reset-badge]: https://github.com/xiaozhong21/investory/actions/workflows/reset-db.yml/badge.svg
+[reset-workflow]: https://github.com/xiaozhong21/investory/actions/workflows/reset-db.yml
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/aedward8"><img src="https://avatars.githubusercontent.com/u/63216164?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abigail Edwards</b></sub></a><br /><a href="https://github.com/gsong/express-react-project-starter/issues?q=author%3Aaedward8" title="Bug reports">🐛</a> <a href="#ideas-aedward8" title="Ideas, Planning, & Feedback">🤔</a> <a href="#question-aedward8" title="Answering Questions">💬</a> <a href="#userTesting-aedward8" title="User Testing">📓</a></td>
-    <td align="center"><a href="http://blog.ndpsoftware.com/"><img src="https://avatars.githubusercontent.com/u/54177?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andrew Peterson</b></sub></a><br /><a href="https://github.com/gsong/express-react-project-starter/commits?author=ndp" title="Code">💻</a> <a href="#mentoring-ndp" title="Mentoring">🧑‍🏫</a></td>
-    <td align="center"><a href="https://github.com/carbonsoda"><img src="https://avatars.githubusercontent.com/u/22334165?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Avery</b></sub></a><br /><a href="#infra-carbonsoda" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/gsong/express-react-project-starter/pulls?q=is%3Apr+reviewed-by%3Acarbonsoda" title="Reviewed Pull Requests">👀</a> <a href="#userTesting-carbonsoda" title="User Testing">📓</a></td>
-    <td align="center"><a href="https://github.com/sunnybrie"><img src="https://avatars.githubusercontent.com/u/76143251?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brie Klassen</b></sub></a><br /><a href="https://github.com/gsong/express-react-project-starter/issues?q=author%3Asunnybrie" title="Bug reports">🐛</a> <a href="https://github.com/gsong/express-react-project-starter/commits?author=sunnybrie" title="Documentation">📖</a> <a href="#ideas-sunnybrie" title="Ideas, Planning, & Feedback">🤔</a> <a href="#question-sunnybrie" title="Answering Questions">💬</a> <a href="https://github.com/gsong/express-react-project-starter/pulls?q=is%3Apr+reviewed-by%3Asunnybrie" title="Reviewed Pull Requests">👀</a> <a href="#userTesting-sunnybrie" title="User Testing">📓</a></td>
-    <td align="center"><a href="https://github.com/gsong"><img src="https://avatars.githubusercontent.com/u/607420?v=4?s=100" width="100px;" alt=""/><br /><sub><b>George Song</b></sub></a><br /><a href="https://github.com/gsong/express-react-project-starter/commits?author=gsong" title="Code">💻</a> <a href="https://github.com/gsong/express-react-project-starter/commits?author=gsong" title="Documentation">📖</a> <a href="#infra-gsong" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-gsong" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/jenhuynh"><img src="https://avatars.githubusercontent.com/u/15962197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jen Huynh</b></sub></a><br /><a href="https://github.com/gsong/express-react-project-starter/issues?q=author%3Ajenhuynh" title="Bug reports">🐛</a> <a href="#userTesting-jenhuynh" title="User Testing">📓</a></td>
-    <td align="center"><a href="https://github.com/m3ia"><img src="https://avatars.githubusercontent.com/u/38749469?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Meia</b></sub></a><br /><a href="https://github.com/gsong/express-react-project-starter/commits?author=m3ia" title="Documentation">📖</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://www.tabbykatz.com/"><img src="https://avatars.githubusercontent.com/u/55110763?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tabitha O'Melay</b></sub></a><br /><a href="https://github.com/gsong/express-react-project-starter/issues?q=author%3Atabbykatz" title="Bug reports">🐛</a> <a href="#question-tabbykatz" title="Answering Questions">💬</a> <a href="https://github.com/gsong/express-react-project-starter/pulls?q=is%3Apr+reviewed-by%3Atabbykatz" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/xiaozhong21"><img src="https://avatars.githubusercontent.com/u/11522217?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Xiao Zhong</b></sub></a><br /><a href="#question-xiaozhong21" title="Answering Questions">💬</a> <a href="#userTesting-xiaozhong21" title="User Testing">📓</a></td>
-    <td align="center"><a href="https://github.com/ZelmaSedano"><img src="https://avatars.githubusercontent.com/u/55029831?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ZelmaSedano</b></sub></a><br /><a href="#tutorial-ZelmaSedano" title="Tutorials">✅</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
