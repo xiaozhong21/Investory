@@ -139,23 +139,23 @@ const StockDetail = ({ updateWatchListButton }) => {
         <div className={styles.keyInfoContent}>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>Open</p>
-            <p>${stock.iexOpen.toFixed(2) || "-"}</p>
+            <p>${stock.iexOpen?.toFixed(2) || "-"}</p>
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>52-week High</p>
-            <p>${stock.week52High.toFixed(2) || "-"}</p>
+            <p>${stock.week52High?.toFixed(2) || "-"}</p>
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>52-week Low</p>
-            <p>${stock.week52Low.toFixed(2) || "-"}</p>
+            <p>${stock.week52Low?.toFixed(2) || "-"}</p>
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>YTD Change</p>
-            <p>{stock.ytdChange.toFixed(2) || "-"}%</p>
+            <p>{stock.ytdChange?.toFixed(2) || "-"}%</p>
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>Market Cap</p>
-            <p>{bigNumConverter(stock.marketCap) || "-"}</p>
+            <p>{stock.marketCap ? bigNumConverter(stock.marketCap) : "-"}</p>
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>P/E Ratio</p>
@@ -163,11 +163,15 @@ const StockDetail = ({ updateWatchListButton }) => {
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>Avg Volume</p>
-            <p>{bigNumConverter(stock.avgTotalVolume) || "-"}</p>
+            <p>
+              {stock.avgTotalVolume
+                ? bigNumConverter(stock.avgTotalVolume)
+                : "-"}
+            </p>
           </div>
           <div className={styles.keyInfoStat}>
             <p className={styles.keyInfoKey}>Volume</p>
-            <p>{bigNumConverter(stock.iexVolume) || "-"}</p>
+            <p>{stock.iexVolume ? bigNumConverter(stock.iexVolume) : "-"}</p>
           </div>
         </div>
       </div>
