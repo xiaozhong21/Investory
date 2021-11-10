@@ -38,13 +38,13 @@ const Nav = () => (
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="addPortfolio" className="nav-link">
-            Backtest Portfolio
+          <NavLink to="mystocks" className="nav-link">
+            My Stocks
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="mystocks" className="nav-link">
-            My Stocks
+          <NavLink to="addPortfolio" className="nav-link">
+            Add Portfolio
           </NavLink>
         </li>
         <li className="nav-item">
