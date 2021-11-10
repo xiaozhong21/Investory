@@ -28,7 +28,7 @@ const Discover = ({ updateWatchListButton }) => {
   }, [loading, loadTopGainers, loadMostActive]);
 
   return loading ? null : (
-    <section className={styles.discover}>
+    <section className={styles.discover} data-testid="discover">
       <div>
         <h2 className={styles.header}>
           <img src={trendingUp} alt="uptrend icon" />
@@ -49,18 +49,19 @@ const Discover = ({ updateWatchListButton }) => {
 
 const TopGainersList = ({ topGainers, updateWatchListButton }) => (
   <ul className={styles.gainers}>
-    {topGainers.map((stock) => (
-      <li key={stock.symbol}>
-        <Link to={`/stocks/${stock.symbol}`}>
-          <button className={styles.symbol}>{stock.symbol}</button>
-          <span className={styles.changePercent}>
-            +{stock.changePercent?.toFixed(2) + "%"}
-          </span>
-          <span>${stock.latestPrice?.toFixed(2)}</span>
-        </Link>
-        {updateWatchListButton(stock)}
-      </li>
-    ))}
+    {topGainers &&
+      topGainers.map((stock) => (
+        <li key={stock.symbol}>
+          <Link to={`/stocks/${stock.symbol}`}>
+            <button className={styles.symbol}>{stock.symbol}</button>
+            <span className={styles.changePercent}>
+              +{stock.changePercent?.toFixed(2) + "%"}
+            </span>
+            <span>${stock.latestPrice?.toFixed(2)}</span>
+          </Link>
+          {updateWatchListButton(stock)}
+        </li>
+      ))}
   </ul>
 );
 
@@ -76,35 +77,36 @@ const MostActiveList = ({ mostActive, updateWatchListButton }) => (
       </tr>
     </thead>
     <tbody>
-      {mostActive.map((stock) => (
-        <tr key={stock.symbol}>
-          <td className={styles.leftAlign}>
-            <Link to={`/stocks/${stock.symbol}`}>{stock.symbol}</Link>
-          </td>
-          <td className={styles.leftAlign}>
-            <Link to={`/stocks/${stock.symbol}`}>{stock.companyName}</Link>
-          </td>
-          <td>
-            <Link
-              to={`/stocks/${stock.symbol}`}
-              className={
-                stock.changePercent > 0 ? styles.positive : styles.negative
-              }
-            >
-              {stock.changePercent > 0 ? "+" : null}
-              {stock.changePercent
-                ? stock.changePercent.toFixed(2) + "%"
-                : "N/A"}
-            </Link>
-          </td>
-          <td>
-            <Link to={`/stocks/${stock.symbol}`}>
-              ${stock.latestPrice?.toFixed(2)}
-            </Link>
-          </td>
-          <td>{updateWatchListButton(stock)}</td>
-        </tr>
-      ))}
+      {mostActive &&
+        mostActive.map((stock) => (
+          <tr key={stock.symbol}>
+            <td className={styles.leftAlign}>
+              <Link to={`/stocks/${stock.symbol}`}>{stock.symbol}</Link>
+            </td>
+            <td className={styles.leftAlign}>
+              <Link to={`/stocks/${stock.symbol}`}>{stock.companyName}</Link>
+            </td>
+            <td>
+              <Link
+                to={`/stocks/${stock.symbol}`}
+                className={
+                  stock.changePercent > 0 ? styles.positive : styles.negative
+                }
+              >
+                {stock.changePercent > 0 ? "+" : null}
+                {stock.changePercent
+                  ? stock.changePercent.toFixed(2) + "%"
+                  : "N/A"}
+              </Link>
+            </td>
+            <td>
+              <Link to={`/stocks/${stock.symbol}`}>
+                ${stock.latestPrice?.toFixed(2)}
+              </Link>
+            </td>
+            <td>{updateWatchListButton(stock)}</td>
+          </tr>
+        ))}
     </tbody>
   </table>
 );
