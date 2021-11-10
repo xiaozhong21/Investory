@@ -6,6 +6,7 @@ import useApi from "../auth/useApi";
 import flame from "../images/flame.svg";
 import trendingUp from "../images/trendingUp.svg";
 
+import TopGainersList from "./TopGainersList";
 import styles from "./styles.module.scss";
 
 const Discover = ({ updateWatchListButton }) => {
@@ -46,24 +47,6 @@ const Discover = ({ updateWatchListButton }) => {
     </section>
   );
 };
-
-const TopGainersList = ({ topGainers, updateWatchListButton }) => (
-  <ul className={styles.gainers}>
-    {topGainers &&
-      topGainers.map((stock) => (
-        <li key={stock.symbol}>
-          <Link to={`/stocks/${stock.symbol}`}>
-            <button className={styles.symbol}>{stock.symbol}</button>
-            <span className={styles.changePercent}>
-              +{stock.changePercent?.toFixed(2) + "%"}
-            </span>
-            <span>${stock.latestPrice?.toFixed(2)}</span>
-          </Link>
-          {updateWatchListButton(stock)}
-        </li>
-      ))}
-  </ul>
-);
 
 const MostActiveList = ({ mostActive, updateWatchListButton }) => (
   <table>
