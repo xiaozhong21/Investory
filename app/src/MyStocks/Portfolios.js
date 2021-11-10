@@ -121,7 +121,7 @@ const PortfolioStocks = ({
       style: {
         maxWidth: "100%",
         margin: "auto",
-        padding: "3% 0 7% 0",
+        padding: "0",
       },
     },
     colors: [

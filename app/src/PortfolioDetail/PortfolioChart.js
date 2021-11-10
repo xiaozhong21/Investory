@@ -74,6 +74,7 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
       style: {
         color: "rgb(119, 51, 234)",
         fontFamily: "'Open Sans', sans-serif",
+        fontSize: "20px",
       },
     },
     yAxis: [

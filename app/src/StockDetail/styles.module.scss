@@ -62,10 +62,12 @@
 
     .profileContentWhole {
       font-weight: 300;
+      font-size: 18px;
     }
 
     .profileContentPartial {
       font-weight: 300;
+      font-size: 18px;
       display: -webkit-box;
       overflow: hidden;
       -webkit-box-orient: vertical;
@@ -165,10 +167,11 @@
                 overflow: hidden;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 2;
+                font-size: 15px;
               }
 
               .newsDate {
-                font-size: x-small;
+                font-size: small;
                 color: rgb(114, 113, 113);
               }
             }
@@ -180,13 +183,9 @@
               overflow: hidden;
               -webkit-box-orient: vertical;
               -webkit-line-clamp: 3;
-              font-size: x-small;
+              font-size: small;
               font-weight: 300;
             }
-          }
-
-          p {
-            font-size: smaller;
           }
         }
       }
