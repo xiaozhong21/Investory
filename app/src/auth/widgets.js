@@ -7,7 +7,7 @@ import useAuth0 from "./useAuth0";
 export const Login = () => {
   const { loginWithRedirect } = useAuth0();
 
-  return <button onClick={loginWithRedirect}>Log in</button>;
+  return <button onClick={loginWithRedirect}>Log In</button>;
 };
 
 export const Logout = () => {
@@ -15,7 +15,7 @@ export const Logout = () => {
 
   return (
     <button onClick={() => logout({ returnTo: window.location.origin })}>
-      Log out
+      Log Out
     </button>
   );
 };

@@ -66,7 +66,7 @@ const Auth = () => {
       <Logout />
     </div>
   ) : (
-    <Login />
+    <Login className={styles.button} />
   );
 };
 
