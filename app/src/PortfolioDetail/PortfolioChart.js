@@ -63,8 +63,8 @@ const PortfolioChart = ({ portfolio, portfolioStocks }) => {
       backgroundColor: "transparent",
       style: {
         maxWidth: "100%",
-        margin: " 20px auto 5px",
-        padding: "6px 0",
+        margin: " 20px auto 10px",
+        padding: "0 0 15px",
       },
     },
     title: {

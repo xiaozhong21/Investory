@@ -38,7 +38,7 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
     <section className={styles.watchlist}>
       <h2 className={`${styles.header} ${styles.watchlistHeader}`}>
         <img src={fileOpen} alt="open file icon" />
-        <span>Watchlist</span>
+        <span>My Watchlist</span>
         <button
           type="button"
           onClick={() => loadWatchlist()}

@@ -51,7 +51,7 @@ const Portfolios = () => {
     <section className={styles.portfolios}>
       <h2 className={styles.header}>
         <img src={diamond} alt="diamond icon" />
-        <span>Portfolios</span>
+        <span>My Portfolios</span>
       </h2>
       <div className={styles.portfolioCard}>
         {portfolios.map(

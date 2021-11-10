@@ -25,7 +25,10 @@ const Home = () => {
         <img src={discoverIdeas} alt="" />
         <div className={styles.description}>
           <h2>Discover</h2>
-          <p>Get investment inspirations from daily gainers and top movers.</p>
+          <p>
+            Get investment inspirations from daily gainers and top movers. Start
+            tracking hot picks by adding them to watchlist conveniently.
+          </p>
           <Link to="/discover">
             <button>Discover Stocks</button>
           </Link>
