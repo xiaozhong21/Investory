@@ -131,7 +131,10 @@ const PortfolioStocks = ({
       "#64E572",
       "#FF9655",
       "#FFF263",
-      "#50B432",
+      "#007ED6",
+      "#158FAD",
+      "#B8255F",
+      "#CCAC93",
     ],
     plotOptions: {
       variablepie: {

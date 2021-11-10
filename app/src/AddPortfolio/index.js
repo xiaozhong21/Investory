@@ -8,14 +8,30 @@ import useApi from "../auth/useApi";
 import styles from "./styles.module.scss";
 
 const AddPortfolio = () => {
+  const { formContent, isAddMode, error, errorMessage, portfolio } =
+    useMyForm();
+
+  return isAddMode ? (
+    formContent
+  ) : error === true ? (
+    <p>{errorMessage}</p>
+  ) : !portfolio ? (
+    <p>Loading...</p>
+  ) : (
+    formContent
+  );
+};
+
+const useMyForm = () => {
   const { loading, apiClient } = useApi();
-  const { portfolio_id } = useParams();
   const navigate = useNavigate();
-  const isAddMode = !portfolio_id;
+  const { portfolio_id } = useParams();
   const [portfolio, setPortfolio] = React.useState();
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [autopopulate, setAutopopulate] = React.useState(true);
+
+  const isAddMode = !portfolio_id;
 
   const loadPortfolio = React.useCallback(
     () =>
@@ -282,15 +298,7 @@ const AddPortfolio = () => {
     </form>
   );
 
-  return isAddMode ? (
-    formContent
-  ) : error === true ? (
-    <p>{errorMessage}</p>
-  ) : !portfolio ? (
-    <p>Loading...</p>
-  ) : (
-    formContent
-  );
+  return { formContent, isAddMode, error, errorMessage, portfolio };
 };
 
 export default AddPortfolio;

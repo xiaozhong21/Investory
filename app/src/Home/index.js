@@ -8,7 +8,7 @@ import styles from "./styles.module.scss";
 
 const Home = () => {
   return (
-    <section className={styles.home}>
+    <section className={styles.home} data-testid="home">
       <div className={styles.slogan}>
         <h1>
           Own Your Investment Story with{" "}

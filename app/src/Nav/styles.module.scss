@@ -7,7 +7,7 @@ nav {
   }
 
   .green {
-    color: rgb(6, 174, 6);
+    color: rgb(6, 174, 6) !important;
   }
 
   ul {
@@ -56,20 +56,20 @@ nav {
       max-width: 40px;
       border-radius: 50%;
     }
+  }
 
-    button {
-      background-color: white;
-      color: rgb(119, 51, 234);
+  button {
+    background-color: white;
+    color: rgb(119, 51, 234);
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+
+    &:hover {
       border: none;
       border-radius: 5px;
-      padding: 3px;
-
-      &:hover {
-        border: none;
-        border-radius: 5px;
-        background-color: lightpink;
-        color: white;
-      }
+      background-color: lightpink;
+      color: white;
     }
   }
 }

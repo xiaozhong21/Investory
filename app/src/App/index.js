@@ -13,61 +13,18 @@ import StockDetail from "../StockDetail";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
-import emptyHeart from "../images/emptyHeart.svg";
-import filledHeart from "../images/filledHeart.svg";
 
 import styles from "./styles.module.scss";
 
 const App = () => {
   const { isAuthenticated, user } = useAuth0();
   const { loading, apiClient } = useApi();
-  const [watchlist, setWatchlist] = React.useState([]);
-
-  const loadWatchlist = React.useCallback(
-    async () => setWatchlist(await apiClient.getWatchlist()),
-    [apiClient],
-  );
-
-  const handleAddToWatchlist = async (stock) => {
-    await apiClient.addStockToWatchlist(stock.symbol);
-    loadWatchlist();
-  };
-
-  const handleDeleteFromWatchlist = async (stock) => {
-    await apiClient.deleteStockFromWatchlist(stock.symbol);
-    loadWatchlist();
-  };
-
-  const updateWatchListButton = (stock) =>
-    !watchlist.map((stock) => stock.symbol).includes(stock.symbol) ? (
-      <button
-        type="button"
-        onClick={() => handleAddToWatchlist(stock)}
-        title="Add to Watchlist"
-      >
-        <img src={emptyHeart} alt="an empty heart" />
-      </button>
-    ) : (
-      <button
-        type="button"
-        onClick={() => handleDeleteFromWatchlist(stock)}
-        title="Delete from Watchlist"
-      >
-        <img src={filledHeart} alt="a filled heart" />
-      </button>
-    );
 
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
       apiClient.addOrUpdateUser(user);
     }
   }, [isAuthenticated, user, loading, apiClient]);
-
-  React.useEffect(() => {
-    if (isAuthenticated && !loading) {
-      loadWatchlist();
-    }
-  }, [isAuthenticated, loading, loadWatchlist]);
 
   return (
     <div className={styles.app}>
@@ -79,27 +36,15 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route
             path="/discover"
-            element={
-              <Protected component={Discover} {...{ updateWatchListButton }} />
-            }
+            element={<Protected component={Discover} />}
           />
           <Route
             path="/mystocks"
-            element={
-              <Protected
-                component={MyStocks}
-                {...{ watchlist, setWatchlist }}
-              />
-            }
+            element={<Protected component={MyStocks} />}
           />
           <Route
             path="/stocks/:ticker"
-            element={
-              <Protected
-                component={StockDetail}
-                {...{ updateWatchListButton }}
-              />
-            }
+            element={<Protected component={StockDetail} />}
           />
           <Route
             path="/portfolios"
