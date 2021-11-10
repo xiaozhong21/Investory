@@ -17,13 +17,18 @@ nav {
       margin: 0 5px;
       padding: 5px;
 
+      a {
+        font-size: 1.1rem;
+      }
+
       form {
         padding-top: 5px;
 
         input {
+          width: 130px;
           border-radius: 5%;
           &::placeholder {
-            font-size: 12px;
+            font-size: 15px;
           }
         }
 
@@ -49,7 +54,6 @@ nav {
     align-items: center;
     gap: 10px;
     color: white;
-    font-size: smaller;
 
     img {
       max-height: 40px;
