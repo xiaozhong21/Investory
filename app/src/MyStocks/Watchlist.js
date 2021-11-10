@@ -7,6 +7,7 @@ import fileOpen from "../images/fileOpen.svg";
 import infoCircle from "../images/infoCircle.svg";
 import refresh from "../images/refresh.svg";
 import trashCan from "../images/trashCan.svg";
+import { convertNumToThousandths } from "../utils.js";
 
 import styles from "./styles.module.scss";
 
@@ -54,6 +55,7 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
             <th>Company Name</th>
             <th>Daily Change</th>
             <th>Latest Price</th>
+            <th>Trading Volume</th>
             <th>Unwatch</th>
           </tr>
         </thead>
@@ -82,6 +84,11 @@ const Watchlist = ({ watchlist, setWatchlist }) => {
               <td>
                 <Link to={`/stocks/${stock.symbol}`}>
                   ${stock.latestPrice?.toFixed(2)}
+                </Link>
+              </td>
+              <td>
+                <Link to={`/stocks/${stock.symbol}`}>
+                  {convertNumToThousandths(stock.iexVolume)}
                 </Link>
               </td>
               <td>

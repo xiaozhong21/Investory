@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { convertNumToThousandths } from "../utils.js";
+
 import styles from "./styles.module.scss";
 
 const MostActiveList = ({ mostActive, updateWatchListButton }) => (
@@ -10,6 +12,7 @@ const MostActiveList = ({ mostActive, updateWatchListButton }) => (
         <th>Company Name</th>
         <th>Daily Change</th>
         <th>Latest Price</th>
+        <th>Trading Volume</th>
         <th>Watchlist Status</th>
       </tr>
     </thead>
@@ -39,6 +42,11 @@ const MostActiveList = ({ mostActive, updateWatchListButton }) => (
             <td>
               <Link to={`/stocks/${stock.symbol}`}>
                 ${stock.latestPrice?.toFixed(2)}
+              </Link>
+            </td>
+            <td>
+              <Link to={`/stocks/${stock.symbol}`}>
+                {convertNumToThousandths(stock.iexVolume)}
               </Link>
             </td>
             <td>{updateWatchListButton(stock)}</td>
