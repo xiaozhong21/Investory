@@ -7,6 +7,7 @@ import barChart from "../images/barChart.svg";
 import circleStar from "../images/circleStar.svg";
 import lineChartUp from "../images/lineChartUp.svg";
 import newspaper from "../images/newspaper.svg";
+import { useMyWatchlist } from "../myWatchlist";
 import {
   convertNumToThousandths,
   epochTimeConverter,
@@ -16,7 +17,8 @@ import {
 import StockChart from "./StockChart";
 import styles from "./styles.module.scss";
 
-const StockDetail = ({ updateWatchListButton }) => {
+const StockDetail = () => {
+  const { updateWatchListButton } = useMyWatchlist();
   const { loading, apiClient } = useApi();
   const [stock, setStock] = React.useState();
   const [companyProfile, setCompanyProfile] = React.useState();
