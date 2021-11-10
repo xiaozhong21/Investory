@@ -41,8 +41,8 @@ afterEach(() => {
   cleanup();
 });
 
-describe("Discover", () => {
-  test("renders top gainers component", async () => {
+describe("Top Gainers", () => {
+  test("renders top gainers component", () => {
     render(
       <BrowserRouter>
         <TopGainersList
@@ -51,7 +51,32 @@ describe("Discover", () => {
         />
       </BrowserRouter>,
     );
-    const topGainersComponent = await screen.findByText("RBLX");
-    expect(topGainersComponent).toBeInTheDocument();
+    screen.debug();
+  });
+
+  test("renders stock ticker correctly", async () => {
+    render(
+      <BrowserRouter>
+        <TopGainersList
+          topGainers={mockTopGainers}
+          updateWatchListButton={() => <button></button>}
+        />
+      </BrowserRouter>,
+    );
+    const stockTicker = await screen.findByText("RBLX");
+    expect(stockTicker).toBeInTheDocument();
+  });
+
+  test("renders stock price info correctly", async () => {
+    render(
+      <BrowserRouter>
+        <TopGainersList
+          topGainers={mockTopGainers}
+          updateWatchListButton={() => <button></button>}
+        />
+      </BrowserRouter>,
+    );
+    const stockPrice = await screen.findByText("$113.91");
+    expect(stockPrice).toBeInTheDocument();
   });
 });

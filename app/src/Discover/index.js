@@ -29,7 +29,7 @@ const Discover = ({ updateWatchListButton }) => {
   }, [loading, loadTopGainers, loadMostActive]);
 
   return loading ? null : (
-    <section className={styles.discover} data-testid="discover">
+    <section className={styles.discover}>
       <div>
         <h2 className={styles.header}>
           <img src={trendingUp} alt="uptrend icon" />
