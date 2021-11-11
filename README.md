@@ -9,7 +9,7 @@
   - [Live Demo](#live-demo)
   - [Features](#features)
   - [Built with](#built-with)
-  - [Getting Started](#getting-started)
+  - [Installation](#installation)
 
 ## About
 [Live Demo on Heroku](https://investory-app.herokuapp.com/) (**See next section for signing in with demo account**)
@@ -27,7 +27,7 @@ The inspiration of building this passion project originates from being asked by 
 ## Features
 Inve$tory allows users to:
 - View a list of daily top gainers and active stocks, and conveniently add them to watchlist
-<div align="center"> <img width="800" alt="Inve$tory portfolio page demo" src="docs/images/discover.png" href="https://investory-app.herokuapp.com/"> </div>
+<div align="center"> <img width="900" alt="Inve$tory discover page demo" src="docs/images/discover-page.png" href="https://investory-app.herokuapp.com/"> </div>
 
 - Create a watchlist of stocks that allows for individual stock chart view
    - Add gainers/active stocks directly to watchlist
@@ -37,8 +37,8 @@ Inve$tory allows users to:
    - Customize asset allocations of portfolio stocks
    - Specify preferred time frame and initial investment amount
    - Visualize portfolio performance: portfolio composition, return, performance chart, etc.
-<div align="center"> <img width="800" alt="Inve$tory portfolio page demo" src="docs/images/my-portfolios.png" href="https://investory-app.herokuapp.com/"> </div>
-<div align="center"> <img width="800" alt="Inve$tory portfolio page demo" src="docs/images/portfolio-details.png" href="https://investory-app.herokuapp.com/"> </div>
+<div align="center"> <img width="900" alt="Inve$tory portfolios page demo" src="docs/images/my-portfolios.png" href="https://investory-app.herokuapp.com/"> </div>
+<div align="center"> <img width="900" alt="Inve$tory portfolio detail page demo" src="docs/images/portfolio-details.png" href="https://investory-app.herokuapp.com/"> </div>
 
 - View individual stock details
    - Price chart and daily price changes
@@ -55,7 +55,13 @@ It also uses
 * [Highcharts](https://www.highcharts.com/)
 * [React Hook Form](https://react-hook-form.com/)
 
-## Getting Started
+## Data Schema
+<div align="center"> <img width="900" alt="Inve$tory db schema" src="docs/images/schema.png" href="https://investory-app.herokuapp.com/"> </div>
+
+## User Flow
+<div align="center"> <img width="600" alt="Inve$tory user flow chart" src="docs/images/user-flow.png" href="https://investory-app.herokuapp.com/"> </div>
+
+## Installation
 
 ### Prerequisites
 **Docker**
