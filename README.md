@@ -1,7 +1,7 @@
 # <div align="center"> <img width="200" alt="Inve$tory logo" src="docs/images/logo.png" href="https://investory-app.herokuapp.com/"> </div>
 
-[![Deploy to Heroku][deploy-badge]][deploy-workflow]
-[![Reset Heroku DB][reset-badge]][reset-workflow]
+ <p align="center"><b>A beginner-friendly educational tool to learn about stock market investing through <a href="https://www.investopedia.com/terms/b/backtesting.asp" target="_blank">portfolio backtesting</a>* and stock tracking</b></p>
+ <sub><i>*Backtesting is the general method for seeing how well a strategy or model would have done ex-post using historical data</i></sub>
 
 ## Contents
 
@@ -155,14 +155,10 @@ Visit <http://localhost:3000>.
 npm run psql
 ```
 
-[deploy-badge]: https://github.com/xiaozhong21/investory/actions/workflows/deploy.yaml/badge.svg
-[deploy-workflow]: https://github.com/xiaozhong21/investory/actions/workflows/deploy.yaml
 [dh-postgres]: https://hub.docker.com/_/postgres
 [docker-www]: https://docs.docker.com/get-docker/
 [homebrew]: https://brew.sh
 [nvm]: https://github.com/nvm-sh/nvm
-[reset-badge]: https://github.com/xiaozhong21/investory/actions/workflows/reset-db.yml/badge.svg
-[reset-workflow]: https://github.com/xiaozhong21/investory/actions/workflows/reset-db.yml
 
 ## Contributors ✨
 
