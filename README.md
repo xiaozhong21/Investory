@@ -1,4 +1,4 @@
-# Inve$tory
+# <div align="center"> <img width="200" alt="Inve$tory logo" src="docs/images/logo.png" href="https://investory-app.herokuapp.com/"> </div>
 
 [![Deploy to Heroku][deploy-badge]][deploy-workflow]
 [![Reset Heroku DB][reset-badge]][reset-workflow]
