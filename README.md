@@ -9,6 +9,8 @@
   - [Live Demo](#live-demo)
   - [Features](#features)
   - [Built with](#built-with)
+  - [Data Schema](#data-schema)
+  - [User Flow](#user-flow)
   - [Installation](#installation)
 
 ## About
