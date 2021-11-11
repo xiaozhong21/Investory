@@ -1,20 +1,18 @@
 import * as React from "react";
 
 import useApi from "../auth/useApi";
-import { useMyWatchlist } from "../myWatchlist";
 
 import Portfolios from "./Portfolios";
 import Watchlist from "./Watchlist";
 import styles from "./styles.module.scss";
 
 const MyStocks = () => {
-  const { watchlist, setWatchlist } = useMyWatchlist();
   const { loading } = useApi();
 
   return loading ? null : (
     <section className={styles.myStocks}>
       <Portfolios />
-      <Watchlist {...{ watchlist, setWatchlist }} />
+      <Watchlist />
     </section>
   );
 };

@@ -7,11 +7,13 @@ import fileOpen from "../images/fileOpen.svg";
 import infoCircle from "../images/infoCircle.svg";
 import refresh from "../images/refresh.svg";
 import trashCan from "../images/trashCan.svg";
+import { useMyWatchlist } from "../myWatchlist";
 import { convertNumToThousandths } from "../utils.js";
 
 import styles from "./styles.module.scss";
 
-const Watchlist = ({ watchlist, setWatchlist }) => {
+const Watchlist = () => {
+  const { watchlist, setWatchlist } = useMyWatchlist();
   const { apiClient } = useApi();
 
   const loadWatchlist = React.useCallback(
