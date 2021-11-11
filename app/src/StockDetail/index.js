@@ -185,14 +185,14 @@ const StockDetail = () => {
         <ul>
           {stockNews.map((news, index) => (
             <li key={index}>
-              <a href={news.url}>
-                {/* <img src={news.image} alt="" /> */}
-                <img
+              <a href={news.url} target="_blank" rel="noreferrer">
+                <img src={news.image} alt="" />
+                {/* <img
                   src={
                     "https://cloud.iexapis.com/v1/news/image/2exV4BYV0G9GKfbGmDgaVKfgaf5V58mdTVGsjhbvrAzX"
                   }
                   alt=""
-                />
+                /> */}
                 <div className={styles.newsText}>
                   <div className={styles.newsHeader}>
                     <p className={styles.newsHeadline}>{news.headline}</p>

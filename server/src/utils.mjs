@@ -16,3 +16,4 @@ const DOTENV_FILE = path.join(
 );
 
 export const baseApiUrl = "https://sandbox.iexapis.com/stable/stock";
+export const baseApiUrl2 = "https://cloud.iexapis.com/stable/stock";

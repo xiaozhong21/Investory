@@ -1,7 +1,8 @@
 import axios from "axios";
 import express from "express";
 
-import { baseApiUrl, load_dotenv_if_exists } from "./utils.mjs";
+import { baseApiUrl, baseApiUrl2, load_dotenv_if_exists } from "./utils.mjs";
+// import { baseApiUrl, load_dotenv_if_exists } from "./utils.mjs";
 
 load_dotenv_if_exists();
 
@@ -35,10 +36,11 @@ router.get("/stock/:ticker/quote", (request, response) => {
 router.get("/stock/:ticker/profile", (request, response) => {
   axios
     .get(
-      `${baseApiUrl}/${request.params.ticker}/company?token=${process.env.IEX_API_KEY}`,
+      `${baseApiUrl2}/${request.params.ticker}/company?token=${process.env.IEX_API_KEY2}`,
     )
     .then((result) => response.json(result.data))
     .catch((error) => {
+      console.log(error);
       response.status(error.response.status).end();
     });
 });
@@ -46,7 +48,7 @@ router.get("/stock/:ticker/profile", (request, response) => {
 router.get("/stock/:ticker/news", (request, response) => {
   axios
     .get(
-      `${baseApiUrl}/${request.params.ticker}/news/last/3?token=${process.env.IEX_API_KEY}`,
+      `${baseApiUrl2}/${request.params.ticker}/news/last/3?token=${process.env.IEX_API_KEY2}`,
     )
     .then((result) => response.json(result.data))
     .catch((error) => {
