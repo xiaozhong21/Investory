@@ -164,3 +164,54 @@ npm run psql
 [reset-badge]: https://github.com/xiaozhong21/investory/actions/workflows/reset-db.yml/badge.svg
 [reset-workflow]: https://github.com/xiaozhong21/investory/actions/workflows/reset-db.yml
 
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+   <td align="center">
+     <a href="https://github.com/gsong">
+     <img src="https://avatars.githubusercontent.com/u/607420?v=4?s=100" width="100px;" alt=""/><br /><sub><b>George Song</b></sub></a><br />
+     <a href="https://github.com/xiaozhong21/Investory/pull/3" title="Review">👀</a> 
+     <a href="#mentoring-gsong" title="Mentoring">🧑‍🏫</a>
+     <a href="#question-gsong" title="Answering Questions">💬</a>
+     <a href="https://github.com/xiaozhong21/Investory/issues?q=is%3Aissue+is%3Aclosed" title="Bug Reports">🐛</a>
+   </td>
+   <td align="center">
+     <a href="https://github.com/scabaral">
+     <img src="https://avatars.githubusercontent.com/u/14475398?v=4" width="100px;" alt=""/><br /><sub><b>Sara Cabaral</b></sub></a><br />
+     <a href="https://github.com/xiaozhong21/Investory/pull/8" title="Review">👀</a>
+     <a href="#mentoring-scabaral" title="Mentoring">🧑‍🏫</a>
+     <a href="#question-scabaral" title="Answering Questions">💬</a>
+   </td>
+   <td align="center">
+     <a href="https://github.com/cdm-ium">
+     <img src="https://avatars.githubusercontent.com/u/5201654?v=4" width="100px;" alt=""/><br /><sub><b>Costandino Dufort Moraites</b></sub></a><br />
+     <a href="https://github.com/xiaozhong21/Investory/pull/3" title="Review">👀</a> 
+     <a href="#mentoring-cdm-ium" title="Mentoring">🧑‍🏫</a>
+     <a href="#question-cdm-ium" title="Answering Questions">💬</a>
+   </td>
+   <td align="center">
+     <a href="https://www.linkedin.com/in/xiaozhong/">
+     <img src="https://avatars.githubusercontent.com/u/11522217?v=4" width="100px;" alt=""/><br /><sub><b>Xiao Zhong</b></sub></a><br />
+     <a href="https://github.com/xiaozhong21/Investory/commits?author=xiaozhong21" title="Code">💻</a>
+     <a href="https://github.com/xiaozhong21/Investory/commits?author=xiaozhong21" title="Documentation">📖</a> 
+     <a href="#design-xiaozhong21" title="Design">🎨</a> 
+     <a href="#ideas-xiaozhong21" title="Ideas & Planning">🤔</a>
+     <a href="https://github.com/xiaozhong21/Investory/commits?author=xiaozhong21" title="Project Management">📆</a>
+     <a href="#maintenance-xiaozhong21" title="Maintenance">🚧</a>
+     <a href="https://github.com/xiaozhong21/Investory/commits?author=xiaozhong21" title="Test">⚠️</a> 
+   </td> 
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
