@@ -5,6 +5,7 @@ import { render, screen, cleanup } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 
 import TopGainersList from "../Discover/TopGainersList";
+import { useMyWatchlist } from "../myWatchlist.js";
 
 const user = {
   email: "johndoe@me.com",
@@ -13,6 +14,7 @@ const user = {
 };
 
 jest.mock("@auth0/auth0-react");
+jest.mock("../myWatchlist.js");
 
 const mockTopGainers = [
   {
@@ -35,6 +37,9 @@ beforeEach(() => {
     logout: jest.fn(),
     loginWithRedirect: jest.fn(),
   });
+  useMyWatchlist.mockReturnValue({
+    updateWatchListButton: (stock) => <button></button>,
+  });
 });
 
 afterEach(() => {
@@ -45,10 +50,7 @@ describe("Top Gainers", () => {
   test("renders top gainers component", () => {
     render(
       <BrowserRouter>
-        <TopGainersList
-          topGainers={mockTopGainers}
-          updateWatchListButton={() => <button></button>}
-        />
+        <TopGainersList topGainers={mockTopGainers} />
       </BrowserRouter>,
     );
     screen.debug();
@@ -57,10 +59,7 @@ describe("Top Gainers", () => {
   test("renders stock ticker correctly", async () => {
     render(
       <BrowserRouter>
-        <TopGainersList
-          topGainers={mockTopGainers}
-          updateWatchListButton={() => <button></button>}
-        />
+        <TopGainersList topGainers={mockTopGainers} updateWatchListButton />
       </BrowserRouter>,
     );
     const stockTicker = await screen.findByText("RBLX");
@@ -70,10 +69,7 @@ describe("Top Gainers", () => {
   test("renders stock price info correctly", async () => {
     render(
       <BrowserRouter>
-        <TopGainersList
-          topGainers={mockTopGainers}
-          updateWatchListButton={() => <button></button>}
-        />
+        <TopGainersList topGainers={mockTopGainers} />
       </BrowserRouter>,
     );
     const stockPrice = await screen.findByText("$113.91");

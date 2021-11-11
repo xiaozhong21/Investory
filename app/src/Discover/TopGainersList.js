@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { useMyWatchlist } from "../myWatchlist";
+import { useMyWatchlist } from "../myWatchlist.js";
 
 import styles from "./styles.module.scss";
 

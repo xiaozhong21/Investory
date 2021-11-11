@@ -3,7 +3,7 @@ import React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 
-import Nav from "../Nav/index";
+import Nav from "../../src/widgets/Nav/index";
 
 afterEach(cleanup);
 
