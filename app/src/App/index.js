@@ -12,6 +12,7 @@ import StockDetail from "../StockDetail";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
+import Footer from "../widgets/Footer";
 import Nav from "../widgets/Nav/index";
 
 import styles from "./styles.module.scss";
@@ -64,9 +65,9 @@ const App = () => {
           />
         </Routes>
       </main>
-      {/* <footer>
-
-      </footer> */}
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };
