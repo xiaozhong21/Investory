@@ -8,9 +8,10 @@
   - [About](#about)
   - [Live Demo](#live-demo)
   - [Features](#features)
-  - [Built with](#built-with)
+  - [Technologies](#technologies)
   - [Data Schema](#data-schema)
   - [User Flow](#user-flow)
+  - [Future Plans](#future-plans)
   - [Installation](#installation)
 
 ## About
@@ -48,10 +49,10 @@ Inve$tory allows users to:
    - Stock stats including open/52-week-high/52-week-low prices, year-to-date changes, market cap, P/E ratio, trading volume
    - Latest news
 
-## Built With
+## Technologies
 Inve$tory was built using a PostgreSQL, Express, React, and Node (PERN) stack. 
 
-It also uses
+It also uses:
 * [IEX Cloud API](https://iexcloud.io/)
 * [Auth0](https://auth0.com/docs/get-started)
 * [Highcharts](https://www.highcharts.com/)
@@ -62,6 +63,12 @@ It also uses
 
 ## User Flow
 <div align="center"> <img width="600" alt="Inve$tory user flow chart" src="docs/images/user-flow.png" href="https://investory-app.herokuapp.com/"> </div>
+
+## Future Plans
+- Enrich statistical analysis of portfolios to include more risk measures such as return volatility
+- Implement portfolio comparison feature and allow rendering of user-chosen portfolios' charts in one graph
+- Expand the universe of investment vehicles to include mutual funds, crypto currencies, etc.
+- Support more flexible portfolio strategies such as portfolio rebalancing, recurring investments
 
 ## Installation
 
@@ -118,7 +125,7 @@ again which will delete your existing data and start from scratch.
          ```sh
          cp app/.env.example app/.env
          ```         
-         - This [graphic](https://images.ctfassets.net/23aumh6u8s0i/1DyyZTcfbJHw577T6K2KZk/a8cabcec991c9ed33910a23836e53b76/auth0-application-settings) from  may be helpful to locating them.
+         - This [graphic](https://images.ctfassets.net/23aumh6u8s0i/1DyyZTcfbJHw577T6K2KZk/a8cabcec991c9ed33910a23836e53b76/auth0-application-settings) may be helpful to locating the values
          - [Auth0's guide](https://auth0.com/blog/complete-guide-to-react-user-authentication/#Connect-React-with-Auth0)
 
 
