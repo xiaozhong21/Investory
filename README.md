@@ -1,7 +1,7 @@
 # <div align="center"> <img width="200" alt="Inve$tory logo" src="docs/images/logo.png" href="https://investory-app.herokuapp.com/"> </div>
 
-[![Deploy to Heroku][deploy-badge]][deploy-workflow]
-[![Reset Heroku DB][reset-badge]][reset-workflow]
+ <p align="center"><b>A beginner-friendly educational tool to learn about stock market investing through <a href="https://www.investopedia.com/terms/b/backtesting.asp" target="_blank">portfolio backtesting</a>* and stock tracking</b></p>
+ <sub><i>*Backtesting is the general method for seeing how well a strategy or model would have done ex-post using historical data</i></sub>
 
 ## Contents
 
@@ -155,12 +155,59 @@ Visit <http://localhost:3000>.
 npm run psql
 ```
 
-[deploy-badge]: https://github.com/xiaozhong21/investory/actions/workflows/deploy.yaml/badge.svg
-[deploy-workflow]: https://github.com/xiaozhong21/investory/actions/workflows/deploy.yaml
 [dh-postgres]: https://hub.docker.com/_/postgres
 [docker-www]: https://docs.docker.com/get-docker/
 [homebrew]: https://brew.sh
 [nvm]: https://github.com/nvm-sh/nvm
-[reset-badge]: https://github.com/xiaozhong21/investory/actions/workflows/reset-db.yml/badge.svg
-[reset-workflow]: https://github.com/xiaozhong21/investory/actions/workflows/reset-db.yml
 
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+   <td align="center">
+     <a href="https://github.com/gsong">
+     <img src="https://avatars.githubusercontent.com/u/607420?v=4?s=100" width="100px;" alt=""/><br /><sub><b>George Song</b></sub></a><br />
+     <a href="https://github.com/xiaozhong21/Investory/pull/3" title="Review">👀</a> 
+     <a href="#mentoring-gsong" title="Mentoring">🧑‍🏫</a>
+     <a href="#question-gsong" title="Answering Questions">💬</a>
+     <a href="https://github.com/xiaozhong21/Investory/issues?q=is%3Aissue+is%3Aclosed" title="Bug Reports">🐛</a>
+   </td>
+   <td align="center">
+     <a href="https://github.com/scabaral">
+     <img src="https://avatars.githubusercontent.com/u/14475398?v=4" width="100px;" alt=""/><br /><sub><b>Sara Cabaral</b></sub></a><br />
+     <a href="https://github.com/xiaozhong21/Investory/pull/8" title="Review">👀</a>
+     <a href="#mentoring-scabaral" title="Mentoring">🧑‍🏫</a>
+     <a href="#question-scabaral" title="Answering Questions">💬</a>
+   </td>
+   <td align="center">
+     <a href="https://github.com/cdm-ium">
+     <img src="https://avatars.githubusercontent.com/u/5201654?v=4" width="100px;" alt=""/><br /><sub><b>Costandino Dufort Moraites</b></sub></a><br />
+     <a href="https://github.com/xiaozhong21/Investory/pull/3" title="Review">👀</a> 
+     <a href="#mentoring-cdm-ium" title="Mentoring">🧑‍🏫</a>
+     <a href="#question-cdm-ium" title="Answering Questions">💬</a>
+   </td>
+   <td align="center">
+     <a href="https://www.linkedin.com/in/xiaozhong/">
+     <img src="https://avatars.githubusercontent.com/u/11522217?v=4" width="100px;" alt=""/><br /><sub><b>Xiao Zhong</b></sub></a><br />
+     <a href="https://github.com/xiaozhong21/Investory/commits?author=xiaozhong21" title="Code">💻</a>
+     <a href="https://github.com/xiaozhong21/Investory/commits?author=xiaozhong21" title="Documentation">📖</a> 
+     <a href="#design-xiaozhong21" title="Design">🎨</a> 
+     <a href="#ideas-xiaozhong21" title="Ideas & Planning">🤔</a>
+     <a href="https://github.com/xiaozhong21/Investory/commits?author=xiaozhong21" title="Project Management">📆</a>
+     <a href="#maintenance-xiaozhong21" title="Maintenance">🚧</a>
+     <a href="https://github.com/xiaozhong21/Investory/commits?author=xiaozhong21" title="Test">⚠️</a> 
+   </td> 
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
