@@ -1,15 +1,4 @@
-<p align="center">
-  <h1 align="center">Inve$tory</h1>
-
-  <p align="center">
-    <a href="https://investory-app.herokuapp.com/">View Demo</a>
-    ·
-    <a href="https://github.com/xiaozhong21/Investory/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/xiaozhong21/Investory/issues">Request Feature</a>
-  </p>
-  
-</p>
+# Inve$tory
 
 [![Deploy to Heroku][deploy-badge]][deploy-workflow]
 [![Reset Heroku DB][reset-badge]][reset-workflow]
@@ -17,19 +6,26 @@
 ## Contents
 
   - [About](#about)
+  - [Live Demo](#live-demo)
   - [Features](#features)
   - [Built with](#built-with)
   - [Getting Started](#getting-started)
 
 ## About
-Want to learn about stock market investing and wonder how your investment ideas would have played out in a particular time period? Inve$tory is an educational tool that features portfolio backtesting and stock tracking.
+[Live Demo on Heroku](https://investory-app.herokuapp.com/) (**See next section for signing in with demo account**)
 
-My inspiration of building this passion project originates from being asked by my friends to recommend "the next Bitcoin" or "the next [GME](https://en.wikipedia.org/wiki/GameStop_short_squeeze)". In stock marketing investing, new investors are easily intrigued by the return but are not usually aware of the risks involved. 
+Want to learn about stock market investing and wonder how your investment ideas would have played out in a particular time period? **Inve$tory** is an educational tool that features portfolio backtesting and stock tracking.
 
-By building **Inve$tory**, I hope to provide a fun beginner-friendly visualization tool for users to learn about not only the *return* (ending value - initial value) of a portfolio strategy, but more importantly, the *risk* (how the performance chart fluctuates throughout the time frame) involved.
+The inspiration of building this passion project originates from being asked by my friends to recommend "the next Bitcoin" or "the next [GME](https://en.wikipedia.org/wiki/GameStop_short_squeeze)". By building **Inve$tory**, I hope to provide a fun beginner-friendly visualization tool for users to learn about not only the *return* (ending value - initial value) of a portfolio strategy, but more importantly, the *risk* (how the performance chart fluctuates throughout the time frame) involved.
+
+## Live Demo
+[Live Demo on Heroku](https://investory-app.herokuapp.com/)
+### Demo account (please sign in with Google)
+- **Gmail**: investory.tester@gmail.com
+- **Password**: investor123
 
 ## Features
-Users can
+Inve$tory allows users to:
 - View a list of daily top gainers and active stocks, and conveniently add them to watchlist
 <div align="center"> <img width="800" alt="Inve$tory portfolio page demo" src="docs/images/discover.png" href="https://investory-app.herokuapp.com/"> </div>
 
