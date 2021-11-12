@@ -40,7 +40,6 @@ router.get("/stock/:ticker/profile", (request, response) => {
     )
     .then((result) => response.json(result.data))
     .catch((error) => {
-      console.log(error);
       response.status(error.response.status).end();
     });
 });

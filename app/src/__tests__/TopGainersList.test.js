@@ -59,7 +59,7 @@ describe("Top Gainers", () => {
   test("renders stock ticker correctly", async () => {
     render(
       <BrowserRouter>
-        <TopGainersList topGainers={mockTopGainers} updateWatchListButton />
+        <TopGainersList topGainers={mockTopGainers} />
       </BrowserRouter>,
     );
     const stockTicker = await screen.findByText("RBLX");
