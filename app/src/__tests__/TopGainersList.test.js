@@ -46,7 +46,7 @@ afterEach(() => {
   cleanup();
 });
 
-describe("Top Gainers", () => {
+describe("<TopGainersList />", () => {
   test("renders top gainers component", () => {
     render(
       <BrowserRouter>

@@ -7,7 +7,7 @@ import Nav from "../../src/widgets/Nav/index";
 
 afterEach(cleanup);
 
-describe("Nav", () => {
+describe("<Nav />", () => {
   test("renders login button", () => {
     render(
       <BrowserRouter>

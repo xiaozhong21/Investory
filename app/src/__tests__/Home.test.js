@@ -7,7 +7,7 @@ import Home from "../Home/index";
 
 afterEach(cleanup);
 
-describe("Home", () => {
+describe("<Home />", () => {
   test("renders home component", () => {
     render(
       <BrowserRouter>
