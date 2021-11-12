@@ -1,101 +1,37 @@
 {
   "contributors": [
     {
-      "login": "m3ia",
-      "name": "Meia",
-      "avatar_url": "https://avatars.githubusercontent.com/u/38749469?v=4",
-      "profile": "https://github.com/m3ia",
-      "contributions": [
-        "doc"
-      ]
-    },
-    {
-      "login": "carbonsoda",
-      "name": "Avery",
-      "avatar_url": "https://avatars.githubusercontent.com/u/22334165?v=4",
-      "profile": "https://github.com/carbonsoda",
-      "contributions": [
-        "infra",
-        "review",
-        "userTesting"
-      ]
-    },
-    {
-      "login": "sunnybrie",
-      "name": "Brie Klassen",
-      "avatar_url": "https://avatars.githubusercontent.com/u/76143251?v=4",
-      "profile": "https://github.com/sunnybrie",
-      "contributions": [
-        "bug",
-        "doc",
-        "ideas",
-        "question",
-        "review",
-        "userTesting"
-      ]
-    },
-    {
       "login": "gsong",
       "name": "George Song",
       "avatar_url": "https://avatars.githubusercontent.com/u/607420?v=4",
       "profile": "https://github.com/gsong",
       "contributions": [
-        "code",
-        "doc",
-        "infra",
-        "maintenance"
-      ]
-    },
-    {
-      "login": "aedward8",
-      "name": "Abigail Edwards",
-      "avatar_url": "https://avatars.githubusercontent.com/u/63216164?v=4",
-      "profile": "https://github.com/aedward8",
-      "contributions": [
-        "bug",
-        "ideas",
+        "review",
+        "mentoring",
         "question",
-        "userTesting"
+        "bug"
       ]
     },
     {
-      "login": "ndp",
-      "name": "Andrew Peterson",
-      "avatar_url": "https://avatars.githubusercontent.com/u/54177?v=4",
-      "profile": "http://blog.ndpsoftware.com/",
+      "login": "scabaral",
+      "name": "Sara Cabaral",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14475398?v=4",
+      "profile": "https://github.com/scabaral",
       "contributions": [
-        "code",
-        "mentoring"
+        "review",
+        "mentoring",
+        "question"
       ]
     },
     {
-      "login": "ZelmaSedano",
-      "name": "ZelmaSedano",
-      "avatar_url": "https://avatars.githubusercontent.com/u/55029831?v=4",
-      "profile": "https://github.com/ZelmaSedano",
+      "login": "cdm-ium",
+      "name": "Costandino Dufort Moraites",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5201654?v=4",
+      "profile": "https://github.com/cdm-ium",
       "contributions": [
-        "tutorial"
-      ]
-    },
-    {
-      "login": "tabbykatz",
-      "name": "Tabitha O'Melay",
-      "avatar_url": "https://avatars.githubusercontent.com/u/55110763?v=4",
-      "profile": "https://www.tabbykatz.com/",
-      "contributions": [
-        "bug",
-        "question",
-        "review"
-      ]
-    },
-    {
-      "login": "jenhuynh",
-      "name": "Jen Huynh",
-      "avatar_url": "https://avatars.githubusercontent.com/u/15962197?v=4",
-      "profile": "https://github.com/jenhuynh",
-      "contributions": [
-        "bug",
-        "userTesting"
+        "review",
+        "mentoring",
+        "question"
       ]
     },
     {
@@ -104,16 +40,21 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/11522217?v=4",
       "profile": "https://github.com/xiaozhong21",
       "contributions": [
-        "question",
-        "userTesting"
+        "code",
+        "doc",
+        "design",
+        "ideas",
+        "projectManagement",
+        "maintenance",
+        "test"
       ]
     }
   ],
   "commit": true,
   "commitConvention": "angular",
   "contributorsSortAlphabetically": true,
-  "projectName": "express-react-project-example",
-  "projectOwner": "gsong",
+  "projectName": "Investory",
+  "projectOwner": "xiaozhong21",
   "repoHost": "https://github.com",
   "repoType": "github",
   "skipCi": false
