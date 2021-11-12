@@ -49,10 +49,16 @@ const Portfolios = () => {
     </section>
   ) : (
     <section className={styles.portfolios}>
-      <h2 className={styles.header}>
-        <img src={diamond} alt="diamond icon" />
-        <span>My Portfolios</span>
-      </h2>
+      <div className={styles.text}>
+        <h2>
+          <img src={diamond} alt="diamond icon" />
+          <span>My Portfolios</span>
+        </h2>
+        <p>
+          (Click on <img src={lineChartUp} alt="uptrend line chart icon" /> to
+          view portfolio performance)
+        </p>
+      </div>
       <div className={styles.portfolioCard}>
         {portfolios.map(
           ({ portfolio_id, portfolio_name, time_period, initial_amount }) => (

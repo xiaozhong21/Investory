@@ -39,17 +39,20 @@ const Watchlist = () => {
     </section>
   ) : (
     <section className={styles.watchlist}>
-      <h2 className={`${styles.header} ${styles.watchlistHeader}`}>
-        <img src={fileOpen} alt="open file icon" />
-        <span>My Watchlist</span>
-        <button
-          type="button"
-          onClick={() => loadWatchlist()}
-          title="refresh stock quotes"
-        >
-          <img src={refresh} alt="refresh icon" />
-        </button>
-      </h2>
+      <div className={styles.text}>
+        <h2 className={`${styles.header} ${styles.watchlistHeader}`}>
+          <img src={fileOpen} alt="open file icon" />
+          <span>My Watchlist</span>
+          <button
+            type="button"
+            onClick={() => loadWatchlist()}
+            title="refresh stock quotes"
+          >
+            <img src={refresh} alt="refresh icon" />
+          </button>
+        </h2>
+        <p>(Click on individual stock to view stock details)</p>
+      </div>
       <table>
         <thead>
           <tr>

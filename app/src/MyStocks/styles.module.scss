@@ -17,17 +17,30 @@
     }
   }
 
-  .header {
+  .text {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
 
-    img[alt="open file icon"],
-    img[alt="diamond icon"] {
-      filter: brightness(0) saturate(100%) invert(30%) sepia(77%)
-        saturate(1636%) hue-rotate(240deg) brightness(85%) contrast(109%);
+    h2 {
+      display: flex;
+      gap: 10px;
+
+      img[alt="open file icon"],
+      img[alt="diamond icon"] {
+        filter: brightness(0) saturate(100%) invert(30%) sepia(77%)
+          saturate(1636%) hue-rotate(240deg) brightness(85%) contrast(109%);
+      }
+
+      span {
+        color: #703de1;
+      }
     }
 
-    span {
+    p {
+      font-weight: 500;
+      text-align: center;
       color: #703de1;
     }
   }
@@ -83,7 +96,7 @@
     }
 
     table {
-      margin: 2rem auto;
+      margin: auto;
 
       th,
       td {
