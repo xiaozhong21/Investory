@@ -58,3 +58,11 @@ export const bigNumConverter = (num) => {
   }
   return sVal + abbreviatedStr[sNum];
 };
+
+export const timestampFormatter = (timestamp) => {
+  return (
+    timestamp.toString().substring(0, 24) +
+    " " +
+    timestamp.toString().substring(34)
+  );
+};
