@@ -117,6 +117,14 @@ ALTER TABLE public.watchlist ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 --
 
 COPY public.portfolio_stock (portfolio_id, allocation, updated_at, ticker) FROM stdin;
+1	50	2021-11-15 02:53:03.046722	GME
+1	30	2021-11-15 02:53:03.046722	AMC
+1	20	2021-11-15 02:53:03.046722	SENS
+2	20	2021-11-15 02:53:29.451675	TSLA
+2	20	2021-11-15 02:53:29.451675	AAPL
+2	20	2021-11-15 02:53:29.451675	MSFT
+2	20	2021-11-15 02:53:29.451675	GOOG
+2	20	2021-11-15 02:53:29.451675	AMZN
 \.
 
 
@@ -125,6 +133,8 @@ COPY public.portfolio_stock (portfolio_id, allocation, updated_at, ticker) FROM 
 --
 
 COPY public.user_portfolio (portfolio_id, user_id, time_period, portfolio_name, initial_amount) FROM stdin;
+1	1	ytd	WallstreetBet Stocks	10000
+2	1	2y	My Tech Stocks	5000
 \.
 
 
@@ -133,8 +143,7 @@ COPY public.user_portfolio (portfolio_id, user_id, time_period, portfolio_name, 
 --
 
 COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
-1	George	Song	https://lh3.googleusercontent.com/a-/AOh14GisMQBkZ6bxLA6L0p7EBnaPny8aK52UKRI2_tQIaw=s96-c	george@damacy.net	google-oauth2|111226858800048009044
-2	Xiao	Zhong	https://lh3.googleusercontent.com/a-/AOh14GgMv5Q69Uf33jE0LTonnZ_6DsiVX3qPSjfrECIx=s96-c	xzhong.dev@gmail.com	google-oauth2|114366457166198742070
+1	Investory-Tester	Investory-Tester	https://lh3.googleusercontent.com/a-/AOh14GjHZ-EIopkBKMAXbRCX9FEUq1jEIzL5HwFB_hw5=s96-c	investory.tester@gmail.com	google-oauth2|111424463779285568385
 \.
 
 
@@ -150,14 +159,14 @@ COPY public.watchlist (id, user_id, ticker) FROM stdin;
 -- Name: user_portfolio_portfolio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.user_portfolio_portfolio_id_seq', 1, false);
+SELECT pg_catalog.setval('public.user_portfolio_portfolio_id_seq', 2, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 2, true);
+SELECT pg_catalog.setval('public.users_id_seq', 11, true);
 
 
 --
