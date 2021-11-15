@@ -208,14 +208,6 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: watchlist watchlist_ticker_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.watchlist
-    ADD CONSTRAINT watchlist_ticker_key UNIQUE (ticker);
-
-
---
 -- Name: portfolio_stock portfoliostock_userportfolio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 

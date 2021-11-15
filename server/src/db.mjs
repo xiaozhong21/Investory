@@ -45,7 +45,6 @@ export const addStockToWatchlist = (sub, ticker) =>
   db.one(
     `INSERT INTO watchlist(user_id, ticker)
       VALUES((SELECT id FROM users WHERE sub=$<sub>), $<ticker>)
-      ON CONFLICT (ticker) DO NOTHING
       RETURNING *`,
     { sub, ticker },
   );
