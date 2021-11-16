@@ -17,7 +17,7 @@ The inspiration of building this passion project originates from being asked by 
 
 [Video Demo on Youtube](https://youtu.be/7ZILBkh3q6c)
 
-### Demo account
+### Demo account for Heroku:
 
 - **Email**: investory.tester@gmail.com
 - **Password**: investor123
