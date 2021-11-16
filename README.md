@@ -3,17 +3,6 @@
  <p align="center"><b>A beginner-friendly educational tool to learn about stock market investing through <a href="https://www.investopedia.com/terms/b/backtesting.asp" target="_blank">portfolio backtesting</a>* and stock tracking</b></p>
  <sub><i>*Backtesting is the general method for seeing how well a strategy or model would have done ex-post using historical data</i></sub>
 
-## Contents
-
-- [About](#about)
-- [Live Demo](#live-demo)
-- [Features](#features)
-- [Technologies](#technologies)
-- [Data Schema](#data-schema)
-- [User Flow](#user-flow)
-- [Future Plans](#future-plans)
-- [Installation](#installation)
-
 ## About
 
 [Live Demo on Heroku](https://investory-app.herokuapp.com/) (**See next section for signing in with demo account**)
@@ -26,9 +15,11 @@ The inspiration of building this passion project originates from being asked by 
 
 [Live Demo on Heroku](https://investory-app.herokuapp.com/)
 
-### Demo account (please sign in with Google)
+[Video Demo on Youtube](https://youtu.be/7ZILBkh3q6c)
 
-- **Gmail**: investory.tester@gmail.com
+### Demo account
+
+- **Email**: investory.tester@gmail.com
 - **Password**: investor123
 
 ## Features
